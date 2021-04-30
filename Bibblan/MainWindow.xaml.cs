@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Bibblan.Services;
+using Bibblan.Views;
 
 namespace Bibblan
 {
@@ -23,6 +25,11 @@ namespace Bibblan
         public MainWindow()
         {
             InitializeComponent();
+            DbInitialiser.InitialiseDB();
+
+            var newForm = new CreateUser();
+            newForm.Show();
+            this.Close();
         }
     }
 }

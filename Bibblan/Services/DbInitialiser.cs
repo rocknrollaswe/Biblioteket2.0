@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Bibblan.Models;
+
+namespace Bibblan.Services
+{
+    public static class DbInitialiser
+    { 
+        public static BiblioteketContext Db { get; set; }
+    
+        public static void InitialiseDB()
+        {
+            Db = new BiblioteketContext();
+        }
+
+    }
+}

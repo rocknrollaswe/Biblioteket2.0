@@ -1,0 +1,38 @@
+﻿<Window x:Class="Bibblan.Views.CreateUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bibblan.Views"
+        mc:Ignorable="d"
+        Title="CreateUser" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="First Name" Grid.Column="0" Grid.Row="0" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="firstName" Grid.Column="0" Grid.Row="0" Margin="20 50 20 10"></TextBox>
+        <TextBlock Text="Last name" Grid.Column="0" Grid.Row="1" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="lastName" Grid.Column="0" Grid.Row="1" Margin="20 50 20 10"></TextBox>
+        <TextBlock Text="Social Security Number" Grid.Column="0" Grid.Row="2" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="SSN" Grid.Column="0" Grid.Row="2" Margin="20 50 20 10"></TextBox>
+        
+        
+        <TextBlock Text="Username" Grid.Column="1" Grid.Row="0" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="userName" Grid.Column="1" Grid.Row="0" Margin="20 50 20 10"></TextBox>
+        <TextBlock Text="Password" Grid.Column="1" Grid.Row="1" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="passWord" Grid.Column="1" Grid.Row="1" Margin="20 50 20 10"></TextBox>
+        <TextBlock Text="E-mail" Grid.Column="1" Grid.Row="2" FontSize="20" Margin="20 10 0 0"></TextBlock>
+        <TextBox x:Name="eMail" Grid.Column="1" Grid.Row="2" Margin="20 50 20 10"></TextBox>
+
+        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="300 30 300 30" FontSize="20" Click="CreateUserButton">Create user</Button>
+
+    </Grid>
+</Window>
