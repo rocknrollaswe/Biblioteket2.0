@@ -5805,11 +5805,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\david\\Development\\Visual Studio 2019\\Bibblan\\Bibblan\\Bibblan.csproj",
+      "projectUniqueName": "C:\\Users\\david\\Development\\Git\\Biblioteket2.0\\Bibblan\\Bibblan.csproj",
       "projectName": "Bibblan",
-      "projectPath": "C:\\Users\\david\\Development\\Visual Studio 2019\\Bibblan\\Bibblan\\Bibblan.csproj",
+      "projectPath": "C:\\Users\\david\\Development\\Git\\Biblioteket2.0\\Bibblan\\Bibblan.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\david\\Development\\Visual Studio 2019\\Bibblan\\Bibblan\\obj\\",
+      "outputPath": "C:\\Users\\david\\Development\\Git\\Biblioteket2.0\\Bibblan\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

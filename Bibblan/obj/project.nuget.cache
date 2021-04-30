@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7We6vyHA9j0YjPDpPvCyHAOmxhTvG/ozQQKII8SM93t27mn2HIVQR7SxR8ioKR9T/vDZKjGBJd6MROiSqhip2g==",
+  "dgSpecHash": "IwA+U8YhglmA7ui/FAGu6RqK2N9dRDd1zkiEevqgAXmszQwJyI+rlXg+cXLVJGjX/lubMdJWQUBVjAehNUkS4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\david\\Development\\Visual Studio 2019\\Bibblan\\Bibblan\\Bibblan.csproj",
+  "projectFilePath": "C:\\Users\\david\\Development\\Git\\Biblioteket2.0\\Bibblan\\Bibblan.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\david\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
