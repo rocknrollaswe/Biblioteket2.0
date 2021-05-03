@@ -31,5 +31,15 @@ namespace Bibblan
             newForm.Show();
             this.Close();
         }
+
+        private void loggain_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
