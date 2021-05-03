@@ -23,12 +23,28 @@ namespace Bibblan.Views
         public CreateUser()
         {
             InitializeComponent();
+            WrongEntry += Alert;
+        }
+
+        public event EventHandler<string> WrongEntry; 
+        protected virtual void OnWrongEntry(string e)
+        {
+            WrongEntry?.Invoke(this, e);
+        }
+        static void Alert(object sender, string message)
+        {
+            MessageBox.Show($"Meddelande!\n{message}");
+            return;
         }
 
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
 
-            if(firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") { return; }
+            if(firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") 
+            {
+                OnWrongEntry("Du har inte angett data i samtliga fält!");
+                return;
+            }
 
             int check = 0;
             var user = new User();
@@ -45,8 +61,9 @@ namespace Bibblan.Views
                 }
                 if (check == item.Socialsecuritynumber.Length)
                 {
-                    Console.WriteLine("The user already exists!");
-                    return;
+                    OnWrongEntry("Användare med detta personnummer har redan registrerats.");
+                    return; 
+                    
                 }
             }
 
