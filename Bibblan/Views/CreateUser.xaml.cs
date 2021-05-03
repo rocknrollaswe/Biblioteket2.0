@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -40,56 +41,31 @@ namespace Bibblan.Views
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
 
-            if(firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") 
+            if(firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
             {
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
                 return;
             }
 
-            int check = 0;
             var user = new User();
-            var encryptCheck = Encrypt(SSN.ToString());
 
-            foreach (var item in DbInitialiser.Db.Users)
+            if (DbInitialiser.Db.Users.Where(y => y.Socialsecuritynumber == Encryption.Encrypt(SSN.Text)).FirstOrDefault() != null) //kollar om angivna SSN redan existerar i DB:n
             {
-                for (int i = 0; i < item.Socialsecuritynumber.Length; i++)
-                {
-                    if (item.Socialsecuritynumber[i] == encryptCheck[i])
-                    {
-                        check++;
-                    }
-                }
-                if (check == item.Socialsecuritynumber.Length)
-                {
-                    OnWrongEntry("Användare med detta personnummer har redan registrerats.");
-                    return; 
-                    
-                }
+                MessageBox.Show("Användaren existerar redan"); //detta ska ändras till ett event
+                return;
             }
 
             user.Firstname = firstName.Text;
             user.Lastname = lastName.Text;
             user.Email = eMail.Text;
-            user.Permissions = 0;
+            user.Permissions = 0; //Detta ska admin kunna ändra senare
 
-            user.Socialsecuritynumber = Encrypt(SSN.Text);
-            user.Username = Encrypt(userName.Text);
-            user.Password = Encrypt(passWord.Text);
+            user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
+            user.Username = Encryption.Encrypt(userName.Text);
+            user.Password = Encryption.Encrypt(passWord.Text);
 
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
-        }
-
-
-        public byte[] Encrypt(string toEncrypt)
-        {
-
-            byte[] data = Encoding.UTF8.GetBytes(toEncrypt); //Gör om string till bytearray
-
-            byte[] encryptedArray = SHA256.Create().ComputeHash(data); //Krypterar bytearray
-
-            return encryptedArray;
-
         }
     }
 }
