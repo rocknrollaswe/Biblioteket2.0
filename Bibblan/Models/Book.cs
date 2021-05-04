@@ -25,5 +25,11 @@ namespace Bibblan.Models
 
         public virtual Category Category { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
+        
+        //Sök kan se ut såhär
+        void Search(string bookname)
+        {
+        }
+        
     }
 }
