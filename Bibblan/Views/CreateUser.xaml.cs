@@ -34,14 +34,14 @@ namespace Bibblan.Views
         }
         static void Alert(object sender, string message)
         {
-            MessageBox.Show($"{message}, "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
-        private void CreateUserButton(object sender, RoutedEventArgs e)
+        private void CreateUserButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Firstname.Text == "" || Lastname.Text == "" || Email.Text == "" || SSN.Text == "") //Kollar om user input är tomt
+            if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
             {
                 OnWrongEntry("Du har inte angett data i samtliga fält!"); //test
                 return;
@@ -55,62 +55,62 @@ namespace Bibblan.Views
                 return;
             }
 
-            user.Firstname = Firstname.Text;
-            user.Lastname = Lastname.Text;
-            user.Email = Email.Text;
+            user.Firstname = firstName.Text;
+            user.Lastname = lastName.Text;
+            user.Email = eMail.Text;
             user.Permissions = 0; //Detta ska admin kunna ändra senare
 
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
-            user.Username = Encryption.Encrypt(Username.Text);
-            user.Password = Encryption.Encrypt(Password.Text);
+            user.Username = Encryption.Encrypt(userName.Text);
+            user.Password = Encryption.Encrypt(passWord.Text);
 
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
         }
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
-            FirstnameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            Firstname.Visibility = System.Windows.Visibility.Visible;
-            Firstname.Focus();
+            firstNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            firstName.Visibility = System.Windows.Visibility.Visible;
+            firstName.Focus();
         }
 
         private void FirstLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Firstname.Text))
+            if (string.IsNullOrEmpty(firstName.Text))
             {
-                FirstnameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                Firstname.Visibility = System.Windows.Visibility.Visible;
+                firstNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+                firstName.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
         private void LastFocus(object sender, RoutedEventArgs e)
         {
-            LastnameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            Lastname.Visibility = System.Windows.Visibility.Visible;
-            Lastname.Focus();
+            lastNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            lastName.Visibility = System.Windows.Visibility.Visible;
+            lastName.Focus();
         }
 
         private void LastLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(LastnameInputFocus.Text))
+            if (string.IsNullOrEmpty(lastNameInputFocus.Text))
             {
-                LastnameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                Lastname.Visibility = System.Windows.Visibility.Visible;
+                lastNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+                lastName.Visibility = System.Windows.Visibility.Visible;
             }
         }
         private void EmailFocus(object sender, RoutedEventArgs e)
         {
-            EmailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            Email.Visibility = System.Windows.Visibility.Visible;
-            Email.Focus();
+            emailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            eMail.Visibility = System.Windows.Visibility.Visible;
+            eMail.Focus();
         }
 
         private void EmailLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(EmailInputFocus.Text))
+            if (string.IsNullOrEmpty(emailInputFocus.Text))
             {
-                EmailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                Email.Visibility = System.Windows.Visibility.Visible;
+                emailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+                eMail.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -123,7 +123,7 @@ namespace Bibblan.Views
 
         private void SSNLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(EmailInputFocus.Text))
+            if (string.IsNullOrEmpty(emailInputFocus.Text))
             {
                 SSNInputFocus.Visibility = System.Windows.Visibility.Collapsed;
                 SSN.Visibility = System.Windows.Visibility.Visible;
@@ -132,34 +132,36 @@ namespace Bibblan.Views
 
         private void UserFocus(object sender, RoutedEventArgs e)
         {
-            UsernameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            Username.Visibility = System.Windows.Visibility.Visible;
-            Username.Focus();
+            userNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            userName.Visibility = System.Windows.Visibility.Visible;
+            userName.Focus();
         }
 
         private void UserLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Username.Text))
+            if (string.IsNullOrEmpty(userName.Text))
             {
-                UsernameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                Username.Visibility = System.Windows.Visibility.Visible;
+                userNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+                userName.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
         private void PassFocus(object sender, RoutedEventArgs e)
         {
-            PasswordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            Password.Visibility = System.Windows.Visibility.Visible;
+            passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            passWord.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void PassLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Password.Text))
+            if (string.IsNullOrEmpty(passWord.Text))
             {
-                PasswordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                Password.Visibility = System.Windows.Visibility.Visible;
-                Password.Focus();
+                passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+                passWord.Visibility = System.Windows.Visibility.Visible;
+                passWord.Focus();
             }
         }
+
+        
     }
 }

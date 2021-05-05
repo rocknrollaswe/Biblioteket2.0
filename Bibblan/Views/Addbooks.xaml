@@ -7,6 +7,47 @@
         mc:Ignorable="d"
         Title="Addbooks" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="60*"/>
+
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="20" Margin="20,10,0,16"><Run Language="sv-se" Text="Titel"/></TextBlock>
+        <TextBox x:Name="titlebox" Grid.Column="0" Grid.Row="0" Margin="20,35,20,10"></TextBox>
+        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="20" Margin="20,10,0,16"><Run Language="sv-se" Text="Författare"/></TextBlock>
+        <TextBox x:Name="authorBox" Grid.Column="0" Grid.Row="1" Margin="20,35,20,10"></TextBox>
+
+
+
+        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="20" Margin="20,10,0,16" Text="Pris"/>
+        <TextBox x:Name="priceBox" Grid.Column="1" Grid.Row="0" Margin="20,35,20,10"></TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" Margin="20,10,0,21" Text="DDK"/>
+        <TextBox x:Name="DDKbox" Grid.Column="1" Grid.Row="1" Margin="20,35,20,10"></TextBox>
+        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="20" Margin="20 10 0 0" Text="SAB"/>
+        <TextBox x:Name="SABbox" Grid.Column="1" Grid.Row="2" Margin="20,35,20,10"></TextBox>
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="3" Text="Beskrivning" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="360" FontSize="20" />
+        <TextBox x:Name="descriptionBox" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="34"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,9,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="360" FontSize="20" ><Run Language="sv-se" Text="Belopp"/></TextBlock>
+        <TextBox x:Name="amountBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top"  Width="360" Height="34"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="42" Width="360"><Run Text="F"/><Run Text="örlag"/></TextBlock>
+        <TextBox x:Name="publisherBox" HorizontalAlignment="Center" Margin="0,29,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="34"/>
+        <Button x:Name="AddBookButton" Content="LÄGG TILL BOK" HorizontalAlignment="Left"  Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="46" Width="182" Margin="309,3,0,0" Background="#FF40B0D3" Click="AddBookButton_Click"/>
+        <CheckBox x:Name="ebokBox" Content="E-Bok" HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="5" VerticalAlignment="Top" Height="52" Width="152" FontSize="20"/>
+        <TextBlock Grid.Column="1" Grid.Row="5" FontSize="20" Margin="20,10,0,16" Text="Antal"/>
+        <TextBox x:Name="howManyBox" Grid.Column="1" Grid.Row="5" Margin="20,35,20,10"></TextBox>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="52" Margin="0,12,0,0" Grid.RowSpan="2"><Run Language="sv-se" FontSize="20" Text="Upplaga"/></TextBlock>
+        <TextBox x:Name="editionBox" Grid.Column="1" HorizontalAlignment="Left" Margin="20,38,0,0" Grid.Row="4" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" Height="14"/>
+
+
+
     </Grid>
 </Window>
