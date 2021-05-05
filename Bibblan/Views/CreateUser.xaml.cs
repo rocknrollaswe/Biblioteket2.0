@@ -34,7 +34,7 @@ namespace Bibblan.Views
         }
         static void Alert(object sender, string message)
         {
-            MessageBox.Show($"Meddelande!\n{message}");
+            MessageBox.Show($"{message}, "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
 
