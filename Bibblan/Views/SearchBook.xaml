@@ -8,7 +8,10 @@
         Title="SearchBook" Height="450" Width="800">
     <Grid>
         <TextBlock Text="Sök bok" HorizontalAlignment="Center" Margin="0 170 0 0"/>
-        <TextBox x:Name="SearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30"/>
+        <TextBox x:Name="SearchBox" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="30" TextChanged="SearchBox_TextChanged" IsManipulationEnabled="True"/>
         <Button HorizontalAlignment="Center" Width="80" Height="20" Margin="0 100 0 0" FontSize="12" Click="SearchButton_Click">Sök</Button>
+        <Popup x:Name="autoListPopup" Visibility="Collapsed" Width="200" VerticalAlignment="Center" Height="100" StaysOpen="False" Placement="Bottom">
+            <ListBox x:Name="autoList" Visibility="Collapsed" Width="200" Height="100" SelectionChanged="autoList_SelectionChanged"></ListBox>
+        </Popup>
     </Grid>
 </Window>
