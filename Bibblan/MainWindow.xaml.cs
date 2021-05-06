@@ -27,7 +27,7 @@ namespace Bibblan
             InitializeComponent();
             DbInitialiser.InitialiseDB();
 
-            var newForm = new CreateUser();
+            var newForm = new Addbooks();
             newForm.Show();
             this.Close();
         }

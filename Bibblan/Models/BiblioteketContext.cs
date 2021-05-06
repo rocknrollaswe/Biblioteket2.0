@@ -29,7 +29,7 @@ namespace Bibblan.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server = tcp:bladerunnerdb.database.windows.net, 1433; Initial Catalog = Biblioteket; Persist Security Info = False; User ID = harrison; Password = Blade1234; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30; ");
+                optionsBuilder.UseSqlServer("Server=tcp:bladerunnerdb.database.windows.net,1433;Initial Catalog=Biblioteket;Persist Security Info=False;User ID=harrison;Password=Blade1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -40,7 +40,7 @@ namespace Bibblan.Models
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.HasKey(e => e.Isbn)
-                    .HasName("PK__Books__447D36EB032EAD87");
+                    .HasName("PK__Books__447D36EB3623D596");
 
                 entity.Property(e => e.Isbn).HasColumnName("ISBN");
 
@@ -49,15 +49,11 @@ namespace Bibblan.Models
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-
                 entity.Property(e => e.Ddk).HasColumnName("DDK");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Edition).HasColumnType("date");
 
                 entity.Property(e => e.Price).HasColumnType("decimal(4, 2)");
 
@@ -68,7 +64,7 @@ namespace Bibblan.Models
 
                 entity.Property(e => e.Sab)
                     .IsRequired()
-                    .HasMaxLength(3)
+                    .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("SAB");
 
@@ -77,18 +73,16 @@ namespace Bibblan.Models
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Category)
+                entity.HasOne(d => d.CategoryNavigation)
                     .WithMany(p => p.Books)
-                    .HasForeignKey(d => d.CategoryId)
+                    .HasForeignKey(d => d.Category)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Books__CategoryI__282DF8C2");
+                    .HasConstraintName("FK__Books__Category__531856C7");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.Property(e => e.CategoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CategoryID");
+                entity.Property(e => e.CategoryId).ValueGeneratedNever();
 
                 entity.Property(e => e.CategoryDescription)
                     .IsRequired()
@@ -114,13 +108,13 @@ namespace Bibblan.Models
                     .WithMany()
                     .HasForeignKey(d => d.StockId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Loanlog__StockID__31B762FC");
+                    .HasConstraintName("FK__Loanlog__StockID__58D1301D");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Loanlog__UserID__30C33EC3");
+                    .HasConstraintName("FK__Loanlog__UserID__57DD0BE4");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -146,7 +140,7 @@ namespace Bibblan.Models
                     .WithMany(p => p.Stocks)
                     .HasForeignKey(d => d.Isbn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Stock__ISBN__2EDAF651");
+                    .HasConstraintName("FK__Stock__ISBN__55F4C372");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -162,6 +156,8 @@ namespace Bibblan.Models
                     .IsRequired()
                     .HasMaxLength(45)
                     .IsUnicode(false);
+
+                entity.Property(e => e.HasLoanCard).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Lastname)
                     .IsRequired()

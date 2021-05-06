@@ -15,6 +15,7 @@ namespace Bibblan.Models
         public byte[] Username { get; set; }
         public byte[] Password { get; set; }
         public string Email { get; set; }
+        public byte? HasLoanCard { get; set; }
 
         public virtual Permission PermissionsNavigation { get; set; }
     }

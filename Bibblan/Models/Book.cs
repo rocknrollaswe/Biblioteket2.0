@@ -17,14 +17,13 @@ namespace Bibblan.Models
         public string Author { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public DateTime Edition { get; set; }
+        public int Edition { get; set; }
         public int Ddk { get; set; }
         public string Sab { get; set; }
         public string Publisher { get; set; }
-        public int CategoryId { get; set; }
+        public int Category { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
-        
     }
 }

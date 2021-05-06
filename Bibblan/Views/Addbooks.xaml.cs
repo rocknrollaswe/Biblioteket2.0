@@ -37,8 +37,6 @@ namespace Bibblan.Views
 
         }
 
-
-
         public event EventHandler<string> WrongEntry;
 
         protected virtual void OnWrongEntry(string e)
@@ -51,7 +49,7 @@ namespace Bibblan.Views
         {
             var book = new Book();
            
-            if (DbInitialiser.Db.Books.Where(b => b.Title == title).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == DateTime.Parse(edition)).FirstOrDefault() != null)
+            if (DbInitialiser.Db.Books.Where(b => b.Title == title).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(edition)).FirstOrDefault() != null)
             {
                 OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
                 return;
@@ -61,12 +59,12 @@ namespace Bibblan.Views
             book.Title = title;
             book.Author = author;
             book.Description = description;
-            book.Edition = DateTime.Parse(edition);
+            book.Edition = int.Parse(edition);
             book.Price = decimal.Parse(price);
             book.Ddk = int.Parse(ddk);
             book.Sab = sab;
             book.Publisher = publisher;
-            book.CategoryId = isEbook1Else0;
+            book.Category = isEbook1Else0;
 
 
             DbInitialiser.Db.Add(book); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
@@ -79,7 +77,7 @@ namespace Bibblan.Views
         public void AddStockBook(string title, string edition, int amount)
         {
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == title && b.Edition == DateTime.Parse(edition));
+                (b => b.Title == title && b.Edition == int.Parse(edition));
 
             Book b = isbnBook.FirstOrDefault();
 
