@@ -16,30 +16,30 @@ using System.Linq;
 namespace Bibblan.Views
 {
     /// <summary>
-    /// Interaction logic for SearchBook.xaml
+    /// Interaction logic for SearchbookA.xaml
     /// </summary>
-    public partial class SearchBook : Window
+    public partial class SearchbookA : Window
     {
-        List<Book> test = new List<Book>();
-        public SearchBook()
+        List<Book> dbVirtual = new List<Book>(); //skapar en virtuell version av vår Books tabell i databasen för att göra queries mot 
+        public SearchbookA()
         {
             InitializeComponent();
             foreach (var item in DbInitialiser.Db.Books)
             {
-                test.Add(item);
+                dbVirtual.Add(item);
             }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DbInitialiser.Db.Books.Where(x => x.Title.Contains(SearchBox.Text) || x.Sab.Contains(SearchBox.Text) || x.Author.Contains(SearchBox.Text) || x.Publisher.Contains(SearchBox.Text)).FirstOrDefault() != null) // VÄLDIGT simpel sökfunktion, ska byggas på
+            if (dbVirtual.Where(x => x.Title.Contains(searchBox.Text) || x.Sab.Contains(searchBox.Text) || x.Author.Contains(searchBox.Text) || x.Publisher.Contains(searchBox.Text)).DefaultIfEmpty() != null) // VÄLDIGT simpel sökfunktion, ska byggas på
             {
                 MessageBox.Show("GRATTIS DU ÄR BÄST");
                 return;
             }
-            else if(Int32.TryParse(SearchBox.Text, out var _)) //kollar om userInput är en int eller ej
+            else if (Int32.TryParse(searchBox.Text, out var _)) //kollar om userInput är en int eller ej
             {
-                if (DbInitialiser.Db.Books.Where(x => x.Isbn == Convert.ToInt32(SearchBox.Text)).FirstOrDefault() != null) 
+                if (dbVirtual.Where(x => x.Isbn == Convert.ToInt32(searchBox.Text)).DefaultIfEmpty() != null)
                 {
                     MessageBox.Show("DET FUNKAR IAF..");
                     return;
@@ -49,7 +49,7 @@ namespace Bibblan.Views
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
         {
             autoList.ClearValue(ItemsControl.ItemsSourceProperty);
-            if (SearchBox.Text == null || SearchBox.Text == "")
+            if (searchBox.Text == null || searchBox.Text == "")
             {
                 CloseSuggestionBox();
                 return;
@@ -57,9 +57,9 @@ namespace Bibblan.Views
 
             OpenSuggestionBox();
 
-            List<Book> yes = test.Where(x => x.Title.ToLower().Contains(SearchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+            List<Book> yes = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
             List<string> titleList = new List<string>();
-            foreach(var item in yes)
+            foreach (var item in yes)
             {
                 titleList.Add(item.Title);
             }
@@ -75,23 +75,25 @@ namespace Bibblan.Views
                 return;
             }
 
-            SearchBox.Text = autoList.SelectedItem.ToString();
+            searchBox.Text = autoList.SelectedItem.ToString();
             autoList.SelectedIndex = -1;
             CloseSuggestionBox();
         }
 
         private void OpenSuggestionBox()
         {
-            autoListPopup.Visibility = Visibility.Visible;
-            autoListPopup.IsOpen = true;
             autoList.Visibility = Visibility.Visible;
         }
-
         private void CloseSuggestionBox()
         {
-            autoListPopup.Visibility = Visibility.Collapsed;
-            autoListPopup.IsOpen = false;
             autoList.Visibility = Visibility.Collapsed;
+        }
+
+        private void menuClick(object sender, RoutedEventArgs e)
+        {
+            AdminPage adminPage = new AdminPage();
+            adminPage.Show();
+            this.Close();
         }
     }
 }
