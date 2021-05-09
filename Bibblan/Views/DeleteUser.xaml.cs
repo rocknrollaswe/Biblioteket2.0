@@ -11,44 +11,52 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Bibblan.Models;
 using Bibblan.Services;
-using System.Linq;
+using System.Linq; 
 
 namespace Bibblan.Views
 {
     /// <summary>
-    /// Interaction logic for SearchbookA.xaml
+    /// Interaction logic for DeleteUser.xaml
     /// </summary>
-    public partial class SearchbookA : Window
+    public partial class DeleteUser : Window
     {
-        List<Book> dbVirtual = new List<Book>(); //skapar en virtuell version av vår Books tabell i databasen för att göra queries mot 
-        public SearchbookA()
+        List<User> dbVirtual = new List<User>();
+
+        public DeleteUser()
         {
             InitializeComponent();
-            foreach (var item in DbInitialiser.Db.Books)
+            foreach (var item in DbInitialiser.Db.Users)
             {
                 dbVirtual.Add(item);
             }
+
         }
+
+        //DbInitialiser.Db.Users.Where(x => x.Socialsecuritynumber == Encryption.Encrypt(SSN)).SingleOrDefault();
+
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            List<Book> bookQuery = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower()) || x.Sab.ToLower().Contains(searchBox.Text.ToLower()) || x.Author.ToLower().Contains(searchBox.Text.ToLower()) || x.Publisher.ToLower().Contains(searchBox.Text.ToLower())).DefaultIfEmpty().ToList();
-            if (bookQuery != null) // VÄLDIGT simpel sökfunktion, ska byggas på
+            List<User> userQuery = dbVirtual.Where(x => x.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Lastname.ToLower().Contains(searchBox.Text.ToLower()) || x.Email.ToLower().Contains(searchBox.Text.ToLower())).DefaultIfEmpty().ToList();
+
+            if (userQuery != null) // VÄLDIGT simpel sökfunktion, ska byggas på
             {
-                List<string> list = new List<string>();
-                list = showResults(bookQuery);
-                resultBox.ItemsSource = list;
+                //List<User> list = new List<string>();
+                //list = showResults(userQuery);
+                resultBox.ItemsSource = userQuery;
                 return;
             }
-            else if (Int32.TryParse(searchBox.Text, out var _)) //kollar om userInput är en int eller ej
+            else if (dbVirtual.Where(x => x.Socialsecuritynumber == Encryption.Encrypt(searchBox.Text)).SingleOrDefault() != null) //kollar om userInput är en int eller ej
             {
-                if (dbVirtual.Where(x => x.Isbn == Convert.ToInt32(searchBox.Text)).DefaultIfEmpty() != null)
-                {
-                    MessageBox.Show("DET FUNKAR IAF..");
-                    return;
-                }
+                //List<string> list = new List<string>();
+                //list = showResults(userQuery);
+                resultBox.ItemsSource = userQuery;
+                return;
             }
+            
+
         }
+
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
         {
             autoList.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -60,14 +68,14 @@ namespace Bibblan.Views
 
             OpenSuggestionBox();
 
-            List<Book> yes = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
-            List<string> titleList = new List<string>();
+            List<User> yes = dbVirtual.Where(x => x.Lastname.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+            List<string> lastNameList = new List<string>();
             foreach (var item in yes)
             {
-                titleList.Add(item.Title);
+                lastNameList.Add(item.Lastname);
             }
 
-            autoList.ItemsSource = titleList;
+            autoList.ItemsSource = lastNameList;
         }
 
         private void autoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,13 +100,16 @@ namespace Bibblan.Views
             autoList.Visibility = Visibility.Collapsed;
         }
 
+
         private void menuClick(object sender, RoutedEventArgs e)
         {
             AdminPage adminPage = new AdminPage();
             adminPage.Show();
             this.Close();
+
         }
-        private List<string> showResults(List<Book> a)
+
+        private List<string> showResults(List<User> a)
         {
             List<string> temp = new List<string>();
 
@@ -108,6 +119,16 @@ namespace Bibblan.Views
             }
 
             return temp;
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            User u = (resultBox.SelectedItem as User);
+          
+            DbInitialiser.Db.Users.Remove(u);
+            DbInitialiser.Db.SaveChanges(); 
+            MessageBox.Show("Du har tagit bort användaren"); 
         }
     }
 }
