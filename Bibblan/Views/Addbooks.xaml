@@ -6,48 +6,47 @@
         xmlns:local="clr-namespace:Bibblan.Views"
         mc:Ignorable="d"
         Title="Addbooks" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#FF494949">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="44*"/>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="250*"/>
+            <ColumnDefinition Width="323*"/>
+            <ColumnDefinition Width="62*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="60*"/>
-
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="79*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="46*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" FontSize="20" Margin="20,10,0,16"><Run Language="sv-se" Text="Titel"/></TextBlock>
-        <TextBox x:Name="titlebox" Grid.Column="0" Grid.Row="0" Margin="20,35,20,10"></TextBox>
-        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="20" Margin="20,10,0,16"><Run Language="sv-se" Text="Författare"/></TextBlock>
-        <TextBox x:Name="authorBox" Grid.Column="0" Grid.Row="1" Margin="20,35,20,10"></TextBox>
-
-
-
-        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="20" Margin="20,10,0,16" Text="Pris"/>
-        <TextBox x:Name="priceBox" Grid.Column="1" Grid.Row="0" Margin="20,35,20,10"></TextBox>
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" Margin="20,10,0,21" Text="DDK"/>
-        <TextBox x:Name="DDKbox" Grid.Column="1" Grid.Row="1" Margin="20,35,20,10"></TextBox>
-        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="20" Margin="20 10 0 0" Text="SAB"/>
-        <TextBox x:Name="SABbox" Grid.Column="1" Grid.Row="2" Margin="20,35,20,10"></TextBox>
-        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="3" Text="Beskrivning" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="360" FontSize="20" />
-        <TextBox x:Name="descriptionBox" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="34"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,9,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="42" Width="360" FontSize="20" ><Run Language="sv-se" Text="Belopp"/></TextBlock>
-        <TextBox x:Name="amountBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0,35,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top"  Width="360" Height="34"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="42" Width="360"><Run Text="F"/><Run Text="örlag"/></TextBlock>
-        <TextBox x:Name="publisherBox" HorizontalAlignment="Center" Margin="0,29,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="34"/>
-        <Button x:Name="AddBookButton" Content="LÄGG TILL BOK" HorizontalAlignment="Left"  Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="46" Width="182" Margin="309,3,0,0" Background="#FF40B0D3" Click="AddBookButton_Click"/>
-        <CheckBox x:Name="ebokBox" Content="E-Bok" HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="5" VerticalAlignment="Top" Height="52" Width="152" FontSize="20"/>
-        <TextBlock Grid.Column="1" Grid.Row="5" FontSize="20" Margin="20,10,0,16" Text="Antal"/>
-        <TextBox x:Name="howManyBox" Grid.Column="1" Grid.Row="5" Margin="20,35,20,10"></TextBox>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" Height="52" Margin="0,12,0,0" Grid.RowSpan="2"><Run Language="sv-se" FontSize="20" Text="Upplaga"/></TextBlock>
-        <TextBox x:Name="editionBox" Grid.Column="1" HorizontalAlignment="Left" Margin="20,38,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" Height="14"/>
-
-
-
+        <Rectangle Grid.ColumnSpan="3" Grid.Column="1" HorizontalAlignment="Center" Height="348" Grid.RowSpan="6" Grid.Row="1" VerticalAlignment="Top" Width="694" Fill="#FFF1F1F1"/>
+        <TextBox x:Name="trueTitle" LostFocus="TitleLost" Grid.Column="1" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="trueAuth" LostFocus="AuthLost" Grid.Column="1" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="trueEdition" LostFocus="EditionLost" Grid.Column="1" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="trueDDK" LostFocus="DDKLost" Grid.Column="1" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="trueSAB" LostFocus="SABLost" Grid.Column="2" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="truePublish" LostFocus="PublishLost" Grid.Column="2" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="truePrice" LostFocus="PriceLost" Grid.Column="2" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="136" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="trueAmount" LostFocus="AmountLost" Grid.Column="2" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="68" FontSize="22"/>
+        <TextBox x:Name="trueDesc" LostFocus="DescLost" Grid.Column="3" HorizontalAlignment="Left" Height="190" Margin="92,81,0,0" Grid.RowSpan="4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontSize="16"/>
+        <Rectangle Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="71" Grid.Row="1" VerticalAlignment="Top" Width="573" Fill="#FF40B0D3"/>
+        <TextBlock Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Left" Height="68" Margin="10,1,0,0" Grid.Row="1" Text="Lägg till Böcker" TextWrapping="Wrap" VerticalAlignment="Top" Width="501" Foreground="White" FontSize="48" FontStyle="Italic" FontWeight="Normal" FontFamily="Arial"/>
+        <TextBox x:Name="falseTitle" GotFocus="TitleFocus" Text="Titel" Grid.Column="1" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falseAuth" GotFocus="AuthFocus" Text="Författare" Grid.Column="1" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falseEdition" GotFocus="EditionFocus" Text="Upplaga" Grid.Column="1" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falseDDK" GotFocus="DDKFocus" Text="DDK" Grid.Column="1" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="31,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falseSAB" GotFocus="SABFocus" Text="SAB" Grid.Column="2" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falsePublish" GotFocus="PublishFocus" Text="Utgivare" Grid.Column="2" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="191" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falsePrice" GotFocus="PriceFocus" Text="Pris" Grid.Column="2" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="136" Grid.ColumnSpan="2" FontSize="22"/>
+        <TextBox x:Name="falseAmount" GotFocus="AmountFocus" Text="Antal" Grid.Column="2" Foreground="Silver" HorizontalAlignment="Left" Height="47" Margin="125,0,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Width="68" FontSize="22"/>
+        <TextBox x:Name="falseDesc" GotFocus="DescFocus" Foreground="Silver" Grid.Column="3" HorizontalAlignment="Left" Height="190" Margin="92,81,0,0" Grid.RowSpan="4" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="196" FontSize="16" Text="Bokbeskrivning"/>
+        <Button x:Name="createBook" Content="Lägg till Bok" HorizontalAlignment="Left" Height="48" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" Width="214" FontSize="26" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3" FontWeight="Normal" Margin="92,0,0,0"/>
+        <TextBlock Grid.Column="3" HorizontalAlignment="Left" Height="38" Margin="22,0,0,0" Grid.Row="4" Text="Kr" TextWrapping="Wrap" VerticalAlignment="Center" Width="29" FontSize="24" RenderTransformOrigin="0.459,0.666"/>
+        <Button x:Name="menuButton" Content="Meny" Click="menuButtonClick" Grid.Column="1" HorizontalAlignment="Center" Height="50" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="101" FontSize="26" Foreground="White" Background="#FF40B0D3" BorderBrush="{x:Null}"/>
+        <CheckBox x:Name="ebokBox" Content="E-Bok" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="226,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="75" Grid.ColumnSpan="2" FontSize="14"/>
     </Grid>
 </Window>

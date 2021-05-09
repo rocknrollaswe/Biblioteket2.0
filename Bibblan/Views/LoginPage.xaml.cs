@@ -27,7 +27,6 @@ namespace Bibblan.Views
 
 
 
-
         private void UserFocus(object sender, RoutedEventArgs e)
         {
             UsernameInputFocus.Visibility = System.Windows.Visibility.Collapsed;

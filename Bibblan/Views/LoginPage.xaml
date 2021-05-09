@@ -7,15 +7,28 @@
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800">
     <Grid Background="#FF494949">
-        <Rectangle HorizontalAlignment="Center" Height="285" VerticalAlignment="Center" Width="634" Fill="#FFF1F1F1"/>
-        <Image HorizontalAlignment="Left" Height="105" Margin="540,85,0,0" VerticalAlignment="Top" Width="106" Source="/Views/LIBSYS.png"/>
-        <TextBlock HorizontalAlignment="Left" Height="69" Margin="119,85,0,0" Text="Sign In" TextWrapping="Wrap" VerticalAlignment="Top" Width="295" FontSize="48"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="520,263,0,0" VerticalAlignment="Top" Width="144" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3"/>
-        <TextBlock HorizontalAlignment="Left" Height="46" Margin="520,196,0,0" Text="Tjena, välkommen till vår skitsnygga biblioteksapplikation" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"/>
-        <Button Content="Login" HorizontalAlignment="Left" Height="48" Margin="520,268,0,0" VerticalAlignment="Top" Width="144" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3"/>
-        <TextBox x:Name="UsernameInput" LostFocus="UserLost" Margin="119,194,321,193" FontSize="30" Width="360" Height="47.04" TextWrapping="Wrap"/>
-        <TextBox x:Name="UsernameInputFocus" GotFocus="UserFocus" Text="Användarnamn" Foreground="Silver"  Margin="119,194,321,193" FontSize="30" Width="360" Height="60.04" TextWrapping="Wrap"/>
-        <TextBox x:Name="PasswordInput" LostFocus="PassLost" Margin="119,268,321,118" FontSize="30" Width="360" Height="48.04"/>
-        <TextBox x:Name="PasswordInputFocus" GotFocus="PassFocus" Text="Lösenord" Foreground="Silver" Margin="119,268,321,118" FontSize="30" Width="360" Height="60.04"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="112*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="99*"/>
+            <RowDefinition Height="73*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="426*"/>
+            <ColumnDefinition Width="217*"/>
+            <ColumnDefinition Width="78*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle HorizontalAlignment="Center" Height="285" VerticalAlignment="Top" Width="634" Fill="#FFF1F1F1" Grid.ColumnSpan="2" Margin="0,75,0,0" Grid.RowSpan="4" Grid.Column="1"/>
+        <Image HorizontalAlignment="Left" Height="105" Margin="43,7,0,0" VerticalAlignment="Top" Width="106" Source="/img/LIBSYS.png" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Left" Height="69" Margin="40,10,0,0" Text="Sign In" TextWrapping="Wrap" VerticalAlignment="Top" Width="295" FontSize="48" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="48" Margin="15,4,0,0" VerticalAlignment="Top" Width="144" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3" Grid.Column="2" Grid.Row="3"/>
+        <TextBlock HorizontalAlignment="Left" Height="46" Margin="15,9,0,0" Text="Tjena, välkommen till vår skitsnygga biblioteksapplikation" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="2" Grid.Row="2"/>
+        <Button Content="Login" HorizontalAlignment="Left" Height="48" Margin="15,3,0,0" VerticalAlignment="Top" Width="144" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3" Grid.Column="2" Grid.Row="3"/>
+        <TextBox x:Name="UsernameInput" LostFocus="UserLost" Margin="40,7,26,18" FontSize="30" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="UsernameInputFocus" GotFocus="UserFocus" Text="Användarnamn" Foreground="Silver"  Margin="40,7,26,5" FontSize="30" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="PasswordInput" LostFocus="PassLost" Margin="40,6,26,54" FontSize="30" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="PasswordInputFocus" GotFocus="PassFocus" Text="Lösenord" Foreground="Silver" Margin="40,6,26,42" FontSize="30" Grid.Row="3" Grid.Column="1"/>
     </Grid>
 </Window>

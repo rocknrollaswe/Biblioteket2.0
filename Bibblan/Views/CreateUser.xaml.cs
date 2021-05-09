@@ -38,7 +38,7 @@ namespace Bibblan.Views
             return;
         }
 
-        private void CreateUserButton_Click(object sender, RoutedEventArgs e)
+        private void CreateUserButton(object sender, RoutedEventArgs e)
         {
 
             if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
@@ -67,13 +67,23 @@ namespace Bibblan.Views
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
         }
+
+
+        private void menuButtonClick(object sender, RoutedEventArgs e) //Navigering till Adminsida
+        {
+            AdminPage menu = new AdminPage();
+            menu.Show();
+            this.Close();
+        }    
+
+
+        //Nedan är 'focus' för Grå hints inom Textboxen
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
             firstNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
             firstName.Visibility = System.Windows.Visibility.Visible;
             firstName.Focus();
         }
-
         private void FirstLost(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(firstName.Text))
@@ -89,7 +99,6 @@ namespace Bibblan.Views
             lastName.Visibility = System.Windows.Visibility.Visible;
             lastName.Focus();
         }
-
         private void LastLost(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(lastNameInputFocus.Text))
@@ -98,13 +107,13 @@ namespace Bibblan.Views
                 lastName.Visibility = System.Windows.Visibility.Visible;
             }
         }
+
         private void EmailFocus(object sender, RoutedEventArgs e)
         {
             emailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
             eMail.Visibility = System.Windows.Visibility.Visible;
             eMail.Focus();
         }
-
         private void EmailLost(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(emailInputFocus.Text))
@@ -120,10 +129,9 @@ namespace Bibblan.Views
             SSN.Visibility = System.Windows.Visibility.Visible;
             SSN.Focus();
         }
-
         private void SSNLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(emailInputFocus.Text))
+            if (string.IsNullOrEmpty(SSNInputFocus.Text))
             {
                 SSNInputFocus.Visibility = System.Windows.Visibility.Collapsed;
                 SSN.Visibility = System.Windows.Visibility.Visible;
@@ -136,7 +144,6 @@ namespace Bibblan.Views
             userName.Visibility = System.Windows.Visibility.Visible;
             userName.Focus();
         }
-
         private void UserLost(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(userName.Text))
@@ -151,7 +158,6 @@ namespace Bibblan.Views
             passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
             passWord.Visibility = System.Windows.Visibility.Visible;
         }
-
         private void PassLost(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(passWord.Text))
@@ -161,7 +167,5 @@ namespace Bibblan.Views
                 passWord.Focus();
             }
         }
-
-        
     }
 }
