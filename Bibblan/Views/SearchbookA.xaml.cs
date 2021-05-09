@@ -30,11 +30,14 @@ namespace Bibblan.Views
             }
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (dbVirtual.Where(x => x.Title.Contains(searchBox.Text) || x.Sab.Contains(searchBox.Text) || x.Author.Contains(searchBox.Text) || x.Publisher.Contains(searchBox.Text)).DefaultIfEmpty() != null) // VÄLDIGT simpel sökfunktion, ska byggas på
+            List<Book> bookQuery = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower()) || x.Sab.ToLower().Contains(searchBox.Text.ToLower()) || x.Author.ToLower().Contains(searchBox.Text.ToLower()) || x.Publisher.ToLower().Contains(searchBox.Text.ToLower())).DefaultIfEmpty().ToList();
+            if (bookQuery != null) // VÄLDIGT simpel sökfunktion, ska byggas på
             {
-                MessageBox.Show("GRATTIS DU ÄR BÄST");
+                List<string> list = new List<string>();
+                list = showResults(bookQuery);
+                resultBox.ItemsSource = list;
                 return;
             }
             else if (Int32.TryParse(searchBox.Text, out var _)) //kollar om userInput är en int eller ej
@@ -91,9 +94,20 @@ namespace Bibblan.Views
 
         private void menuClick(object sender, RoutedEventArgs e)
         {
-            AdminPage adminPage = new AdminPage();
-            adminPage.Show();
-            this.Close();
+            //AdminPage adminPage = new AdminPage();
+            //adminPage.Show();
+            //this.Close();
+        }
+        private List<string> showResults(List<Book> a)
+        {
+            List<string> temp = new List<string>();
+
+            foreach (var item in a)
+            {
+                temp.Add(item.ToString());
+            }
+
+            return temp;
         }
     }
 }
