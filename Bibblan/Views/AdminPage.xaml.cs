@@ -46,5 +46,13 @@ namespace Bibblan.Views
             searchPage.Show();
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteUser deleteUser = new DeleteUser();
+            deleteUser.Show();
+            this.Close(); 
+
+        }
     }
 }

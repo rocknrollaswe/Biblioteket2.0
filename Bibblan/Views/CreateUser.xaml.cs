@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
+using System.Threading; 
 
 namespace Bibblan.Views
 {
@@ -40,6 +41,9 @@ namespace Bibblan.Views
 
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
+            CreateUserButton1.Opacity = 0.5;
+            Thread.Sleep(500);
+            CreateUserButton1.Opacity = 1; 
 
             if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
             {
@@ -62,10 +66,12 @@ namespace Bibblan.Views
 
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
             user.Username = Encryption.Encrypt(userName.Text);
-            user.Password = Encryption.Encrypt(passWord.Text);
+            user.Password = Encryption.Encrypt(passWord.Password);
 
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
+            MessageBox.Show("Du har nu skapat upp en användare."); 
+
         }
 
 
@@ -155,17 +161,18 @@ namespace Bibblan.Views
 
         private void PassFocus(object sender, RoutedEventArgs e)
         {
-            passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            passWord.Visibility = System.Windows.Visibility.Visible;
-        }
-        private void PassLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(passWord.Text))
+            if (string.IsNullOrEmpty(passWord.Password))
             {
                 passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
                 passWord.Visibility = System.Windows.Visibility.Visible;
                 passWord.Focus();
             }
+        }
+
+        private void PassLost(object sender, RoutedEventArgs e)
+        {
+            passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
+            passWord.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }

@@ -18,5 +18,11 @@ namespace Bibblan.Models
         public byte? HasLoanCard { get; set; }
 
         public virtual Permission PermissionsNavigation { get; set; }
+
+        public override string ToString()
+        {
+            return $"{UserId}, {Firstname}, {Lastname}, {Email}"; 
+        }
+
     }
 }
