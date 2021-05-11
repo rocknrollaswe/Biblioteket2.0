@@ -42,5 +42,40 @@ namespace Bibblan
         {
             Main.NavigationService.Navigate(new CreateUser());
         }
+
+        private void emailTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(emailTextBox.Foreground == Brushes.LightGray)
+            {
+                emailTextBox.Text = "";
+                emailTextBox.Foreground = Brushes.Black;
+            }
+        }
+
+        private void passWordTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (passwordTextBox.Foreground == Brushes.LightGray)
+            {
+                passwordTextBox.Text = "";
+                passwordTextBox.Foreground = Brushes.Black;
+            }
+        }
+        private void emailTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (emailTextBox.Text == "")
+            {
+                emailTextBox.Text = "E-post";
+                emailTextBox.Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void passWordTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (passwordTextBox.Text == "")
+            {
+                passwordTextBox.Text = "Lösenord";
+                passwordTextBox.Foreground = Brushes.LightGray;
+            }
+        }
     }
 }
