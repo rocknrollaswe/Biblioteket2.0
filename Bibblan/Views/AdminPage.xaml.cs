@@ -9,13 +9,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 
 namespace Bibblan.Views
 {
     /// <summary>
     /// Interaction logic for AdminPage.xaml
     /// </summary>
-    public partial class AdminPage : Window
+    public partial class AdminPage : Page
     {
         public AdminPage()
         {
@@ -23,35 +24,30 @@ namespace Bibblan.Views
         }
         private void createUserClick(object sender, RoutedEventArgs e)
         {
-            CreateUser createUserPage = new CreateUser();
-            createUserPage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new CreateUser());
         }
         private void addBooksClick(object sender, RoutedEventArgs e)
         {
-            Addbooks addBooksPage = new Addbooks();
-            addBooksPage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new Addbooks());
         }
         private void logoutClick(object sender, RoutedEventArgs e)
         {
-            Login logoutpage = new Login();
-            logoutpage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new Login());
         }
 
         private void searchClick(object sender, RoutedEventArgs e)
         {
-            SearchbookA searchPage = new SearchbookA();
-            searchPage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new SearchbookA());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DeleteUser deleteUser = new DeleteUser();
-            deleteUser.Show();
-            this.Close(); 
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new DeleteUser());
 
         }
     }

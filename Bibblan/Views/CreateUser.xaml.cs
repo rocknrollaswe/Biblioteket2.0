@@ -10,8 +10,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
+using Bibblan.Views;
 using System.Linq;
 using System.Threading; 
 
@@ -20,7 +22,7 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class CreateUser : Window
+    public partial class CreateUser : Page
     {
         public CreateUser()
         {
@@ -77,9 +79,8 @@ namespace Bibblan.Views
 
         private void menuButtonClick(object sender, RoutedEventArgs e) //Navigering till Adminsida
         {
-            AdminPage menu = new AdminPage();
-            menu.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new AdminPage());
         }    
 
 

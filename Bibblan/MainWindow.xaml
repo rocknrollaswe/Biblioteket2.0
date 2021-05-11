@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450" Width="800">
     <Grid>
         <Label Content="" HorizontalAlignment="Left" Margin="335,124,0,0" VerticalAlignment="Top"/>
         <Label Content="VÄLKOMMEN TILL&#xD;&#xA; BLADERUNNERS BIBLIOTEK" HorizontalAlignment="Left" VerticalAlignment="Top" Height="137" Width="735" FontSize="50"/>
@@ -19,5 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="instantlog" Click="instantlogc" Content="admin" HorizontalAlignment="Left" Margin="670,161,0,0" VerticalAlignment="Top" Height="19" Width="120"/>
+        <Frame x:Name="Main"></Frame>
     </Grid>
 </Window>

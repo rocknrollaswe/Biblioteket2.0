@@ -26,20 +26,21 @@ namespace Bibblan
         {
             InitializeComponent();
             DbInitialiser.InitialiseDB();
-
-            var newForm = new AdminPage();
-            newForm.Show();
-            this.Close();
         }
 
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void instantlogc(object sender, RoutedEventArgs e)
+        {
+            Main.NavigationService.Navigate(new CreateUser());
         }
     }
 }

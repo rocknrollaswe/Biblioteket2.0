@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for SearchbookA.xaml
     /// </summary>
-    public partial class SearchbookA : Window
+    public partial class SearchbookA : Page
     {
         List<Book> dbVirtual = new List<Book>(); //skapar en virtuell version av vår Books tabell i databasen för att göra queries mot 
         public SearchbookA()
@@ -94,9 +95,8 @@ namespace Bibblan.Views
 
         private void menuClick(object sender, RoutedEventArgs e)
         {
-            AdminPage adminPage = new AdminPage();
-            adminPage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new AdminPage());
         }
         private List<string> showResults(List<Book> a)
         {

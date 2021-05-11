@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for Addbooks.xaml
     /// </summary>
-    public partial class Addbooks : Window
+    public partial class Addbooks : Page
     {
         public Addbooks()
         {
@@ -109,9 +110,8 @@ namespace Bibblan.Views
 
         private void menuButtonClick(object sender, RoutedEventArgs e)
         {
-            AdminPage menupage = new AdminPage();
-            menupage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new AdminPage());
         }
 
         private void TitleFocus(object sender, RoutedEventArgs e)

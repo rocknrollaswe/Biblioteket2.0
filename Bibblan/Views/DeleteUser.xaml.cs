@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq; 
@@ -18,7 +19,7 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for DeleteUser.xaml
     /// </summary>
-    public partial class DeleteUser : Window
+    public partial class DeleteUser : Page
     {
         List<User> dbVirtual = new List<User>();
 
@@ -103,9 +104,8 @@ namespace Bibblan.Views
 
         private void menuClick(object sender, RoutedEventArgs e)
         {
-            AdminPage adminPage = new AdminPage();
-            adminPage.Show();
-            this.Close();
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new AdminPage());
 
         }
 

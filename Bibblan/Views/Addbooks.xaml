@@ -1,4 +1,4 @@
-﻿<Window x:Class="Bibblan.Views.Addbooks"
+﻿<Page x:Class="Bibblan.Views.Addbooks"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -49,4 +49,4 @@
         <Button x:Name="menuButton" Content="Meny" Click="menuButtonClick" Grid.Column="1" HorizontalAlignment="Center" Height="50" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="101" FontSize="26" Foreground="White" Background="#FF40B0D3" BorderBrush="{x:Null}"/>
         <CheckBox x:Name="ebokBox" Content="E-Bok" Grid.Column="2" HorizontalAlignment="Left" Height="19" Margin="226,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="75" Grid.ColumnSpan="2" FontSize="14"/>
     </Grid>
-</Window>
+</Page>
