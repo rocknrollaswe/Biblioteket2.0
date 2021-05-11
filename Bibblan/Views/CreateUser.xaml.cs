@@ -13,7 +13,8 @@ using System.Windows.Shapes;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
-using System.Threading; 
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Bibblan.Views
 {
@@ -42,12 +43,54 @@ namespace Bibblan.Views
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
             CreateUserButton1.Opacity = 0.5;
-            Thread.Sleep(500);
             CreateUserButton1.Opacity = 1; 
 
             if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
             {
-                OnWrongEntry("Du har inte angett data i samtliga fält!"); //test
+                OnWrongEntry("Du har inte angett data i samtliga fält!");
+                return;
+            }
+
+            if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            {
+                MessageBox.Show("Ange korrekt e-mail.");
+                eMail.Select(0, eMail.Text.Length);
+                eMail.Focus();
+                return;
+            }
+
+            if (passWord.Password.Length == 0)
+            {
+                MessageBox.Show("Ange Lösenord.");
+                passWord.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$"))
+            {
+                MessageBox.Show("Ange bara bokstäver.");
+                firstName.Focus();
+                return;
+            }
+            
+            if(!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$"))
+            {
+                MessageBox.Show("Ange bara bokstäver.");
+                lastName.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(SSN.Text, @"^([0-9]{12})$"))
+            {
+                MessageBox.Show("Ange bara siffror.");
+                firstName.Focus();
+                return;
+            }
+
+            if(!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            {
+                MessageBox.Show("Ange minst en stor och liten bokstav samt en siffra.");
+                passWord.Focus();
                 return;
             }
 
@@ -143,7 +186,6 @@ namespace Bibblan.Views
                 SSN.Visibility = System.Windows.Visibility.Visible;
             }
         }
-
         private void UserFocus(object sender, RoutedEventArgs e)
         {
             userNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
@@ -158,13 +200,13 @@ namespace Bibblan.Views
                 userName.Visibility = System.Windows.Visibility.Visible;
             }
         }
-
         private void PassFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(passWord.Password))
             {
                 passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
                 passWord.Visibility = System.Windows.Visibility.Visible;
+                passwordInfo.Visibility = Visibility.Visible;
                 passWord.Focus();
             }
         }
@@ -173,6 +215,7 @@ namespace Bibblan.Views
         {
             passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
             passWord.Visibility = System.Windows.Visibility.Visible;
+            passwordInfo.Visibility = Visibility.Collapsed;
         }
     }
 }
