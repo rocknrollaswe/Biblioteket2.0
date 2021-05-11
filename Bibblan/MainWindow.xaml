@@ -8,19 +8,15 @@
         Title="MainWindow"
         Height="450" Width="800">
     <Grid>
-        <Label Content="" HorizontalAlignment="Left" Margin="335,124,0,0" VerticalAlignment="Top"/>
-        <Label Content="VÄLKOMMEN TILL&#xD;&#xA; BLADERUNNERS BIBLIOTEK" HorizontalAlignment="Left" VerticalAlignment="Top" Height="137" Width="735" FontSize="50"/>
-        <Button x:Name="loggain" Content="LOGGA IN" HorizontalAlignment="Left" Margin="503,161,0,0" VerticalAlignment="Top" Height="19" Width="120" Click="loggain_Click"/>
-        <Button Content="SÖK" HorizontalAlignment="Left" Margin="208,161,0,0" VerticalAlignment="Top" Click="Button_Click" Height="19"/>
-        <TextBox x:Name="searchbox" HorizontalAlignment="Left" Margin="83,161,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="19"/>
-        <ListView Margin="0,217,0,0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button x:Name="instantlog" Click="instantlogc" Content="admin" HorizontalAlignment="Left" Margin="670,161,0,0" VerticalAlignment="Top" Height="19" Width="120"/>
-        <Frame x:Name="Main"></Frame>
+        <Image Source="img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>
+        <Image Margin="10,10,688,322" Source="img/LIBSYS_GREY.png" Grid.ColumnSpan="2"/>
+
+
+        <TextBox x:Name="emailTextBox" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
+        <TextBox x:Name="passwordTextBox" Text="Lösenord" FontSize="20" Foreground="LightGray" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></TextBox>
+        <Button HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95">Logga In</Button>
+
+        <Button x:Name="instantlog" Click="instantlogc" Content="admin" HorizontalAlignment="Left" Margin="654,161,0,0" VerticalAlignment="Top" Height="19" Width="120" Grid.Column="1"/>
+        <Frame x:Name="Main" Grid.ColumnSpan="2"></Frame>
     </Grid>
 </Window>
