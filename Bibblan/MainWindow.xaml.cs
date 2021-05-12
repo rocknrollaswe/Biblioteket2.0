@@ -26,6 +26,11 @@ namespace Bibblan
         {
             InitializeComponent();
             DbInitialiser.InitialiseDB();
+
+            var home = new Home();
+            this.Hide();
+            home.Show();
+
         }
 
         private void loggain_Click(object sender, RoutedEventArgs e)

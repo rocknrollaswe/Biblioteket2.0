@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan.Views"
         mc:Ignorable="d"
-        Title="Home" Height="700" Width="1000">
+        Title="Home" Height="600" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -15,16 +15,19 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        
+
         <DockPanel Grid.Column="0" 
                    Background="LightBlue">
             <StackPanel>
                 <WrapPanel >
                     <Image Source="/img/LIBSYS.png" Opacity="0.7" MaxHeight="60" HorizontalAlignment="Left" Margin="10"/>
-                    <Label Content="Huvudmeny" Margin="20" FontFamily="/Font/"/>
+                    <Label Content="Huvudmeny" Margin="20" FontFamily="/Fonts/#Roboto-Black.ttf" />
+                        
                 </WrapPanel>
                 
                 <Button ></Button>
-                <Button>Hej</Button>
+                <Button x:Name="Meny" Click="Meny_Click">Hej</Button>
                 <Button>Hej</Button>
                 <Button>Hej</Button>
             </StackPanel>

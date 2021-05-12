@@ -8,7 +8,7 @@
         Title="MainWindow"
         Height="450" Width="800">
     <Grid>
-        <Image Source="img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>
+        <Image Source="/img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>
         <Image Margin="10,10,688,322" Source="img/LIBSYS_GREY.png" Grid.ColumnSpan="2"/>
 
 

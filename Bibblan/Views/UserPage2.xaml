@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Bibblan.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="UserPage2">
 
     <Grid>
@@ -57,8 +57,8 @@
                 </StackPanel>
             </Grid>
 
-            <Image x:Name="ImageLib" Source="/img/LIBSYS.png" Opacity="0.7"/>
-
+            <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="800" Width="800" Opacity="0.15" />
+            
 
             <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
                 <TextBox x:Name="searchUserBox" HorizontalAlignment="Left" Background="#FFFFFEFE" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="24"/>
