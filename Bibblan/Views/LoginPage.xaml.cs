@@ -16,7 +16,7 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class Login : Page           //SKA TAS BORT????
     {
         public Login()
         {

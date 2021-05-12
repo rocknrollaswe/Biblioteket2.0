@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bibblan.Views
 {
@@ -25,14 +26,23 @@ namespace Bibblan.Views
         public SearchbookA()
         {
             InitializeComponent();
-            foreach (var item in DbInitialiser.Db.Books)
+            Task dbDownload = Task.Run( () =>
             {
-                dbVirtual.Add(item);
+                foreach (var item in DbInitialiser.Db.Books)
+                {
+                    dbVirtual.Add(item);
+                }
+            });
+            if (GlobalClass.userPermission == -1)
+            {
+                navMeny.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void searchButton_Click(object sender, RoutedEventArgs e)
+        private void searchButton_Click(object sender, RoutedEventArgs e)      
         {
+            Task.WaitAll();
+
             List<Book> bookQuery = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower()) || x.Sab.ToLower().Contains(searchBox.Text.ToLower()) || x.Author.ToLower().Contains(searchBox.Text.ToLower()) || x.Publisher.ToLower().Contains(searchBox.Text.ToLower())).DefaultIfEmpty().ToList();
             if (bookQuery != null) // VÄLDIGT simpel sökfunktion, ska byggas på
             {
@@ -48,6 +58,7 @@ namespace Bibblan.Views
                     MessageBox.Show("DET FUNKAR IAF..");
                     return;
                 }
+                return;
             }
         }
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
@@ -61,9 +72,9 @@ namespace Bibblan.Views
 
             OpenSuggestionBox();
 
-            List<Book> yes = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+            List<Book> showBooks = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
             List<string> titleList = new List<string>();
-            foreach (var item in yes)
+            foreach (var item in showBooks)
             {
                 titleList.Add(item.Title);
             }
