@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:Bibblan"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450" Width="800">
+        ResizeMode="NoResize"
+        Height="600" Width="1000">
     <Grid>
         <Image Source="img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>
-        <Image Margin="10,10,688,322" Source="img/LIBSYS_GREY.png" Grid.ColumnSpan="2"/>
+        <Image Margin="-17,10,847,459" Source="img/LIBSYS_GREY.png"/>
 
 
         <TextBox x:Name="emailTextBox" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
         <TextBox x:Name="passwordTextBox" Text="Lösenord" FontSize="20" Foreground="LightGray" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></TextBox>
-        <Button HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95">Logga In</Button>
+        <Button HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95" Click="loggain_Click">Logga In</Button>
 
-        <Button x:Name="instantlog" Click="instantlogc" Content="admin" HorizontalAlignment="Left" Margin="654,161,0,0" VerticalAlignment="Top" Height="19" Width="120" Grid.Column="1"/>
+        <Button x:Name="instantlog" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
         <Frame x:Name="Main" Grid.ColumnSpan="2"></Frame>
+        <!-- Main ska tas bort när vi börjar navigera mot "huvudmeny-windowet" -->
     </Grid>
 </Window>
