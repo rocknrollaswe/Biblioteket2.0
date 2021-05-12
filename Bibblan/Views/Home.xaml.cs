@@ -22,9 +22,8 @@ namespace Bibblan.Views
             InitializeComponent();
         }
 
-        private void Meny_Click(object sender, RoutedEventArgs e)
+        private void Menu_Click(object sender, RoutedEventArgs e)
         {
-       
             Main2.Navigate(new UserPage2());
         }
     }

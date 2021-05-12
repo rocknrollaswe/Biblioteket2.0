@@ -9,63 +9,24 @@
       Title="UserPage2">
 
     <Grid>
-        <Grid Background="LightBlue">
+        <Border Background="LightGray" Height="600" Width="800" Panel.ZIndex="-2" Opacity="0.6" />
+        
+        <Grid>
+            
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.ColumnSpan="4" 
-              Grid.RowSpan="3"
-              Margin="0, -100, 0, 0">
 
-                <Grid.RenderTransform>
-                    <RotateTransform Angle="50"/>
-                </Grid.RenderTransform>
-
-                <StackPanel Orientation="Horizontal" Panel.ZIndex="-1" >
-                    <StackPanel>
-                        <Border 
-                        Background="LightCyan" 
-                        Width="600"
-                        Height="35" 
-                        CornerRadius="20"
-                        Margin="0, 0, 0, 0"/>
-
-                        <Border 
-                        Background="LightPink" 
-                        Width="500"
-                        Height="35" 
-                        CornerRadius="20"
-                        Margin="0, 5, 0, 0"/>
-                        <Border  
-                        Background="LightCoral"
-    
-                        Width="700"
-                        Height="35" 
-                        CornerRadius="20"
-                        Margin="0, 10, 0, 0"/>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-
-            <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="800" Width="800" Opacity="0.15" />
-            
-
-            <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
-                <TextBox x:Name="searchUserBox" HorizontalAlignment="Left" Background="#FFFFFEFE" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="24"/>
-                <Button x:Name="searchUserButton" Content="Sök" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="5,0,0,0"/>
-            </WrapPanel>
-
-            <Grid Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+            <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -75,45 +36,50 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-
-
                 <StackPanel Grid.Column="0" Width="auto" Grid.RowSpan="2">
-                    <StackPanel Margin="10">
-                        <Label FontWeight="Bold">Typ av användare?</Label>
-                        <RadioButton>Besökare</RadioButton>
-                        <RadioButton>Bibliotekarie</RadioButton>
-                        <RadioButton>Administration</RadioButton>
-                    </StackPanel>
-                    <TextBox Text="Förnamn" Background="#FFFFFEFE" Foreground="#FFDDD0D0" Margin="0,0,80,0" Width="90" />
-                    <TextBox Text="Efternamn" Background="#FFFFFEFE" Foreground="#FFDDD0D0" Margin="0,7,80,0" Width="90"/>
-                    <TextBox Text="Email" Background="#FFFFFEFE" Foreground="#FFDDD0D0" Margin="0,7,80,0" Width="90"/>
-                    <TextBox Text="Personnummer" Background="#FFFFFEFE" Foreground="#FFDDD0D0" Margin="0,7,80,0" Width="90"/>
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Margin="10">
+                            <Label FontWeight="Bold">Typ av användare?</Label>
+                            <RadioButton>Besökare</RadioButton>
+                            <RadioButton>Bibliotekarie</RadioButton>
+                            <RadioButton>Administration</RadioButton>
+                        </StackPanel>
+                        <StackPanel Margin="20" Width="100">
+                            <TextBox Text="Förnamn" Background="#FFFFFEFE" Foreground="#FFDDD0D0"  Width="90" />
+                            <TextBox Text="Efternamn" Background="#FFFFFEFE" Foreground="#FFDDD0D0"  Width="90"/>
+                            <TextBox Text="Email" Background="#FFFFFEFE" Foreground="#FFDDD0D0"  Width="90"/>
+                            <TextBox Text="Personnummer" Background="#FFFFFEFE" Foreground="#FFDDD0D0"  Width="90"/>
+                        </StackPanel>
+                    </WrapPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="0"  Width="auto" Margin="0,0,0,0">
+                
+                <StackPanel Grid.Column="0" Grid.Row="1"  Width="auto" Margin="0,0,0,0" Orientation="Horizontal">
                     <StackPanel Margin="10">
                         <Label FontWeight="Bold">Lånekort</Label>
                         <RadioButton>Beviljat</RadioButton>
                         <RadioButton>Avslaget</RadioButton>
-
                     </StackPanel>
                 </StackPanel>
             </Grid>
 
-
-            <Grid Background="AliceBlue" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="auto">
-                <!--<ListView x:Name="LVModifyUser" Background="AliceBlue" UseLayoutRounding="True">
+            <ListView x:Name="LVModifyUser" 
+                      Background="AliceBlue" 
+                      Width="auto" 
+                      UseLayoutRounding="True" 
+                      Margin="129,75,71,75" 
+                      Grid.Column="0" 
+                      Grid.ColumnSpan="2" 
+                      Grid.RowSpan="2" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Firstname}" Header="Förnamn" Width="90"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Lastname}" Header="Efternamn" Width="90"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="E-mail" Width="115"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Permissions}" Header="Behörighet" Width="30"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding HasLoanCard}" Header="Lånekort" Width="30"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Firstname}" Header="Förnamn" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Lastname}" Header="Efternamn" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="E-mail" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Permissions}" Header="Behörighet" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding HasLoanCard}" Header="Lånekort" Width="70"/>
                     </GridView>
                 </ListView.View>
-            </ListView>-->
-            </Grid>
-
+            </ListView>
         </Grid>
     </Grid>
 </Page>
