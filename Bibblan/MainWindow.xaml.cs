@@ -26,10 +26,9 @@ namespace Bibblan
         {
             InitializeComponent();
             DbInitialiser.InitialiseDB();
-
-            var home = new Home();
-            this.Hide();
-            home.Show();
+            //var home = new Home();
+            //this.Hide();
+            //home.Show();
         }
 
         private void loggain_Click(object sender, RoutedEventArgs e)
@@ -42,7 +41,9 @@ namespace Bibblan
 
                 if(GlobalClass.userPermission == 2)     //exempel på hur vi gör navigering och funktioner beroende på permissions
                 {
-                    Main.NavigationService.Navigate(new AdminPage());
+                    var home = new Home();
+                    this.Hide();
+                    home.Show();
                 }
             }
             else
@@ -91,6 +92,24 @@ namespace Bibblan
                 passwordTextBox.Text = "Lösenord";
                 passwordTextBox.Foreground = Brushes.LightGray;
             }
+        }
+
+        private void registerButton_Click(object sender, RoutedEventArgs e)
+        {
+            passwordTextBox.Visibility = Visibility.Collapsed;
+            emailTextBox.Visibility = Visibility.Collapsed;
+            guestButton.Visibility = Visibility.Collapsed;
+            registerButton.Visibility = Visibility.Collapsed;
+            loginButton.Visibility = Visibility.Collapsed;
+            Main.NavigationService.Navigate(new CreateUser());
+        }
+        private void cheatButton_Click(object sender, RoutedEventArgs e)
+        {
+            passwordTextBox.Visibility = Visibility.Visible;
+            emailTextBox.Visibility = Visibility.Visible;
+            guestButton.Visibility = Visibility.Visible;
+            registerButton.Visibility = Visibility.Visible;
+            loginButton.Visibility = Visibility.Visible;
         }
     }
 }

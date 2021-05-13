@@ -8,17 +8,18 @@
         Title="MainWindow"
         ResizeMode="NoResize"
         Height="600" Width="1000">
+
     <Grid>
         <Image Source="img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>
-        <Image Margin="-17,10,847,459" Source="img/LIBSYS_GREY.png"/>
-      
-        <TextBox x:Name="emailTextBox" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
-        <TextBox x:Name="passwordTextBox" Text="Lösenord" FontSize="20" Foreground="LightGray" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></TextBox>
-        <Button HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95" Click="loggain_Click">Logga In</Button>
-        <Button HorizontalAlignment="Center" Margin="100 170 100 0" FontSize="15" Height="30" Width="95">Registrera</Button>
+        <Image x:Name="logo" Margin="-17,10,847,459" Source="img/LIBSYS_GREY.png"/>
 
-        <Button x:Name="instantlog" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
-        <Frame x:Name="Main" Grid.ColumnSpan="2"></Frame>
-        <!-- Main ska tas bort när vi börjar navigera mot "huvudmeny-windowet" -->
+        <TextBox x:Name="emailTextBox" VerticalContentAlignment="Center" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
+        <TextBox x:Name="passwordTextBox" VerticalContentAlignment="Center" Text="Lösenord" FontSize="20" Foreground="LightGray" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></TextBox>
+        <Button x:Name="loginButton" HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95" Click="loggain_Click">Logga In</Button>
+        <Button x:Name="registerButton" HorizontalAlignment="Center" Margin="100 170 100 0" FontSize="15" Height="30" Width="95" Click="registerButton_Click">Registrera</Button>
+
+        <Button x:Name="guestButton" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
+        <Frame x:Name="Main" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"></Frame>
+        <Button x:Name="cheatButton" Click="cheatButton_Click" Margin="0,570,993,0" Visibility="Collapsed"></Button>
     </Grid>
 </Window>

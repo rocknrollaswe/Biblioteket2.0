@@ -17,6 +17,7 @@ using Bibblan.Views;
 using System.Linq;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Bibblan.Views
 {
@@ -110,13 +111,16 @@ namespace Bibblan.Views
             user.Permissions = 0; //Detta ska admin kunna ändra senare
 
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
-            user.Username = Encryption.Encrypt(userName.Text);
+            user.Username = Encryption.Encrypt("1");
             user.Password = Encryption.Encrypt(passWord.Password);
 
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
-            MessageBox.Show("Du har nu skapat upp en användare."); 
+            MessageBox.Show("Du har nu skapat upp en användare.");
 
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow 
+            mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
+            NavigationService.Navigate(null);
         }
 
 
@@ -130,93 +134,159 @@ namespace Bibblan.Views
         //Nedan är 'focus' för Grå hints inom Textboxen
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
-            firstNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            firstName.Visibility = System.Windows.Visibility.Visible;
-            firstName.Focus();
+            if(firstName.Foreground == Brushes.LightGray)
+            {
+                firstName.Text = "";
+                firstName.Foreground = Brushes.Black;
+            }
         }
         private void FirstLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(firstName.Text))
+            if(firstName.Text == "" || firstName.Text == null)
             {
-                firstNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                firstName.Visibility = System.Windows.Visibility.Visible;
+                firstName.Foreground = Brushes.LightGray;
+                firstName.Text = "Förnamn";
             }
         }
 
         private void LastFocus(object sender, RoutedEventArgs e)
         {
-            lastNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            lastName.Visibility = System.Windows.Visibility.Visible;
-            lastName.Focus();
+            if (lastName.Foreground == Brushes.LightGray)
+            {
+                lastName.Text = "";
+                lastName.Foreground = Brushes.Black;
+            }
         }
         private void LastLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(lastNameInputFocus.Text))
+            if(lastName.Text == "" || firstName.Text == null)
             {
-                lastNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                lastName.Visibility = System.Windows.Visibility.Visible;
+                lastName.Foreground = Brushes.LightGray;
+                lastName.Text = "Efternamn";
             }
         }
 
         private void EmailFocus(object sender, RoutedEventArgs e)
         {
-            emailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            eMail.Visibility = System.Windows.Visibility.Visible;
-            eMail.Focus();
+            if (eMail.Foreground == Brushes.LightGray)
+            {
+                eMail.Text = "";
+                eMail.Foreground = Brushes.Black;
+            }
         }
         private void EmailLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(emailInputFocus.Text))
+            if (eMail.Text == "" || firstName.Text == null)
             {
-                emailInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                eMail.Visibility = System.Windows.Visibility.Visible;
+                eMail.Foreground = Brushes.LightGray;
+                eMail.Text = "E-post";
             }
         }
 
         private void SSNFocus(object sender, RoutedEventArgs e)
         {
-            SSNInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            SSN.Visibility = System.Windows.Visibility.Visible;
-            SSN.Focus();
+            if (SSN.Foreground == Brushes.LightGray)
+            {
+                SSN.Text = "";
+                SSN.Foreground = Brushes.Black;
+            }
         }
         private void SSNLost(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(SSNInputFocus.Text))
+            if (SSN.Text == "" || firstName.Text == null)
             {
-                SSNInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                SSN.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void UserFocus(object sender, RoutedEventArgs e)
-        {
-            userNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            userName.Visibility = System.Windows.Visibility.Visible;
-            userName.Focus();
-        }
-        private void UserLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(userName.Text))
-            {
-                userNameInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                userName.Visibility = System.Windows.Visibility.Visible;
+                SSN.Foreground = Brushes.LightGray;
+                SSN.Text = "Personnummer";
             }
         }
         private void PassFocus(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(passWord.Password))
-            {
-                passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-                passWord.Visibility = System.Windows.Visibility.Visible;
-                passwordInfo.Visibility = Visibility.Visible;
-                passWord.Focus();
-            }
+            passwordInfo.Visibility = Visibility.Visible;
         }
 
         private void PassLost(object sender, RoutedEventArgs e)
         {
-            passwordInputFocus.Visibility = System.Windows.Visibility.Collapsed;
-            passWord.Visibility = System.Windows.Visibility.Visible;
             passwordInfo.Visibility = Visibility.Collapsed;
+            if (passWord.Password == null || passWord.Password == "")
+            {
+                passWordFalse.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void PassFalseFocus(object sender, RoutedEventArgs e)
+        {
+            passWordFalse.Visibility = Visibility.Collapsed;
+            passWord.Focus();
+        }
+
+        private void firstName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$") && firstName.Foreground == Brushes.Black)
+            {
+                firstNameImgValid.Visibility = Visibility.Visible;
+                firstNameImg.Visibility = Visibility.Collapsed;
+            }
+            else if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$") && firstName.Foreground == Brushes.Black)
+            {
+                firstNameImgValid.Visibility = Visibility.Collapsed;
+                firstNameImg.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void lastName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black)
+            {
+                lastNameImgValid.Visibility = Visibility.Visible;
+                lastNameImg.Visibility = Visibility.Collapsed;
+            }
+            else if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black)
+            {
+                lastNameImgValid.Visibility = Visibility.Collapsed;
+                lastNameImg.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void eMail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black)
+            {
+                eMailImgValid.Visibility = Visibility.Visible;
+                eMailImg.Visibility = Visibility.Collapsed;
+            }
+            else if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black)
+            {
+                eMailImgValid.Visibility = Visibility.Collapsed;
+                eMailImg.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void SSN_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Regex.IsMatch(SSN.Text, @"^([0-9]{12})$") && SSN.Foreground == Brushes.Black)
+            {
+                SSNImgValid.Visibility = Visibility.Visible;
+                SSNImg.Visibility = Visibility.Collapsed;
+            }
+            else if (!Regex.IsMatch(SSN.Text, @"^([0-9]{12})$") && SSN.Foreground == Brushes.Black)
+            {
+                SSNImgValid.Visibility = Visibility.Collapsed;
+                SSNImg.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void passWord_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            {
+                passWordImgValid.Visibility = Visibility.Visible;
+                passWordImg.Visibility = Visibility.Collapsed;
+            }
+            else if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            {
+                passWordImgValid.Visibility = Visibility.Collapsed;
+                passWordImg.Visibility = Visibility.Visible;
+            }
         }
     }
 }
