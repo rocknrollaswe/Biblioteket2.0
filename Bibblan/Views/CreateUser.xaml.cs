@@ -101,7 +101,12 @@ namespace Bibblan.Views
 
             if (DbInitialiser.Db.Users.Where(y => y.Socialsecuritynumber == Encryption.Encrypt(SSN.Text)).FirstOrDefault() != null) //kollar om angivna SSN redan existerar i DB:n
             {
-                MessageBox.Show("Användaren existerar redan"); //detta ska ändras till ett event
+                MessageBox.Show("Personnummret är redan kopplat till ett konto!"); //detta ska ändras till ett event
+                return;
+            }
+            else if (DbInitialiser.Db.Users.Where(y => y.Email == eMail.Text).FirstOrDefault() != null)
+            {
+                MessageBox.Show("Emailen är redan kopplat till ett konto!"); //detta ska ändras till ett event
                 return;
             }
 
