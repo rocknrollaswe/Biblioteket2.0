@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="LibSys" Height="600" Width="1000"
         ResizeMode="NoResize">
-    
-        
-        <Grid Background="LightBlue">
+
+
+        <Grid Background="#80B3B5">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -60,7 +60,7 @@
             </Grid>
             
             <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="670" Width="1200" Opacity="0.15" />
+            <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="670" Width="1200" Opacity="0.05" />
 
             <StackPanel Grid.Row="1">
                 <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
