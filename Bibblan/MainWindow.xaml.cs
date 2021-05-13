@@ -25,7 +25,11 @@ namespace Bibblan
         public MainWindow()
         {
             InitializeComponent();
-            DbInitialiser.InitialiseDB();       //connectar upp databasen
+            DbInitialiser.InitialiseDB();
+
+            var home = new Home();
+            this.Hide();
+            home.Show();
         }
 
         private void loggain_Click(object sender, RoutedEventArgs e)

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
+using Bibblan.Views; 
 using Bibblan.Services;
 
 namespace Bibblan.Views
@@ -53,6 +54,12 @@ namespace Bibblan.Views
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new DeleteUser());
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new UserPage2());
         }
     }
 }
