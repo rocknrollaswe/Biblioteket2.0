@@ -41,7 +41,7 @@
         <TextBox x:Name="passwordInputFocus" GotFocus="PassFocus" Text="Lösenord" Foreground="Silver"  Margin="0,86,10,87" MaxWidth="295" MaxHeight="41.04" FontSize="22" TextWrapping="Wrap" Grid.Row="2" Grid.Column="4" Grid.RowSpan="2"/>
         <Button x:Name="menu" Content="Meny" Click="menuButtonClick"  HorizontalAlignment="Left" Height="43" Margin="7,10,0,0" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#FF40B0D3" VerticalAlignment="Top" Width="95" Grid.Row="1" Grid.Column="1"/>
         <Label x:Name="passwordInfo" Visibility="Collapsed" Grid.Column="4" Margin="0,28,43,26" Grid.Row="3">
-            <TextBlock Focusable="True" Grid.Column="4" Grid.Row="3" Height="61">Lösenord ska vara 8 i längd <LineBreak/> Lösenordet kräver en stor bokstav <LineBreak/> Lösenorder kräver en siffra</TextBlock>
+            <TextBlock Focusable="True" Grid.Column="4" Grid.Row="3" Height="61">Lösenord ska vara 8 i längd <LineBreak/> Lösenordet kräver en stor bokstav <LineBreak/> Lösenordet kräver en siffra</TextBlock>
         </Label>
     </Grid>
 </Page>

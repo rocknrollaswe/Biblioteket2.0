@@ -12,7 +12,8 @@ using System.Windows.Shapes;
 using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
-using System.Linq; 
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bibblan.Views
 {
@@ -26,11 +27,14 @@ namespace Bibblan.Views
         public DeleteUser()
         {
             InitializeComponent();
-            foreach (var item in DbInitialiser.Db.Users)
-            {
-                dbVirtual.Add(item);
-            }
 
+            Task dbDownload = Task.Run(() =>
+            {
+                foreach (var item in DbInitialiser.Db.Users)
+                {
+                    dbVirtual.Add(item);
+                }
+            });
         }
 
         //DbInitialiser.Db.Users.Where(x => x.Socialsecuritynumber == Encryption.Encrypt(SSN)).SingleOrDefault();
@@ -38,6 +42,8 @@ namespace Bibblan.Views
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
+            Task.WaitAll();
+
             List<User> userQuery = dbVirtual.Where(x => x.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Lastname.ToLower().Contains(searchBox.Text.ToLower()) || x.Email.ToLower().Contains(searchBox.Text.ToLower())).DefaultIfEmpty().ToList();
 
             if (userQuery != null) // VÄLDIGT simpel sökfunktion, ska byggas på

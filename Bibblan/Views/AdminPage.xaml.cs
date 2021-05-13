@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using Bibblan.Views; 
+using Bibblan.Services;
 
 namespace Bibblan.Views
 {
@@ -22,6 +23,7 @@ namespace Bibblan.Views
         public AdminPage()
         {
             InitializeComponent();
+            MessageBox.Show(GlobalClass.userPermission.ToString()); //ENDAST FÖR ATT SE SÅ LOGIN FUNGERAR. SKA TAS BORT
         }
         private void createUserClick(object sender, RoutedEventArgs e)
         {
@@ -37,6 +39,8 @@ namespace Bibblan.Views
         {
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new Login());
+            GlobalClass.userFirstName = null;
+            GlobalClass.userPermission = null;
         }
 
         private void searchClick(object sender, RoutedEventArgs e)
