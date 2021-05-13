@@ -34,7 +34,7 @@ namespace Bibblan
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
             var connectedUser = DbInitialiser.Db.Users.Where(x => x.Email.ToLower() == emailTextBox.Text.ToLower()).SingleOrDefault();
-            if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Text)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
+            if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Password)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
             {
                 GlobalClass.userPermission = connectedUser.Permissions;  //sätter våra globala variabler för den specifika användaren
                 GlobalClass.userFirstName = connectedUser.Firstname;       //FYLL PÅ HÄR OM VI BEHÖVER FLER GLOBALA VARIABLER
@@ -72,8 +72,20 @@ namespace Bibblan
         {
             if (passwordTextBox.Foreground == Brushes.LightGray)
             {
-                passwordTextBox.Text = "";
-                passwordTextBox.Foreground = Brushes.Black;
+                passWordFalse.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void PassFalseFocus(object sender, RoutedEventArgs e)
+        {
+            passWordFalse.Visibility = Visibility.Collapsed;
+            passwordTextBox.Focus();
+        }
+        private void passWordTextBox_LostFocus(object sender, RoutedEventArgs e)        //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
+        {
+            if (passwordTextBox.Password == null || passwordTextBox.Password == "")
+            {
+                passWordFalse.Visibility = Visibility.Visible;
             }
         }
         private void emailTextBox_LostFocus(object sender, RoutedEventArgs e)       //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
@@ -84,16 +96,6 @@ namespace Bibblan
                 emailTextBox.Foreground = Brushes.LightGray;
             }
         }
-
-        private void passWordTextBox_LostFocus(object sender, RoutedEventArgs e)        //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
-        {
-            if (passwordTextBox.Text == "")
-            {
-                passwordTextBox.Text = "Lösenord";
-                passwordTextBox.Foreground = Brushes.LightGray;
-            }
-        }
-
         private void registerButton_Click(object sender, RoutedEventArgs e)
         {
             passwordTextBox.Visibility = Visibility.Collapsed;
