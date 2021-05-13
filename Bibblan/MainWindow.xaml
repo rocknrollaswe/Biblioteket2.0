@@ -15,6 +15,7 @@
         <TextBox x:Name="emailTextBox" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
         <TextBox x:Name="passwordTextBox" Text="Lösenord" FontSize="20" Foreground="LightGray" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></TextBox>
         <Button HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95" Click="loggain_Click">Logga In</Button>
+        <Button HorizontalAlignment="Center" Margin="100 170 100 0" FontSize="15" Height="30" Width="95">Registrera</Button>
 
         <Button x:Name="instantlog" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
         <Frame x:Name="Main" Grid.ColumnSpan="2"></Frame>
