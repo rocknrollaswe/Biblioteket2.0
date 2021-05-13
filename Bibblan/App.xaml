@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Bibblan"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <Style x:Key="RobotoFont">
+            <Setter Property="TextElement.FontFamily" Value="/Fonts/#Roboto"/>
+        </Style>
     </Application.Resources>
 </Application>
