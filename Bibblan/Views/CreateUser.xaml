@@ -12,7 +12,7 @@
     <Grid>
         <Border Background="LightGray" Opacity="0.85"></Border>
 
-        <Label FontSize="40" HorizontalAlignment="Center" Margin="0 10 0 520">Registrering</Label>
+        <Label FontSize="40" HorizontalAlignment="Center" Margin="0 10 0 520" Style="{StaticResource CardoFont}">Registrering</Label>
         <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0 80 0 460" TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>
 
         <Image x:Name="firstNameImg" Visibility="Collapsed" Margin="144,172,823,402" Source="/img/checkInvalid.png"/>
