@@ -64,22 +64,25 @@ namespace Bibblan.Views
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
         {
             autoList.ClearValue(ItemsControl.ItemsSourceProperty);
+            if (searchBox.Text.Length > 2)
+            {
+                 OpenSuggestionBox();
+
+                List<Book> showBooks = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+                List<string> titleList = new List<string>();
+                foreach (var item in showBooks)
+                {
+                    titleList.Add(item.Title);
+                }
+
+                autoList.ItemsSource = titleList;
+            }
+            autoList.ClearValue(ItemsControl.ItemsSourceProperty);
             if (searchBox.Text == null || searchBox.Text == "")
             {
                 CloseSuggestionBox();
                 return;
             }
-
-            OpenSuggestionBox();
-
-            List<Book> showBooks = dbVirtual.Where(x => x.Title.ToLower().Contains(searchBox.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
-            List<string> titleList = new List<string>();
-            foreach (var item in showBooks)
-            {
-                titleList.Add(item.Title);
-            }
-
-            autoList.ItemsSource = titleList;
         }
 
         private void autoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
