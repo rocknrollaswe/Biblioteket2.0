@@ -10,5 +10,8 @@
         <Style x:Key="CardoFont">
             <Setter Property="TextElement.FontFamily" Value="/Fonts/#Cardo"/>
         </Style>
+        
+        
+        
     </Application.Resources>
 </Application>

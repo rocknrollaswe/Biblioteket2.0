@@ -29,8 +29,9 @@ namespace Bibblan.Views
           
         }
 
-      
+        private void rButtonChangeUser_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
 
-     
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Bibblan.Views
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            Main2.Navigate(new UserPage2());
+            Main2.Navigate(new UserAdminPage());
         }
     }
 }

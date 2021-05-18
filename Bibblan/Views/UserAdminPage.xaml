@@ -32,12 +32,8 @@
                    Panel.ZIndex="2"
                    Margin="0, -20, 0, 0"/>
 
-        <Grid Margin="0, 80, 0, 0">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.ColumnSpan="2" Margin="0, 0, 0, 0">
+        
+            <StackPanel HorizontalAlignment="Left"  Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0, 125, 0, 0">
                 <TextBox x:Name="firstNameBox" Text="Förnamn" Foreground="Silver" FontSize="16" Padding="0, 8, 0, 3" Height="30" Width="300" Margin="40, 0, 0, 0" Background="AliceBlue"/>
                 <TextBox x:Name="lastNameBox" Text="Efternamn" Foreground="Silver" FontSize="16" Padding="0, 8, 0, 3"  Height="30" Width="300" Margin="40, 5, 0, 0" Background="AliceBlue"/>
                 <TextBox x:Name="emailBox" Text="E-mail" Foreground="Silver" FontSize="16" Padding="0, 8, 0, 3"  Height="30" Width="300" Margin="40, 5, 0, 0" Background="AliceBlue"/>
@@ -55,14 +51,13 @@
                     </ComboBox>
                 </WrapPanel>
             </StackPanel>
-        </Grid>
+       
 
-        <StackPanel Margin="40" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="0">
-            <RadioButton Content="Ändra användare" FontWeight="Bold">
+        <StackPanel Margin="40" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="1">
+            <RadioButton x:Name="rButtonChangeUser" IsEnabledChanged="rButtonChangeUser_IsEnabledChanged" Content="Ändra användare" FontWeight="Bold" FontSize="15">
                 
             </RadioButton>
-            <RadioButton Content="Ta bort användare" FontWeight="Bold" Margin="0, 10, 0, 0">
-                
+            <RadioButton x:Name="rButtonRemoveUser" Content="Ta bort användare" FontWeight="Bold" Margin="0, 10, 0, 0" FontSize="15">
                 
             </RadioButton>
 
@@ -73,10 +68,18 @@
 
         <StackPanel 
             Grid.Row="0"  
-            Grid.Column="1" 
+            Grid.Column="0" 
             Grid.RowSpan="2"
-            Margin="-40,70,0,0">
-            
+            Margin="40,70,0,0">
+
+            <Border CornerRadius="20" Height="30" Width="250" Background="AliceBlue" Margin="0, 0, 0, 20" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
+                <WrapPanel Orientation="Horizontal" Margin="10, 5">
+                    <TextBox x:Name="searchBar" Text="SÖK" Foreground="Black" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" />
+                    <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
+                </WrapPanel>
+            </Border>
+
+
             <Border CornerRadius="30" 
                 Background="AliceBlue" 
                 Opacity="1" Panel.ZIndex="-1" 
@@ -85,7 +88,7 @@
                 Width="380"
                 Height="300"
                 >
-            <ListView x:Name="LVModifyUser" 
+                <ListView x:Name="LVModifyUser" 
                       BorderBrush="Transparent"
                       Background="Transparent" 
                       Width="360" 
@@ -94,7 +97,7 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Top"
                       Margin="10">
-                <ListView.View>
+                    <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Firstname}" Header="Förnamn" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Lastname}" Header="Efternamn" Width="70"/>
@@ -104,26 +107,14 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-             </Border>
-
-            <Border CornerRadius="20" Height="30" Width="250" Background="AliceBlue" Margin="0, 20, 0, 0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
-                <WrapPanel Orientation="Horizontal" Margin="10, 5">
-                    <TextBox x:Name="searchBar"  Text="Julia" Foreground="Black" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" />
-                    <Image Source="/img/MagnifyingGlass.png"  RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
-                </WrapPanel>
             </Border>
+
+            <Border CornerRadius="20" Height="100" Width="250" Background="AliceBlue" Margin="0, 10, 0, 20" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top">
+                <TextBox x:Name="CommentBox" TextWrapping="Wrap" Text="Kommentarer om användare" FontSize="15" Foreground="Silver" Background="AliceBlue" Height="auto" Width="auto" Margin="10" Padding="5" BorderBrush="AliceBlue" />
+            </Border>
+
+
         </StackPanel>
-
-
-
-
-
- 
-
-
-
-
-
 
     </Grid>
 </Page>
