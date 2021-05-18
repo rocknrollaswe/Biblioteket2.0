@@ -26,5 +26,10 @@ namespace Bibblan.Views
         {
             Main2.Navigate(new UserAdminPage());
         }
+
+        private void Stock_Click(object sender, RoutedEventArgs e)
+        {
+            Main2.Navigate(new BookStock());
+        }
     }
 }

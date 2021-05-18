@@ -22,11 +22,9 @@ namespace Bibblan.Views
     /// </summary>
     public partial class UserAdminPage : Page
     {
-       
         public UserAdminPage()
         {
             InitializeComponent();
-          
         }
 
         private void rButtonChangeUser_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

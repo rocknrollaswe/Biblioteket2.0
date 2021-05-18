@@ -63,7 +63,7 @@ namespace Bibblan
         {
             if(emailTextBox.Foreground == Brushes.LightGray)
             {
-                emailTextBox.Text = "";
+                emailTextBox.Text = "email@gmail.com";
                 emailTextBox.Foreground = Brushes.Black;
             }
         }
@@ -72,6 +72,7 @@ namespace Bibblan
         {
             if (passwordTextBox.Foreground == Brushes.LightGray)
             {
+                passwordTextBox.Password = "Password1";
                 passWordFalse.Visibility = Visibility.Collapsed;
             }
         }
