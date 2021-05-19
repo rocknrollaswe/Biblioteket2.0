@@ -12,17 +12,11 @@ namespace Bibblan.Models
         public string Lastname { get; set; }
         public byte[] Socialsecuritynumber { get; set; }
         public int Permissions { get; set; }
-        public byte[] Username { get; set; }
         public byte[] Password { get; set; }
         public string Email { get; set; }
         public byte? HasLoanCard { get; set; }
+        public string UserComment { get; set; }
 
         public virtual Permission PermissionsNavigation { get; set; }
-
-        public override string ToString()
-        {
-            return $"{UserId}, {Firstname}, {Lastname}, {Email}"; 
-        }
-
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Bibblan.Views
 {
@@ -21,20 +22,25 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Addbooks : Page
     {
+        List<Book> Books = new List<Book>();
         public Addbooks()
         {
             InitializeComponent();
             WrongEntry += Alert;
+            foreach (var item in DbInitialiser.Db.Books)
+            {
+                Books.Add(item);
+            }
 
+            DataContext = Books;
+            LVBooks.ItemsSource = Books;
+  
         }
-
 
         public static void Alert(object sender, string message)
         {
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
-
-            //Console.WriteLine($"Meddelande: {message}"); //detta ska tas bort sen
 
         }
 
@@ -45,26 +51,117 @@ namespace Bibblan.Views
             WrongEntry?.Invoke(this, e);
         }
 
-
-        public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
+        private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            var book = new Book();
+            //if (titleBox.Text == "" || authorBox.Text == "" || descriptionBox.Text == "" || editionBox.Text == "" || priceBox.Text == "" || ddkBox.Text == "" || sabBox.Text == "" || publisherBox.Text == "") //Kollar om user input är tomt
+            //{
+            //    OnWrongEntry("Du har inte angett data i samtliga fält!");
+            //    return;
+            //}
 
-            if (DbInitialiser.Db.Books.Where(b => b.Title == title).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(edition)).FirstOrDefault() != null)
+            if (titleBox.Text.Length == 0)
+            {
+                MessageBox.Show("Ange Titel.");
+                titleBox.Focus();
+                return;
+            }
+
+            if (authorBox.Text.Length == 0)
+            {
+                MessageBox.Show("Ange Författare.");
+                authorBox.Focus();
+                return;
+            }
+
+            if (descriptionBox.Text.Length == 0)
+            {
+                MessageBox.Show("Ange Beskrivning.");
+                descriptionBox.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(editionBox.Text, @"^([0-9]{4})$"))
+            {
+                MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga.");
+                editionBox.Focus();
+                return;
+            }
+            if (publisherBox.Text.Length == 0)
+            {
+                MessageBox.Show("Ange Förlag.");
+                publisherBox.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
+
+            {
+                MessageBox.Show("Ange Pris.");
+                priceBox.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
+            {
+                MessageBox.Show("Ange bara siffror i DDK.");
+                ddkBox.Focus();
+                return;
+            }
+
+            if (sabBox.Text.Length == 0)
+            {
+                MessageBox.Show("Ange Sab");
+                sabBox.Focus();
+                return;
+            }
+
+            if (!Regex.IsMatch(amountBox.Text, @"^([0-9]{1,4})$"))
+            {
+                MessageBox.Show("Ange Antal.");
+                amountBox.Focus();
+                return;
+            }
+
+
+            var book = new Book();
+            if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text)).FirstOrDefault() != null)
             {
                 OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
                 return;
             }
 
+            int ebokCheck = 0;
 
-            book.Title = title;
-            book.Author = author;
-            book.Description = description;
-            book.Edition = int.Parse(edition);
-            book.Price = decimal.Parse(price);
-            book.Ddk = int.Parse(ddk);
-            book.Sab = sab;
-            book.Publisher = publisher;
+
+            if (ebok.IsChecked == true)
+                ebokCheck = 1;
+
+            AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck, Convert.ToInt32(amountBox.Text));
+
+            LVBooks.Items.Refresh();
+            Clearer();
+
+
+            
+        }
+
+        public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
+        {
+            var book = new Book();
+            if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text)).FirstOrDefault() != null)
+            {
+                OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
+                return;
+            }
+
+            book.Title = titleBox.Text;
+            book.Author = authorBox.Text;
+            book.Description = descriptionBox.Text;
+            book.Edition = int.Parse(editionBox.Text);
+            book.Price = decimal.Parse(priceBox.Text);
+            book.Ddk = int.Parse(ddkBox.Text);
+            book.Sab = sabBox.Text;
+            book.Publisher = publisherBox.Text;
             book.Category = isEbook1Else0;
 
 
@@ -72,9 +169,196 @@ namespace Bibblan.Views
                                         // hämtar isbn för den nyss tillagda boken
             DbInitialiser.Db.SaveChanges();
 
+            MessageBox.Show("Du har nu lagt till en bok!");
+
+            foreach (var item in DbInitialiser.Db.Books)
+            {
+                Books.Add(item);
+            }
+
             AddStockBook(title, edition, howMany);
 
         }
+
+        public void Clearer()
+        {
+            LVBooks.Items.Refresh();
+            titleBox.Foreground = Brushes.LightGray;
+            titleBox.Text = "Titel";
+            authorBox.Foreground = Brushes.LightGray;
+            authorBox.Text = "Författare";
+            descriptionBox.Foreground = Brushes.LightGray;
+            descriptionBox.Text = "Beskrivning";
+            editionBox.Foreground = Brushes.LightGray;
+            editionBox.Text = "Upplaga";
+            publisherBox.Foreground = Brushes.LightGray;
+            publisherBox.Text = "Förlag";
+            priceBox.Foreground = Brushes.LightGray;
+            priceBox.Text = "Pris";
+            ddkBox.Foreground = Brushes.LightGray;
+            ddkBox.Text = "DDK";
+            sabBox.Foreground = Brushes.LightGray;
+            sabBox.Text = "Sab";
+            amountBox.Foreground = Brushes.LightGray;
+            amountBox.Text = "Antal";
+        }
+
+        private void TitleFocus(object sender, RoutedEventArgs e)
+        {
+            if (titleBox.Foreground == Brushes.LightGray)
+            {
+                titleBox.Text = "";
+                titleBox.Foreground = Brushes.Black;
+            }
+        }
+        private void TitleLost(object sender, RoutedEventArgs e)
+        {
+            if (titleBox.Text == "" || titleBox.Text == null)
+            {
+                titleBox.Foreground = Brushes.LightGray;
+                titleBox.Text = "Titel";
+            }
+        }
+
+        private void AuthorFocus(object sender, RoutedEventArgs e)
+        {
+            if (authorBox.Foreground == Brushes.LightGray)
+            {
+                authorBox.Text = "";
+                authorBox.Foreground = Brushes.Black;
+            }
+        }
+        private void AuthorLost(object sender, RoutedEventArgs e)
+        {
+            if (authorBox.Text == "" || titleBox.Text == null)
+            {
+                authorBox.Foreground = Brushes.LightGray;
+                authorBox.Text = "Författare";
+            }
+        }
+
+        private void DescriptionFocus(object sender, RoutedEventArgs e)
+        {
+            if (descriptionBox.Foreground == Brushes.LightGray)
+            {
+                descriptionBox.Text = "";
+                descriptionBox.Foreground = Brushes.Black;
+            }
+        }
+        private void DescriptionLost(object sender, RoutedEventArgs e)
+        {
+            if (descriptionBox.Text == "" || titleBox.Text == null)
+            {
+                descriptionBox.Foreground = Brushes.LightGray;
+                descriptionBox.Text = "Beskrivning";
+            }
+        }
+
+        private void EditionFocus(object sender, RoutedEventArgs e)
+        {
+            if (editionBox.Foreground == Brushes.LightGray)
+            {
+                editionBox.Text = "";
+                editionBox.Foreground = Brushes.Black;
+            }
+        }
+        private void EditionLost(object sender, RoutedEventArgs e)
+        {
+            if (editionBox.Text == "" || titleBox.Text == null)
+            {
+                editionBox.Foreground = Brushes.LightGray;
+                editionBox.Text = "Upplaga";
+            }
+        }
+
+        private void PublisherFocus(object sender, RoutedEventArgs e)
+        {
+            if (publisherBox.Foreground == Brushes.LightGray)
+            {
+                publisherBox.Text = "";
+                publisherBox.Foreground = Brushes.Black;
+            }
+        }
+        private void PublisherLost(object sender, RoutedEventArgs e)
+        {
+            if (publisherBox.Text == "" || titleBox.Text == null)
+            {
+                publisherBox.Foreground = Brushes.LightGray;
+                publisherBox.Text = "Förlag";
+            }
+        }
+
+
+        private void PriceFocus(object sender, RoutedEventArgs e)
+        {
+            if (priceBox.Foreground == Brushes.LightGray)
+            {
+                priceBox.Text = "";
+                priceBox.Foreground = Brushes.Black;
+            }
+        }
+        private void PriceLost(object sender, RoutedEventArgs e)
+        {
+            if (priceBox.Text == "" || titleBox.Text == null)
+            {
+                priceBox.Foreground = Brushes.LightGray;
+                priceBox.Text = "Pris";
+            }
+        }
+
+        private void DdkFocus(object sender, RoutedEventArgs e)
+        {
+            if (ddkBox.Foreground == Brushes.LightGray)
+            {
+                ddkBox.Text = "";
+                ddkBox.Foreground = Brushes.Black;
+            }
+        }
+        private void DdkLost(object sender, RoutedEventArgs e)
+        {
+            if (ddkBox.Text == "" || titleBox.Text == null)
+            {
+                ddkBox.Foreground = Brushes.LightGray;
+                ddkBox.Text = "DDK";
+            }
+        }
+
+        private void SabFocus(object sender, RoutedEventArgs e)
+        {
+            if (sabBox.Foreground == Brushes.LightGray)
+            {
+                sabBox.Text = "";
+                sabBox.Foreground = Brushes.Black;
+            }
+        }
+        private void SabLost(object sender, RoutedEventArgs e)
+        {
+            if (sabBox.Text == "" || titleBox.Text == null)
+            {
+                sabBox.Foreground = Brushes.LightGray;
+                sabBox.Text = "Sab";
+            }
+        }
+
+
+        private void AmountFocus(object sender, RoutedEventArgs e)
+        {
+            if (amountBox.Foreground == Brushes.LightGray)
+            {
+                amountBox.Text = "";
+                amountBox.Foreground = Brushes.Black;
+            }
+        }
+        private void AmountLost(object sender, RoutedEventArgs e)
+        {
+            if (amountBox.Text == "" || titleBox.Text == null)
+            {
+                amountBox.Foreground = Brushes.LightGray;
+                amountBox.Text = "Antal";
+            }
+        }
+
+
         public void AddStockBook(string title, string edition, int amount)
         {
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
@@ -93,163 +377,17 @@ namespace Bibblan.Views
 
         }
 
-        private void AddBookButton_Click(object sender, RoutedEventArgs e)
+        private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-            int ebokCheck = 0;
+            GlobalClass.chosenIsbn = LVBooks.SelectedItem as Book;
+            MessageBox.Show(GlobalClass.chosenIsbn.Title);
 
-
-            if (ebokBox.IsChecked == true)
-                ebokCheck = 1;
-
-            AddBook(trueTitle.Text, trueAuth.Text, trueDesc.Text, trueEdition.Text, truePrice.Text, trueDDK.Text, trueSAB.Text, truePublish.Text, ebokCheck, Convert.ToInt32(trueAmount.Text));
-
-
+            this.NavigationService.Navigate(new SearchbookA()); //Byt ut SearchbookA med Morgans sida/class
         }
 
 
+      
 
-        private void menuButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService nav = NavigationService.GetNavigationService(this);
-            nav.Navigate(new AdminPage());
-        }
 
-        private void TitleFocus(object sender, RoutedEventArgs e)
-        {
-            falseTitle.Visibility = System.Windows.Visibility.Collapsed;
-            trueTitle.Visibility = System.Windows.Visibility.Visible;
-            trueTitle.Focus();
-        }
-
-        private void TitleLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueTitle.Text))
-            {
-                falseTitle.Visibility = System.Windows.Visibility.Collapsed;
-                trueTitle.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-
-        private void AuthFocus(object sender, RoutedEventArgs e)
-        {
-            falseAuth.Visibility = System.Windows.Visibility.Collapsed;
-            trueAuth.Visibility = System.Windows.Visibility.Visible;
-            trueAuth.Focus();
-        }
-
-        private void AuthLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueAuth.Text))
-            {
-                falseAuth.Visibility = System.Windows.Visibility.Collapsed;
-                trueAuth.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void EditionFocus(object sender, RoutedEventArgs e)
-        {
-            falseEdition.Visibility = System.Windows.Visibility.Collapsed;
-            trueEdition.Visibility = System.Windows.Visibility.Visible;
-            trueEdition.Focus();
-        }
-
-        private void EditionLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueEdition.Text))
-            {
-                falseEdition.Visibility = System.Windows.Visibility.Collapsed;
-                trueEdition.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void DDKFocus(object sender, RoutedEventArgs e)
-        {
-            falseDDK.Visibility = System.Windows.Visibility.Collapsed;
-            trueDDK.Visibility = System.Windows.Visibility.Visible;
-            trueDDK.Focus();
-        }
-
-        private void DDKLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueDDK.Text))
-            {
-                falseDDK.Visibility = System.Windows.Visibility.Collapsed;
-                trueDDK.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void SABFocus(object sender, RoutedEventArgs e)
-        {
-            falseSAB.Visibility = System.Windows.Visibility.Collapsed;
-            trueSAB.Visibility = System.Windows.Visibility.Visible;
-            trueSAB.Focus();
-        }
-
-        private void SABLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueSAB.Text))
-            {
-                falseSAB.Visibility = System.Windows.Visibility.Collapsed;
-                trueSAB.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void PublishFocus(object sender, RoutedEventArgs e)
-        {
-            falsePublish.Visibility = System.Windows.Visibility.Collapsed;
-            truePublish.Visibility = System.Windows.Visibility.Visible;
-            truePublish.Focus();
-        }
-
-        private void PublishLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(truePublish.Text))
-            {
-                falsePublish.Visibility = System.Windows.Visibility.Collapsed;
-                truePublish.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-        private void PriceFocus(object sender, RoutedEventArgs e)
-        {
-            falsePrice.Visibility = System.Windows.Visibility.Collapsed;
-            truePrice.Visibility = System.Windows.Visibility.Visible;
-            truePrice.Focus();
-        }
-
-        private void PriceLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(truePrice.Text))
-            {
-                falsePrice.Visibility = System.Windows.Visibility.Collapsed;
-                truePrice.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-
-        private void DescFocus(object sender, RoutedEventArgs e)
-        {
-            falseDesc.Visibility = System.Windows.Visibility.Collapsed;
-            trueDesc.Visibility = System.Windows.Visibility.Visible;
-            trueDesc.Focus();
-        }
-        private void DescLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueDesc.Text))
-            {
-                falseDesc.Visibility = System.Windows.Visibility.Collapsed;
-                trueDesc.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
-
-        private void AmountFocus(object sender, RoutedEventArgs e)
-        {
-            falseAmount.Visibility = System.Windows.Visibility.Collapsed;
-            trueAmount.Visibility = System.Windows.Visibility.Visible;
-            trueAmount.Focus();
-        }
-
-        private void AmountLost(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(trueAmount.Text))
-            {
-                falseAmount.Visibility = System.Windows.Visibility.Collapsed;
-                trueAmount.Visibility = System.Windows.Visibility.Visible;
-            }
-        }
     }
 }
