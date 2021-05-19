@@ -25,10 +25,5 @@ namespace Bibblan.Models
 
         public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
-
-        public override string ToString()
-        {
-            return $"{this.Title}, {this.Author}, {this.Description}";
-        }
     }
 }

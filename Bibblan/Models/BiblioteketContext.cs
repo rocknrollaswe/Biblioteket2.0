@@ -108,13 +108,13 @@ namespace Bibblan.Models
                     .WithMany()
                     .HasForeignKey(d => d.StockId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Loanlog__StockID__58D1301D");
+                    .HasConstraintName("FK__Loanlog__StockID__5BAD9CC8");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Loanlog__UserID__57DD0BE4");
+                    .HasConstraintName("FK__Loanlog__UserID__5AB9788F");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -134,6 +134,14 @@ namespace Bibblan.Models
 
                 entity.Property(e => e.StockId).HasColumnName("StockID");
 
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Condition)
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Isbn).HasColumnName("ISBN");
 
                 entity.HasOne(d => d.IsbnNavigation)
@@ -145,6 +153,9 @@ namespace Bibblan.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Email, "uniqueEmail")
+                    .IsUnique();
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Email)
@@ -168,7 +179,9 @@ namespace Bibblan.Models
 
                 entity.Property(e => e.Socialsecuritynumber).IsRequired();
 
-                entity.Property(e => e.Username).IsRequired();
+                entity.Property(e => e.UserComment)
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.PermissionsNavigation)
                     .WithMany(p => p.Users)
