@@ -12,26 +12,19 @@
         <Border Background="#80B3B5" Height="600" Width="800" Opacity="0.3"/>
         <Label FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Top">Lager</Label>
 
-        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Left" Width="450" Height="300" Margin="40 40 0 0">
+        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" HorizontalAlignment="Left" Width="450" Height="300" Margin="40 40 0 0">
             <ListView x:Name="LVBookStock" BorderBrush="Transparent" Background="Transparent" Width="430" Height="280" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top"  Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="StockID" Width="70"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="ISBN" Width="70"/>
-                        <!--<GridViewColumn DisplayMemberBinding="{Binding Email}" Header="Skick" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Permissions}" Header="Utrangerad" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding HasLoanCard}" Header="Kommentar" Width="70"/>-->
-                        <!--<GridViewColumn Header="Category" Width="70"/>-->
+                        <GridViewColumn DisplayMemberBinding="{Binding Condition}" Header="Skick" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Discarded}" Header="Utrangerad" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Comment}" Header="Kommentar" Width="70"/>
+                        <GridViewColumn Header="Category" Width="70"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-        </Border>
-
-        <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="135 110 0 0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <WrapPanel Orientation="Horizontal" Margin="10, 5">
-                <TextBox x:Name="searchBar" Text="Sök" BorderThickness="0" Foreground="Black" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" TextChanged="searchBar_TextChanged"/>
-                <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
-            </WrapPanel>
         </Border>
 
         <Border CornerRadius="18" Margin="215 0 0 50" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#597C7D">
@@ -51,6 +44,13 @@
                 <ComboBoxItem>Riktigt skit</ComboBoxItem>
             </ComboBox>
         </WrapPanel>
+
+        <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="135 110 0 0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <WrapPanel Orientation="Horizontal" Margin="10, 5">
+                <TextBox x:Name="searchBar" Text="Sök" BorderThickness="0" Foreground="Black" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" TextChanged="searchBar_TextChanged"/>
+                <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
+            </WrapPanel>
+        </Border>
 
         <Button x:Name="addBooksButton" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 115 240" Content="Lägg till" FontSize="15" Click="addBooksButton_Click"></Button>
     </Grid>

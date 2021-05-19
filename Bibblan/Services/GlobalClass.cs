@@ -11,7 +11,7 @@ namespace Bibblan.Services
 #nullable enable //gör så att allt inom nullable går att nulla
         public static int? userPermission { get; set; }
         public static string? userFirstName { get; set; }
-        public static Book? chosenIsbn { get; set; }
+        public static Book? chosenBook { get; set; }
 #nullable disable //slutet av nullable, allt efter kan inte nullas
     }
 }

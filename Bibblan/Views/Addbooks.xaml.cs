@@ -379,15 +379,9 @@ namespace Bibblan.Views
 
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-            GlobalClass.chosenIsbn = LVBooks.SelectedItem as Book;
-            MessageBox.Show(GlobalClass.chosenIsbn.Title);
+            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
 
-            this.NavigationService.Navigate(new SearchbookA()); //Byt ut SearchbookA med Morgans sida/class
+            this.NavigationService.Navigate(new BookStock()); //Byt ut SearchbookA med Morgans sida/class
         }
-
-
-      
-
-
     }
 }

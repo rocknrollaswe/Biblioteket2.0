@@ -23,6 +23,8 @@ namespace Bibblan.Views
     public partial class BookStock : Page
     {
         List<Stock> dbVirtual = new List<Stock>();
+        int test;
+        string test2;
         public BookStock()
         {
             InitializeComponent();
@@ -33,6 +35,9 @@ namespace Bibblan.Views
                     dbVirtual.Add(item);
                 }
             });
+            
+            Task.WaitAll();
+            test = GlobalClass.chosenBook.Isbn;
         }
 
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
@@ -47,23 +52,21 @@ namespace Bibblan.Views
 
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Task.WaitAll();
 
-            LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+            //LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
 
             if (searchBar.Text.Length > 0)
             {
-                List<Stock> showBooks = dbVirtual.Where(x => x.Isbn.ToString().Contains(searchBar.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+                List<Stock> showBooks = dbVirtual.Where(x => x.Isbn.ToString().Contains(searchBar.Text.ToLower())).ToList(); //tar fram böckerna som innehåller userinput för ISBN just nu, ska läggas till mer än bara titel
 
                 LVBookStock.ItemsSource = showBooks;
             }
-            
+
             if (searchBar.Text == null || searchBar.Text == "")
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
                 return;
             }
-            
         }
     }
 }
