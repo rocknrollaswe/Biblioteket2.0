@@ -97,6 +97,14 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
+            <Button Padding="5" Background="Transparent" x:Name="AddBooks" Click="AddBooks_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0"  
+                               Style="{StaticResource RobotoFont}">
+                               Lägg till böcker
+                    </TextBlock>
+                </StackPanel>
+            </Button>
 
         </StackPanel>
 
