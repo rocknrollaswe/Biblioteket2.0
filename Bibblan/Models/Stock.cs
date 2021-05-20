@@ -9,6 +9,9 @@ namespace Bibblan.Models
     {
         public int StockId { get; set; }
         public int Isbn { get; set; }
+        public string Comment { get; set; }
+        public string Condition { get; set; }
+        public int? Discarded { get; set; }
 
         public virtual Book IsbnNavigation { get; set; }
     }
