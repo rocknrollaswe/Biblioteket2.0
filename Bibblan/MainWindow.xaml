@@ -16,10 +16,10 @@
         <TextBox x:Name="emailTextBox" VerticalContentAlignment="Center" Text="E-post" FontSize="20" Foreground="LightGray" Margin="100 100 100 180" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="emailTextBox_GotFocus" LostFocus="emailTextBox_LostFocus"></TextBox>
         <PasswordBox x:Name="passwordTextBox" VerticalContentAlignment="Center" FontSize="20" Margin="100 100 100 90" Width="200" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" GotFocus="passWordTextBox_GotFocus" LostFocus="passWordTextBox_LostFocus"></PasswordBox>
         <TextBox x:Name="passWordFalse" VerticalContentAlignment="Center" GotFocus="PassFalseFocus" Margin="100 100 100 90" Width="200" Height="35" FontSize="22" Text="Lösenord" Foreground="LightGray"/>
-        <Button x:Name="loginButton" HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="30" Width="95" Click="loggain_Click">Logga In</Button>
-        <Button x:Name="registerButton" HorizontalAlignment="Center" Margin="100 170 100 0" FontSize="15" Height="30" Width="95" Click="registerButton_Click">Registrera</Button>
+        <Button x:Name="loginButton" Style="{StaticResource ROB}" HorizontalAlignment="Center" Margin="100 100 100 0" FontSize="15" Height="36" Width="95" Click="loggain_Click">Logga In</Button>
+        <Button x:Name="registerButton" Style="{StaticResource ROB}" HorizontalAlignment="Center" Margin="100 170 100 0" FontSize="15" Height="36" Width="95" Click="registerButton_Click">Registrera</Button>
 
-        <Button x:Name="guestButton" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
+        <Button x:Name="guestButton" Style="{StaticResource ROB}" Click="instantlogc" Content="Gäst" FontSize="20" HorizontalAlignment="Left" Margin="890,0,0,10" VerticalAlignment="Bottom" Height="41" Width="98"/>
         <Frame x:Name="Main" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"></Frame>
         <Button x:Name="cheatButton" Click="cheatButton_Click" Margin="0,570,993,0" Visibility="Collapsed"></Button>
     </Grid>

@@ -9,32 +9,32 @@
         ResizeMode="NoResize">
 
 
-        <Grid Background="#80B3B5">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            
-           
-            <Grid Grid.ColumnSpan="4" 
+    <Grid Background="#80B3B5">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.ColumnSpan="4" 
               Grid.RowSpan="3"
               Margin= "70, -20, 0, 0" Opacity="0.55">
 
-                <Grid.RenderTransform>
-                    <RotateTransform Angle="55"/>
-                </Grid.RenderTransform>
+            <Grid.RenderTransform>
+                <RotateTransform Angle="55"/>
+            </Grid.RenderTransform>
 
-                <StackPanel Orientation="Horizontal" Panel.ZIndex="-1" >
-                    <StackPanel>
-                        <Border 
+            <StackPanel Orientation="Horizontal" Panel.ZIndex="-1" >
+                <StackPanel>
+                    <Border 
                         Background="HotPink" 
                         Opacity="0.8"
                         Width="670"
@@ -42,76 +42,77 @@
                         CornerRadius="20"
                         Margin="-30, 0, 0, 0"/>
 
-                        <Border 
+                    <Border 
                         Background="LightPink" 
                         Width="650"
                         Height="35" 
                         CornerRadius="20"
                         Margin="-110, 6, 0, 0"/>
-                        <Border  
+                    <Border  
                         Background="LightCoral"
     
                         Width="720"
                         Height="35" 
                         CornerRadius="20"
                         Margin="20, 8, 0, 0"/>
-                    </StackPanel>
                 </StackPanel>
-            </Grid>
-            
-            <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
-            <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="670" Width="1200" Opacity="0.05" />
+            </StackPanel>
+        </Grid>
 
-            <StackPanel Grid.Row="1">
-                <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
-                    <TextBox x:Name="searchUserBox" 
-                             HorizontalAlignment="Left" 
+        <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="670" Width="1200" Opacity="0.05" />
+
+        <StackPanel Grid.Row="1" Grid.RowSpan="2">
+            <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
+                <TextBox x:Name="searchUserBox" 
+                             HorizontalAlignment="Center" 
                              Background="#FFFFFEFE" 
                              TextWrapping="Wrap" 
-                             VerticalAlignment="Top" 
-                             Width="120" 
+                             VerticalAlignment="Center" 
+                             Width="139" 
                              Height="24"
-                             Margin="30, 0, 0, 0"
                              Padding="5"/>
-                <Button x:Name="searchUserButton" 
-                        Content="Sök" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top" 
-                        Height="24"
-                        Margin="2,0,0,0"/>
+                <Button x:Name="searchUserButton"
+                        Style="{StaticResource ROB}"
+                        Content="Sök"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Height="30" Width="50"/>
             </WrapPanel>
 
-            <Button Padding="5" Background="Transparent" x:Name="user_button" Click="Menu_Click">
+            <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="user_button" Click="Menu_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"  
-                               Style="{StaticResource RobotoFont}">
+                               Style="{StaticResource RobotoFont}" FontSize="14">
                                Administrera Användare
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <Button   Padding="5" Background="Transparent" x:Name="AddBooks" Click="AddBooks_Click">
+
+            <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="AddBooks" Click="AddBooks_Click">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0"  
+                    <TextBlock Margin="5,0"
+                               FontSize="14"
                                Style="{StaticResource RobotoFont}">
                                Lägg till böcker
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <Button Padding="5" Background="Transparent" x:Name="AddBooks1" Click="AddBooks_Click">
+
+            <Button Style="{StaticResource ROB}" Width="170" Height="38" Margin="0,10,0,0" Padding="10" x:Name="SeeUser">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,0"  
-                               Style="{StaticResource RobotoFont}">
-                               test
-                    </TextBlock>
+                    <TextBlock Margin="5,0"
+                               FontSize="14"
+                               Style="{StaticResource RobotoFont}"><Run Text="Sök"/><Run Language="en-gb" Text=" &amp;"/><Run Text=" Låna "/><Run Text="B"/><Run Text="öcker"/></TextBlock>
                 </StackPanel>
             </Button>
-
         </StackPanel>
 
+
         <Frame x:Name="Main2" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden">
-            
-            
+
+
         </Frame>
-            
-        </Grid>
+        <Button x:Name="Loggaut" Click="LogOut_Click" Content="Logga ut" FontSize="18" Style="{StaticResource ROB}" HorizontalAlignment="Center" Height="40" Margin="0,96,0,0" Grid.Row="3" VerticalAlignment="Top" Width="122"/>
+    </Grid>
 </Window>
