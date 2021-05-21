@@ -14,6 +14,7 @@ using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Bibblan.Views
 {
@@ -22,23 +23,23 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Addbooks : Page
     {
-        List<Book> Books = new List<Book>();
+
+        List<Book> virtualBooks = new List<Book>();
         public Addbooks()
         {
             InitializeComponent();
             WrongEntry += Alert;
             foreach (var item in DbInitialiser.Db.Books)
             {
-                Books.Add(item);
+                virtualBooks.Add(item);
             }
 
-            DataContext = Books;
-            LVBooks.ItemsSource = Books;
-  
+            DataContext = virtualBooks;
+            LVBooks.ItemsSource = virtualBooks;
         }
 
         public static void Alert(object sender, string message)
-        {
+        { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
 
@@ -53,11 +54,11 @@ namespace Bibblan.Views
 
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (titleBox.Text == "" || authorBox.Text == "" || descriptionBox.Text == "" || editionBox.Text == "" || priceBox.Text == "" || ddkBox.Text == "" || sabBox.Text == "" || publisherBox.Text == "") //Kollar om user input är tomt
-            //{
-            //    OnWrongEntry("Du har inte angett data i samtliga fält!");
-            //    return;
-            //}
+            if (titleBox.Text == "" || authorBox.Text == "" || descriptionBox.Text == "" || editionBox.Text == "" || priceBox.Text == "" || ddkBox.Text == "" || sabBox.Text == "" || publisherBox.Text == "") //Kollar om user input är tomt
+            {
+                OnWrongEntry("Du har inte angett data i samtliga fält!");
+                return;
+            }
 
             if (titleBox.Text.Length == 0)
             {
@@ -142,7 +143,7 @@ namespace Bibblan.Views
             Clearer();
 
 
-            
+
         }
 
         public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
@@ -171,10 +172,14 @@ namespace Bibblan.Views
 
             MessageBox.Show("Du har nu lagt till en bok!");
 
+            virtualBooks.Clear();
+
             foreach (var item in DbInitialiser.Db.Books)
             {
-                Books.Add(item);
+                virtualBooks.Add(item);
             }
+
+
 
             AddStockBook(title, edition, howMany);
 
@@ -379,9 +384,38 @@ namespace Bibblan.Views
 
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
 
-            this.NavigationService.Navigate(new BookStock()); //Byt ut SearchbookA med Morgans sida/class
+            GlobalClass.chosenIsbn = LVBooks.SelectedItem as Book;
+
+            this.NavigationService.Navigate(new BookStock()); 
+        }
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Searchfunction();
+        }
+
+        private void Searchfunction()
+        {
+            LVBooks.ClearValue(ItemsControl.ItemsSourceProperty);
+
+
+            List<Book> bookList = virtualBooks.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
+                                                    || x.Author.ToLower().Contains(searchBar.Text.ToLower()))
+                                                   .ToList(); //tar fram böckerna som innehåller userinput för TITEL just nu, ska läggas till mer än bara titel
+
+            if (bookList != null) // VÄLDIGT simpel sökfunktion, ska byggas på
+            {
+                LVBooks.ItemsSource = bookList;
+                return;
+            }
+            else if (Int32.TryParse(searchBar.Text, out var _)) //kollar om userInput är en int eller ej
+            {
+                List<Book> query = virtualBooks.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
+
+                LVBooks.ItemsSource = query;
+
+                return;
+            }
         }
     }
 }
