@@ -114,7 +114,6 @@ namespace Bibblan.Views
             user.Permissions = 0; //Detta ska admin kunna ändra senare
 
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
-            user.Username = Encryption.Encrypt("1");
             user.Password = Encryption.Encrypt(passWord.Password);
 
             DbInitialiser.Db.Add(user);
