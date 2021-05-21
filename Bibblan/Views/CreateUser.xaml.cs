@@ -127,11 +127,7 @@ namespace Bibblan.Views
         }
 
 
-        private void menuButtonClick(object sender, RoutedEventArgs e) //Navigering till Adminsida
-        {
-            NavigationService nav = NavigationService.GetNavigationService(this);
-            nav.Navigate(new AdminPage());
-        }    
+        
 
 
         //Nedan är 'focus' för Grå hints inom Textboxen

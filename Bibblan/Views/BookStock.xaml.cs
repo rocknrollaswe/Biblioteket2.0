@@ -36,11 +36,15 @@ namespace Bibblan.Views
             {
                 dbVirtual.Add(item);
             }
+
             defaultStocks = dbVirtual.Where(x => x.Isbn.ToString() == GlobalClass.chosenBook.Isbn.ToString()).ToList();
-
             searchBar.Text = "Sök";
+            test88.Content = GlobalClass.chosenBook.Title;
+            if(GlobalClass.chosenBook.Category == 1)
+            {
+                test88.Content += " (E-bok)";
+            }
         }
-
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
         {
             if (LVBookStock.SelectedItem != null)
@@ -66,10 +70,9 @@ namespace Bibblan.Views
                 MessageBox.Show("Välj ett exemplar!");
             }
         }
-
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if(LVBookStock.SelectedItem != null && amountBox.Text != "")
+            if(LVBookStock.SelectedItem != null)
             {
                 if(Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
                 {
@@ -91,7 +94,6 @@ namespace Bibblan.Views
                 MessageBox.Show("Välj en bok!");
             }
         }
-
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (searchBar.Text.Length >= 2 && searchBar.Text != "Sök")
@@ -115,7 +117,6 @@ namespace Bibblan.Views
             //    LVBookStock.ItemsSource = defaultStocks;
             //}
         }
-
         private void LVBookStock_Selected(object sender, RoutedEventArgs e)
         {
             if(LVBookStock.SelectedItem != null)
@@ -142,7 +143,6 @@ namespace Bibblan.Views
                 stockIdBox.Text = "";
             }
         }
-
         private void conditionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(selectedStock != null && conditionComboBox.SelectedItem != null)
@@ -153,7 +153,6 @@ namespace Bibblan.Views
                 DbInitialiser.Db.SaveChanges();
             }
         }
-
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
         {
             if (searchBar.Foreground == Brushes.LightGray)
@@ -162,13 +161,30 @@ namespace Bibblan.Views
                 searchBar.Text = "";
             }
         }
-
         private void searchBar_LostFocus(object sender, RoutedEventArgs e)
         {
             if(searchBar.Text == "" || searchBar.Text == null)
             {
                 searchBar.Foreground = Brushes.LightGray;
                 searchBar.Text = "Sök";
+            }
+        }
+
+        private void amountBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (amountBox.Foreground == Brushes.LightGray)
+            {
+                amountBox.Foreground = Brushes.Black;
+                amountBox.Text = "";
+            }
+        }
+
+        private void amountBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(amountBox.Text == "")
+            {
+                amountBox.Foreground = Brushes.LightGray;
+                amountBox.Text = "Antal";
             }
         }
     }
