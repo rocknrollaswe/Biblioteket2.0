@@ -33,10 +33,6 @@ namespace Bibblan.Views
                     dbVirtual.Add(item);
                 }
             });
-            if (GlobalClass.userPermission == -1)
-            {
-                navMeny.Visibility = Visibility.Collapsed;
-            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)      
@@ -105,12 +101,6 @@ namespace Bibblan.Views
         private void CloseSuggestionBox()
         {
             autoList.Visibility = Visibility.Collapsed;
-        }
-
-        private void menuClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService nav = NavigationService.GetNavigationService(this);
-            nav.Navigate(new AdminPage());
         }
         private List<string> showResults(List<Book> a)
         {

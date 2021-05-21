@@ -88,6 +88,7 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
+
             <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="AddBooks" Click="AddBooks_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
@@ -97,6 +98,7 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
+
             <Button Style="{StaticResource ROB}" Width="170" Height="38" Margin="0,10,0,0" Padding="10" x:Name="SeeUser">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
