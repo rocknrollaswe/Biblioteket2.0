@@ -311,6 +311,7 @@ namespace Bibblan.Views
                 CommentBox.Text = "";
                 CommentBox.Foreground = Brushes.Black;
             }
+        }
 
         
 

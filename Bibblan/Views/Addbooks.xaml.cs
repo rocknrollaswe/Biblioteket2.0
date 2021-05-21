@@ -385,7 +385,7 @@ namespace Bibblan.Views
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
 
-            GlobalClass.chosenIsbn = LVBooks.SelectedItem as Book;
+            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
 
             this.NavigationService.Navigate(new BookStock()); 
         }
