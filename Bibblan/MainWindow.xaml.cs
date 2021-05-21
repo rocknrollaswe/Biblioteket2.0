@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Bibblan.Services;
 using Bibblan.Views;
+using Bibblan.Models;
 
 namespace Bibblan
 {
@@ -22,14 +23,18 @@ namespace Bibblan
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<User> dbVirtual = new List<User>();
         public MainWindow()
         {
             InitializeComponent();
             DbInitialiser.InitialiseDB();
-
-           
-          
-
+            Task dbDownload = Task.Run(() =>
+            {
+                foreach (var item in DbInitialiser.Db.Users)
+                {
+                    dbVirtual.Add(item);
+                }
+            });
             //var home = new Home();
             //this.Hide();
             //home.Show();
@@ -45,6 +50,7 @@ namespace Bibblan
             var connectedUser = userList.Find(x => x.Email == emailLow);    
                 
                 //Where(x => x.Email == emailLow).SingleOrDefault();
+
             if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Password)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
             {
                 GlobalClass.userPermission = connectedUser.Permissions;  //sätter våra globala variabler för den specifika användaren
@@ -83,7 +89,6 @@ namespace Bibblan
         {
             if (passwordTextBox.Foreground == Brushes.LightGray)
             {
-                
                 passWordFalse.Visibility = Visibility.Collapsed;
             }
         }

@@ -39,6 +39,7 @@ namespace Bibblan.Views
         {
             NavigationService nav = NavigationService.GetNavigationService(this);
             nav.Navigate(new MainWindow());
+
             GlobalClass.userFirstName = null;
             GlobalClass.userPermission = null;
         }
@@ -55,11 +56,11 @@ namespace Bibblan.Views
             nav.Navigate(new DeleteUser());
 
         }
-
         //private void Button_Click_1(object sender, RoutedEventArgs e)
         //{
         //    NavigationService nav = NavigationService.GetNavigationService(this);
         //    nav.Navigate(new UserPage2());
         //}
+
     }
 }

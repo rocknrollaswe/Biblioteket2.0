@@ -311,7 +311,8 @@ namespace Bibblan.Views
                 CommentBox.Text = "";
                 CommentBox.Foreground = Brushes.Black;
             }
-        }
+
+        
 
         private void CommentBox_LostFocus(object sender, RoutedEventArgs e)
         {

@@ -73,24 +73,32 @@
                              Height="24"
                              Margin="30, 0, 0, 0"
                              Padding="5"/>
-                    <Button x:Name="searchUserButton" 
+                <Button x:Name="searchUserButton" 
                         Content="Sök" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
                         Height="24"
                         Margin="2,0,0,0"/>
-                </WrapPanel>
+            </WrapPanel>
 
-                <Button Padding="5" Background="Transparent" x:Name="user_button" Click="Menu_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5,0"  
+            <Button Padding="5" Background="Transparent" x:Name="user_button" Click="Menu_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0"  
                                Style="{StaticResource RobotoFont}">
                                Administrera Användare
-                        </TextBlock>
-                    </StackPanel>
-                </Button>
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Padding="5" Background="Transparent" x:Name="AddBooks" Click="AddBooks_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0"  
+                               Style="{StaticResource RobotoFont}">
+                               Lägg till böcker
+                    </TextBlock>
+                </StackPanel>
+            </Button>
 
-            </StackPanel>
+        </StackPanel>
 
         <Frame x:Name="Main2" Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden">
             
