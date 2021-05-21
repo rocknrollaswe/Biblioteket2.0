@@ -110,10 +110,11 @@ namespace Bibblan.Views
 
             user.Firstname = firstName.Text;
             user.Lastname = lastName.Text;
-            user.Email = eMail.Text;
+            user.Email = eMail.Text.ToLower();
             user.Permissions = 0; //Detta ska admin kunna ändra senare
 
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
+
             user.Password = Encryption.Encrypt(passWord.Password);
 
             DbInitialiser.Db.Add(user);
