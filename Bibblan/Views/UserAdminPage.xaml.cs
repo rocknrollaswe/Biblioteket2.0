@@ -30,12 +30,13 @@ namespace Bibblan.Views
         {
             InitializeComponent();
             
+
+
             foreach (var item in DbInitialiser.Db.Users)
             {
                 dbVirtual.Add(item);
             }
-           
-
+              
             LVModifyUser.ItemsSource = dbVirtual;
             CommentBox.DataContext = dbVirtual; 
         }
@@ -51,12 +52,16 @@ namespace Bibblan.Views
                 eMail.Text = u.Email;
                 permissionComboBox.SelectedIndex = u.Permissions;
                 loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;
-                CommentBox.Text = u.UserComment; 
-
+                if(u.UserComment != "") 
+                {
+                    CommentBox.Text = u.UserComment;
+                    CommentBox.Foreground = Brushes.Black; 
+                }
+               
                 firstName.Foreground = Brushes.Black;
                 lastName.Foreground = Brushes.Black;
                 eMail.Foreground = Brushes.Black;
-                CommentBox.Foreground = Brushes.Black; 
+                
             }
         }
 
@@ -87,11 +92,18 @@ namespace Bibblan.Views
                     {
                         case MessageBoxResult.Yes:
 
-                            if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") && firstName.Foreground == Brushes.Black || firstName.Text == "" || firstName.Text == "Förnamn")
+                            if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn") 
                             {
                                 MessageBox.Show("Du har inte angett ett korrekt förnamn!");
+                         
                                 return;
                                 
+                            }
+                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
                             }
                             else
                             {
@@ -101,10 +113,16 @@ namespace Bibblan.Views
                             };
 
 
-                            if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black || lastName.Text == "" || lastName.Text == "Efternamn")
+                            if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
                             {
                                 MessageBox.Show("Du har inte angett ett korrekt efternamn!");
                                 return;
+                            }
+                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
                             }
                             else
                             {
@@ -112,10 +130,16 @@ namespace Bibblan.Views
                                     userToChange.Lastname = lastName.Text;
                             }
 
-                            if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black || eMail.Text == "")
+                            if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") || eMail.Text == "E-post"  || eMail.Text == "")
                             {
                                 MessageBox.Show("Du har inte angett korrekt e-post!");
                                 return;
+                            }
+                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
                             }
                             else
                             {
@@ -123,28 +147,64 @@ namespace Bibblan.Views
                                     userToChange.Email = eMail.Text;
                             }
 
-                            if (passWordText.Visibility == Visibility.Collapsed && !Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+                            if(passWordText.Text != "Ändra Lösenord")
                             {
-                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
-                                return;
+                                if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+                                {
+                                    MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
+                                    return;
 
+                                }
+                                else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                                {
+                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                    return;
+
+                                }
+                                else
+                                {
+                                    userToChange.Password = Encryption.Encrypt(passWord.Password);
+                                }
                             }
-                            else
-                            {
-                                userToChange.Password = Encryption.Encrypt(passWord.Password);
-                            }
+                            
 
                             if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
+                            {
+                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                                {
+                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                    return;
+
+                                }
                                 userToChange.Permissions = permissionComboBox.SelectedIndex;
+                            }
+                                
+                               
 
                             if (loanRightsComboBox.SelectedItem.ToString() != "--Lånerättighet--" && loanRightsComboBox.SelectedIndex != userToChange.HasLoanCard)
+                            {
+                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                                {
+                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                    return;
+
+                                }
                                 userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
+                            }
+
+                                
                             if(userToChange.UserComment != CommentBox.Text)
                             {
                                 if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray)
                                     return; 
                                 else
-                                    userToChange.UserComment = CommentBox.Text; 
+                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                                {
+                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                    return;
+
+                                }
+                                userToChange.UserComment = CommentBox.Text; 
                             }
 
                             DbInitialiser.Db.Update(userToChange);
@@ -170,7 +230,15 @@ namespace Bibblan.Views
 
             if (rButtonRemoveUser.IsChecked == true)
             {
+                
                 User u = (LVModifyUser.SelectedItem as User);
+                
+                if ((u.Permissions == 2 || u.Permissions == 1) && GlobalClass.userPermission != 2)
+                {
+                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                    return;
+                }
+               
 
                 MessageBoxResult result = MessageBox.Show("Är det säkert att du vill ta bort den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -222,6 +290,10 @@ namespace Bibblan.Views
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
         {
             searchBar.Text = ""; 
+        }
+        private void searchBar_LostFocus(object sender, RoutedEventArgs e) 
+        {
+            return; 
         }
 
         private void firstNameBox_GotFocus(object sender, RoutedEventArgs e)
@@ -313,8 +385,6 @@ namespace Bibblan.Views
             }
         }
 
-        
-
         private void CommentBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (CommentBox.Text == "" || CommentBox.Text == null)
@@ -322,7 +392,6 @@ namespace Bibblan.Views
                 CommentBox.Foreground = Brushes.LightGray;
                 CommentBox.Text = "Anmärkningar";
             }
-       
         }
 
         private void passWordText_GotFocus(object sender, RoutedEventArgs e)
@@ -331,7 +400,7 @@ namespace Bibblan.Views
             passWord.Focus(); 
         }
 
-        void ClearAndRetrieveVirtualDb() 
+        public void ClearAndRetrieveVirtualDb() 
         {
             dbVirtual.Clear(); 
 

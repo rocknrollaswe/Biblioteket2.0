@@ -41,7 +41,7 @@
             <Grid>
                 <Grid.RowDefinitions></Grid.RowDefinitions>   
             <PasswordBox x:Name="passWord" Grid.Row="0" GotFocus="passwordBox_GotFocus" LostFocus="passwordBox_LostFocus" Foreground="LightGray" FontSize="14" Padding="5"  Height="30" Width="300" Margin="40, 5, 0, 0" Background="AliceBlue"/>
-            <TextBox x:Name="passWordText" Grid.Row="0" GotFocus="passWordText_GotFocus" Foreground="LightGray"  Text="Ändra lösenord" FontSize="14" Padding="5"  Height="30" Width="300" Margin="40, 5, 0, 0" Background="AliceBlue"/>
+            <TextBox x:Name="passWordText" Grid.Row="0" GotFocus="passWordText_GotFocus" Foreground="LightGray"  Text="Ändra Lösenord" FontSize="14" Padding="5"  Height="30" Width="300" Margin="40, 5, 0, 0" Background="AliceBlue"/>
             </Grid>
 
             <WrapPanel Orientation="Horizontal" Margin="55, 15, 0, 0">
@@ -77,7 +77,7 @@
             
             <Border CornerRadius="20" Height="30" Width="250" Background="AliceBlue" Margin="0, 20, 0, 20" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
                 <WrapPanel Orientation="Horizontal" Margin="10, 5">
-                    <TextBox x:Name="searchBar" TextChanged="SearchBar_TextChanged" GotFocus="searchBar_GotFocus" Foreground="Black" Background="AliceBlue" Height="20" Width="150" Padding="2" BorderThickness="0"/>
+                    <TextBox x:Name="searchBar" TextChanged="SearchBar_TextChanged" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus" Foreground="Black" Background="AliceBlue" Height="20" Width="150" Padding="2" BorderThickness="0"/>
                     <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" RenderTransformOrigin="0.6,0.5" Margin="55, 0, 0, 0"/>
                 </WrapPanel>
             </Border>
@@ -122,7 +122,7 @@
                 <TextBox x:Name="CommentBox" 
                          TextWrapping="Wrap" 
                          BorderThickness="0"
-                         Text="{Binding UserComment}" 
+                         Text="Anmärkningar" 
                          FontSize="15" Foreground="LightGray" 
                          Background="AliceBlue" 
                          Height="auto" 
