@@ -120,12 +120,12 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Författare" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Beskrivning" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Edition}" Header="Upplaga" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Publisher}" Header="Förlag" Width="70"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Ddk}" Header="DDK" Width="70"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Sab}" Header="SAB" Width="70"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Width="0"></GridViewColumn>
                         <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Ebok" Width="70"/>
-
-
+                      
                     </GridView>
                 </ListView.View>
             </ListView>

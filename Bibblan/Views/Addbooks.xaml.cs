@@ -62,34 +62,34 @@ namespace Bibblan.Views
 
             if (titleBox.Text.Length == 0)
             {
-                MessageBox.Show("Ange Titel.");
+                MessageBox.Show("Ange Titel!");
                 titleBox.Focus();
                 return;
             }
 
             if (authorBox.Text.Length == 0)
             {
-                MessageBox.Show("Ange Författare.");
+                MessageBox.Show("Ange Författare!");
                 authorBox.Focus();
                 return;
             }
 
             if (descriptionBox.Text.Length == 0)
             {
-                MessageBox.Show("Ange Beskrivning.");
+                MessageBox.Show("Ange Beskrivning!");
                 descriptionBox.Focus();
                 return;
             }
 
             if (!Regex.IsMatch(editionBox.Text, @"^([0-9]{4})$"))
             {
-                MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga.");
+                MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga!");
                 editionBox.Focus();
                 return;
             }
             if (publisherBox.Text.Length == 0)
             {
-                MessageBox.Show("Ange Förlag.");
+                MessageBox.Show("Ange Förlag!");
                 publisherBox.Focus();
                 return;
             }
@@ -97,64 +97,83 @@ namespace Bibblan.Views
             if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
 
             {
-                MessageBox.Show("Ange Pris.");
+                MessageBox.Show("Ange Pris!");
                 priceBox.Focus();
                 return;
             }
 
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
-                MessageBox.Show("Ange bara siffror i DDK.");
+                MessageBox.Show("Ange bara siffror i DDK!");
                 ddkBox.Focus();
                 return;
             }
 
             if (sabBox.Text.Length == 0)
             {
-                MessageBox.Show("Ange Sab");
+                MessageBox.Show("Ange Sab!");
                 sabBox.Focus();
                 return;
             }
 
-            if (!Regex.IsMatch(amountBox.Text, @"^([0-9]{1,4})$"))
+            if (!Regex.IsMatch(amountBox.Text, @"^([0-9]{1,3})$") || Convert.ToInt32(amountBox.Text)>=100)
             {
-                MessageBox.Show("Ange Antal.");
+                MessageBox.Show("Ange Antal! Får ej vara mer än 99 st");
                 amountBox.Focus();
-                return;
-            }
-
-
-            var book = new Book();
-            if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text)).FirstOrDefault() != null)
-            {
-                OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
                 return;
             }
 
             int ebokCheck = 0;
 
-
             if (ebok.IsChecked == true)
                 ebokCheck = 1;
 
-            AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck, Convert.ToInt32(amountBox.Text));
+            var book = new Book();
+           
 
-            LVBooks.Items.Refresh();
-            Clearer();
+            if (ebok.IsChecked == true)
+            {
+                if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 1).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 1).FirstOrDefault() != null)
+                {
+                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
+                    return;
+
+
+                }
+            }
+
+            if (ebok.IsChecked == false)
+            {
+                if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 0).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 0).FirstOrDefault() != null)
+                {
+                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
+                    return;
+
+
+                }
+            }
 
 
 
+            MessageBoxResult result = MessageBox.Show($"Är det säkert att du vill lägga till den här boken? " +
+                $"\nTitel: {titleBox.Text}\nFörfattare: {authorBox.Text}\nBeskrivning: {descriptionBox.Text}\nUpplaga: {editionBox.Text}\nFörlag: {publisherBox.Text}\nPris: {priceBox.Text}\nDDK: {ddkBox.Text}\nSab: {sabBox.Text}\nAntal: {amountBox.Text} styck",
+                "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+           
+            if (result == MessageBoxResult.Yes)
+            {
+                AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck, Convert.ToInt32(amountBox.Text));
+
+                LVBooks.Items.Refresh();
+                Clearer();
+
+            }
+            return;
         }
 
         public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
         {
             var book = new Book();
-            if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text)).FirstOrDefault() != null)
-            {
-                OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
-                return;
-            }
-
+   
             book.Title = titleBox.Text;
             book.Author = authorBox.Text;
             book.Description = descriptionBox.Text;
@@ -375,8 +394,11 @@ namespace Bibblan.Views
             {
                 var stock = new Stock();
                 stock.Isbn = Convert.ToInt32(b.Isbn);
+                stock.Condition = "Nyskick";
+                stock.Discarded = 0;
                 DbInitialiser.Db.Add(stock);
             }
+
 
             DbInitialiser.Db.SaveChanges();
 
@@ -385,7 +407,7 @@ namespace Bibblan.Views
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
 
-            GlobalClass.chosenIsbn = LVBooks.SelectedItem as Book;
+            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
 
             this.NavigationService.Navigate(new BookStock()); 
         }
