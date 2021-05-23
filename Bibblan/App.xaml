@@ -12,12 +12,13 @@
         </Style>
 
         <Style x:Key="ROB" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="/Fonts/#Roboto"/>
             <Setter Property="Background" Value="DarkOrange"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="20"  Grid.Column="1" VerticalAlignment="Top" Panel.ZIndex="-1"
-                    BorderThickness="2">
+                            BorderThickness="2">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
