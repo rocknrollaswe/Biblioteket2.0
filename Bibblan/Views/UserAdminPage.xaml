@@ -61,12 +61,7 @@
         <StackPanel Margin="90, 60, 40, 40" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="1">
             <RadioButton x:Name="rButtonChangeUser" IsChecked="False" Click="rButtonChangeUser_Click" Content="Ändra användare" FontWeight="Bold" FontSize="15"/>
             <RadioButton x:Name="rButtonRemoveUser" IsChecked="False" Click="rButtonRemoveUser_Click"  Content="Ta bort användare" FontWeight="Bold" Margin="0, 10, 0, 0" FontSize="15"/>
-
-            <Border x:Name="buttonBorder" BorderBrush="DarkBlue" Background="DarkOrange" Opacity="1" CornerRadius="20" Height="30" Width="250" Margin="-30, 20, 0, 0" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Panel.ZIndex="-1">
-                <Button x:Name="ButtonChangeUser"  Content="Välj ovan" FontSize="17" Padding="0, 0, 0, 20" Height="50" Width="150" Background="DarkOrange" BorderBrush="DarkOrange" Click="ButtonChangeUser_Click">
-                    
-                </Button>
-            </Border>
+            <Button x:Name="ButtonChangeUser" Style="{StaticResource ROB}" Margin="0,30, 0, 0" Content="Välj ovan" FontSize="20"  Height="50" Width="150" Background="DarkOrange" BorderBrush="DarkOrange" Click="ButtonChangeUser_Click"/>
         </StackPanel>
 
         <StackPanel 
