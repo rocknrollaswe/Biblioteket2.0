@@ -75,144 +75,137 @@ namespace Bibblan.Views
         {
             User userToChange = LVModifyUser.SelectedItem as User; // sätter de nya ändringarna på vald användare
 
-            if(userToChange != null) 
+            if (userToChange != null && rButtonChangeUser.IsChecked == true)
             {
-                if (rButtonChangeUser.IsChecked == true)
+
+                MessageBoxResult result = MessageBox.Show("Är det säkert att du vill ändra den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                switch (result)
                 {
-                    MessageBoxResult result = MessageBox.Show("Är det säkert att du vill ändra den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    switch (result)
-                    {
-                        case MessageBoxResult.Yes:
+                    case MessageBoxResult.Yes:
 
-                            if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn") 
-                            {
-                                MessageBox.Show("Du har inte angett ett korrekt förnamn!");
-                         
-                                return;
-                            }
-                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                            {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                return;
+                        if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
+                        {
+                            MessageBox.Show("Du har inte angett ett korrekt förnamn!");
 
-                            }
-                            else
-                            {
-                                if (userToChange.Firstname != firstName.Text) { userToChange.Firstname = firstName.Text; }
-                            }
-
-                            if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
-                            {
-                                MessageBox.Show("Du har inte angett ett korrekt efternamn!");
-                                return;
-                            }
-                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                            {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                return;
-
-                            }
-                            else
-                            {
-                                if (userToChange.Lastname != lastName.Text) { userToChange.Lastname = lastName.Text; }
-                            }
-
-                            if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") || eMail.Text == "E-post"  || eMail.Text == "")
-                            {
-                                MessageBox.Show("Du har inte angett korrekt e-post!");
-                                return;
-                            }
-                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                            {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                return;
-
-                            }
-                            else
-                            {
-                                if (userToChange.Email != eMail.Text) { userToChange.Email = eMail.Text; }
-                            }
-
-                            if(passWordText.Text != "Ändra Lösenord")
-                            {
-                                if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
-                                {
-                                    MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
-                                    return;
-
-                                }
-                                else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                                {
-                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                    return;
-
-                                }
-                                else
-                                {
-                                    userToChange.Password = Encryption.Encrypt(passWord.Password);
-                                }
-                            }
-                            
-
-                            if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
-                            {
-
-                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                                {
-                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                    return;
-
-                                }
-                                userToChange.Permissions = permissionComboBox.SelectedIndex;
-                            }
-                                
-                               
-
-                            if (loanRightsComboBox.SelectedItem.ToString() != "--Lånerättighet--" && loanRightsComboBox.SelectedIndex != userToChange.HasLoanCard)
-                            {
-                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                                {
-                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                    return;
-
-                                }
-                                userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
-                            }
-
-                                
-                            if(userToChange.UserComment != CommentBox.Text)
-                            {
-                                if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray)
-                                    return; 
-                                else
-                                if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
-                                {
-                                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
-                                    return;
-
-                                }
-                                userToChange.UserComment = CommentBox.Text; 
-                            }
-
-                            DbInitialiser.Db.Update(userToChange);
-                            DbInitialiser.Db.SaveChanges();
-                            
-                            MessageBox.Show("Du har nu ändrat användaren");
-                            break;
-
-                            case MessageBoxResult.No: 
                             return;
-                    }
-                    ClearAndRetrieveVirtualDb(); 
-                    return;
+                        }
+                        else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                        {
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            return;
+                        }
+                        else
+                        {
+                            if (userToChange.Firstname != firstName.Text) { userToChange.Firstname = firstName.Text; }
+                        }
+                        if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
+                        {
+                            MessageBox.Show("Du har inte angett ett korrekt efternamn!");
+                            return;
+                        }
+                        else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                        {
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            return;
+
+                        }
+                        else
+                        {
+                            if (userToChange.Lastname != lastName.Text) { userToChange.Lastname = lastName.Text; }
+                        }
+
+                        if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") || eMail.Text == "E-post" || eMail.Text == "")
+                        {
+                            MessageBox.Show("Du har inte angett korrekt e-post!");
+                            return;
+                        }
+                        else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                        {
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            return;
+
+                        }
+                        else
+                        {
+                            if (userToChange.Email != eMail.Text) { userToChange.Email = eMail.Text; }
+                        }
+
+                        if (passWordText.Text != "Ändra Lösenord")
+                        {
+                            if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+                            {
+                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
+                                return;
+
+                            }
+                            else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
+                            }
+                            else
+                            {
+                                userToChange.Password = Encryption.Encrypt(passWord.Password);
+                            }
+                        }
+
+
+                        if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
+                        {
+
+                            if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
+                            }
+                            userToChange.Permissions = permissionComboBox.SelectedIndex;
+                        }
+
+
+
+                        if (loanRightsComboBox.SelectedItem.ToString() != "--Lånerättighet--" && loanRightsComboBox.SelectedIndex != userToChange.HasLoanCard)
+                        {
+                            if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
+                            }
+                            userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
+                        }
+
+
+                        if (userToChange.UserComment != CommentBox.Text)
+                        {
+                            if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray)
+                                return;
+                            else
+                            if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
+                            {
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                return;
+
+                            }
+                            userToChange.UserComment = CommentBox.Text;
+                        }
+
+                        DbInitialiser.Db.Update(userToChange);
+                        DbInitialiser.Db.SaveChanges();
+
+                        MessageBox.Show("Du har nu ändrat användaren");
+                        break;
+
+                    case MessageBoxResult.No:
+                        return;
                 }
-                else
-                {
-                    MessageBox.Show("Du måste välja en användare att ändra först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    return;
-                }
+                ClearAndRetrieveVirtualDb();
+                return;
+
             }
-            if (rButtonRemoveUser.IsChecked == true)
+            
+            if (userToChange != null && rButtonRemoveUser.IsChecked == true)
             {
                 
                 User u = (LVModifyUser.SelectedItem as User);
@@ -233,13 +226,19 @@ namespace Bibblan.Views
                         DbInitialiser.Db.SaveChanges();
                         MessageBox.Show("Du har tagit bort användaren");
                         
-                        LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
+                        
                         ClearAndRetrieveVirtualDb();
                         break; 
 
                     case MessageBoxResult.No:
-                        break; 
+                        return; 
+                         
                 }
+            }
+            else
+            {
+                MessageBox.Show("Du måste välja en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
             }
         }
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
