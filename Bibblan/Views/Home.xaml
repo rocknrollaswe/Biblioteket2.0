@@ -63,22 +63,6 @@
         <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Grid.RowSpan="4" Height="670" Width="1200" Opacity="0.05" />
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2">
-            <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10,20,0,0">
-                <TextBox x:Name="searchUserBox" 
-                             HorizontalAlignment="Center" 
-                             Background="#FFFFFEFE" 
-                             TextWrapping="Wrap" 
-                             VerticalAlignment="Center" 
-                             Width="139" 
-                             Height="24"
-                             Padding="5"/>
-                <Button x:Name="searchUserButton"
-                        Style="{StaticResource ROB}"
-                        Content="Sök"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" 
-                        Height="30" Width="50"/>
-            </WrapPanel>
 
             <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="user_button" Click="Menu_Click">
                 <StackPanel Orientation="Horizontal">
@@ -99,13 +83,13 @@
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource ROB}" Width="170" Height="38" Margin="0,10,0,0" Padding="10" x:Name="SeeUser">
+            <!--<Button Style="{StaticResource ROB}" Width="170" Height="38" Margin="0,10,0,0" Padding="10" x:Name="SeeUser">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
                                FontSize="14"
                                Style="{StaticResource RobotoFont}"><Run Text="Sök"/><Run Language="en-gb" Text=" &amp;"/><Run Text=" Låna "/><Run Text="B"/><Run Text="öcker"/></TextBlock>
                 </StackPanel>
-            </Button>
+            </Button>-->
         </StackPanel>
 
 

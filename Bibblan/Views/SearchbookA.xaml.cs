@@ -34,7 +34,6 @@ namespace Bibblan.Views
                 }
             });
         }
-
         private void searchButton_Click(object sender, RoutedEventArgs e)      
         {
             Task.WaitAll();

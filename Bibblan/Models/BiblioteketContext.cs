@@ -55,7 +55,7 @@ namespace Bibblan.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Price).HasColumnType("decimal(4, 2)");
+                entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
 
                 entity.Property(e => e.Publisher)
                     .IsRequired()
