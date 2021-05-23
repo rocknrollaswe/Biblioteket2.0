@@ -64,12 +64,12 @@ namespace Bibblan.Views
         }
         private void rButtonChangeUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
-            if(rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; }
+            if(rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; ButtonChangeUser.FontSize = 16; }
         }
 
         private void rButtonRemoveUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
-            if (rButtonRemoveUser.IsChecked == true) { ButtonChangeUser.Content = rButtonRemoveUser.Content; }
+            if (rButtonRemoveUser.IsChecked == true) { ButtonChangeUser.Content = rButtonRemoveUser.Content; ButtonChangeUser.FontSize = 16; }
         }
         private void ButtonChangeUser_Click(object sender, RoutedEventArgs e) // knapp för att ändra data på användare
         {

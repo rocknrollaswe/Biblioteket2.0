@@ -10,60 +10,75 @@
       Title="BookStock">
 
     <Grid>
-        <Border Background="#80B3B5" Height="600" Width="800" Opacity="0.3"/>
-        <Label FontSize="48" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 18 0 0"  VerticalAlignment="Top">Lager</Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Background="#80B3B5" Height="600" Width="800" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Label FontSize="48" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 18 0 0"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2">Lager</Label>
 
-        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" HorizontalAlignment="Left" Width="450" Height="300" Margin="40,154,0,146">
-            <ListView x:Name="LVBookStock" BorderBrush="Transparent" Background="Transparent" Width="430" Height="280" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LVBookStock_Selected">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="StockID" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="ISBN" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Condition}" Header="Skick" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Discarded}" Header="Utrangerad" Width="70"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Comment}" Header="Kommentar" Width="70"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Border>
+       
 
-        <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="140,106,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <WrapPanel Orientation="Horizontal" Margin="10, 5">
-                <TextBox x:Name="searchBar" BorderThickness="0" Foreground="LightGray" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" TextChanged="searchBar_TextChanged" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus"/>
-                <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="30 100 0 0">
+
+            <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="95,0,0,20" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0">
+                <WrapPanel Orientation="Horizontal" Margin="10, 5">
+                    <TextBox x:Name="searchBar" BorderThickness="0" Foreground="LightGray" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" TextChanged="searchBar_TextChanged" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus"/>
+                    <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
+                </WrapPanel>
+            </Border>
+
+            <Border CornerRadius="20" Background="AliceBlue" Opacity="1" HorizontalAlignment="Left" Width="450" Height="300" Margin="0,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
+                <ListView x:Name="LVBookStock" BorderBrush="Transparent" Background="Transparent" Width="430" Height="280" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LVBookStock_Selected">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="StockID" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="ISBN" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Condition}" Header="Skick" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Discarded}" Header="Utrangerad" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Comment}" Header="Kommentar" Width="70"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="80, 30, 0, 0">
+                <ComboBox x:Name="commentComboBox"  IsEditable="True" IsReadOnly="True" Text="Kommentar" Height="20" Width="130" Margin="0, 0, 0, 0" SelectionChanged="conditionComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Förstörd"/>
+                    <ComboBoxItem Content="Borttappad"/>
+                    <ComboBoxItem Content="Utsliten"/>
+                    <ComboBoxItem Content="Skadegörelse"/>
+                </ComboBox>
+
+                    <Button x:Name="removeBookButton" Style="{StaticResource ROB}" Margin="20 4 0 0" Content="Ta bort" Width="83" Height="33" BorderThickness="0" FontSize="18" Click="removeBookButton_Click"></Button>
+                
             </WrapPanel>
-        </Border>
-
-        <WrapPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="140, 10, 0, 80">
-            <ComboBox x:Name="commentComboBox"  IsEditable="True" IsReadOnly="True" Text="Kommentar" Width="130" Margin="10, 5, 63, 0" SelectionChanged="conditionComboBox_SelectionChanged">
-                <ComboBoxItem>Förstörd</ComboBoxItem>
-                <ComboBoxItem>Borttappad</ComboBoxItem>
-                <ComboBoxItem>Utsliten</ComboBoxItem>
-                <ComboBoxItem>Skadegörelse</ComboBoxItem>
-            </ComboBox>
-        </WrapPanel>
-
-        <Border CornerRadius="18" Margin="300 0 0 70" Width="100" Height="40" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#597C7D">
-            <Button x:Name="removeBookButton" Background="#597C7D" Content="Ta bort" Width="83" Height="33" BorderThickness="0" FontSize="18" Click="removeBookButton_Click"></Button>
-        </Border>
-
-        <StackPanel HorizontalAlignment="Right" Margin="0 180 32 300">
-            <TextBlock x:Name="isbnBox" Text="ISBN" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3" Height="30" Width="250" Margin="40, 0, 0, 0" Background="AliceBlue"/>
-            <TextBlock x:Name="stockIdBox" Text="StockID" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3"  Height="30" Width="250" Margin="40, 5, 0, 0" Background="AliceBlue"/>
         </StackPanel>
+        
+        <StackPanel Grid.Column="1" Margin="80 90 0 0">
+            <Label x:Name="test88" Content="" FontSize="20" VerticalAlignment="Top" Margin="0,0,0,0" Height="59" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource CardoFont}"></Label>
+            
+            <StackPanel Margin="0 30 45 0" >
+                <TextBlock x:Name="isbnBox" Text="ISBN" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3" Height="30" Width="250" Margin="40, 0, 0, 0" Background="AliceBlue"/>
+                <TextBlock x:Name="stockIdBox" Text="StockID" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3"  Height="30" Width="250" Margin="40, 5, 0, 0" Background="AliceBlue"/>
+            </StackPanel>
 
-        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0, 10, 30, 40">
-            <ComboBox x:Name="conditionComboBox"  IsEditable="True" IsReadOnly="True" Text="Skick" Width="130" Margin="10, 5, 63, 0" SelectionChanged="conditionComboBox_SelectionChanged">
+            <ComboBox x:Name="conditionComboBox"  IsEditable="True" IsReadOnly="True" Text="Skick" Width="135" Margin="0, 10, 100, 0" SelectionChanged="conditionComboBox_SelectionChanged">
                 <ComboBoxItem>Nyskick</ComboBoxItem>
                 <ComboBoxItem>Fint Skick</ComboBoxItem>
                 <ComboBoxItem>Använd</ComboBoxItem>
                 <ComboBoxItem>Sliten</ComboBoxItem>
             </ComboBox>
-        </WrapPanel>
-        <Label x:Name="test88" Content="" FontSize="20" VerticalAlignment="Top" Margin="495,106,10,0" Height="59" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource CardoFont}"></Label>
 
-        <TextBox x:Name="amountBox" Text="Antal" FontSize="18" Foreground="LightGray" Margin="0,0,105,200" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="25" GotFocus="amountBox_GotFocus" LostFocus="amountBox_LostFocus"></TextBox>
-        <Button x:Name="addBooksButton" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 115 150" Content="Lägg till" FontSize="15" Click="addBooksButton_Click"></Button>
+            <WrapPanel Margin="40 40 0 0" Orientation="Horizontal">
+                <StackPanel Margin="0 5 0 0">
+                    <TextBox x:Name="amountBox" Text="Antal" FontSize="18" Foreground="LightGray" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Height="25" GotFocus="amountBox_GotFocus" LostFocus="amountBox_LostFocus"></TextBox>
+                    <Button x:Name="addBooksButton" Width="80" Height="30" Style="{StaticResource ROB}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 10 20 0" Content="Lägg till" FontSize="15" Click="addBooksButton_Click"></Button>
+                </StackPanel>
 
+                <TextBlock FontSize="16" Text="Har det kommit in fler böcker av samma isbn? Här lägger du till böckerna i lagret!" HorizontalAlignment="Right" Width="155" Height="200" Margin="10 0 5 0" TextWrapping="Wrap"></TextBlock>
+            </WrapPanel>
+
+        </StackPanel>
     </Grid>
 </Page>

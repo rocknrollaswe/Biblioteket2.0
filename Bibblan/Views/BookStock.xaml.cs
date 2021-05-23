@@ -58,6 +58,10 @@ namespace Bibblan.Views
                     dbStockItem.Discarded = 1;
                     DbInitialiser.Db.SaveChanges();
 
+                    LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+                    ClearAndRetrieveVirtualDb();
+                    LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
+
                     MessageBox.Show("Bok utrangerad!");
                 }
                 else
@@ -81,6 +85,10 @@ namespace Bibblan.Views
                         Stock dbInput = new Stock() { Isbn = selectedStock.Isbn, Condition = "Nyskick", Discarded = 0 };
                         DbInitialiser.Db.Stocks.Add(dbInput);
                         DbInitialiser.Db.SaveChanges();
+
+                        LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+                        ClearAndRetrieveVirtualDb();
+                        LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
                     }
                     MessageBox.Show($"{amountBox.Text} böcker tillagda!");
                 }
@@ -101,9 +109,30 @@ namespace Bibblan.Views
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
                 List<Stock>? showStocks = new List<Stock>();
                 showStocks = defaultStocks.Where(x => x.Condition.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
-                
+
                 LVBookStock.ItemsSource = showStocks;
-            } else
+            }
+            else if (searchBar.Text == "0")
+            {
+                LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+                List<Stock>? showStocks = new List<Stock>();
+                if(Int32.TryParse(searchBar.Text, out _) == true)
+                {
+                    showStocks = defaultStocks.Where(x => x.Discarded == Convert.ToInt32(searchBar.Text)).DefaultIfEmpty().ToList();
+                    LVBookStock.ItemsSource = showStocks;
+                }
+            }
+            else if(searchBar.Text == "1")
+            {
+                LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+                List<Stock>? showStocks = new List<Stock>();
+                if (Int32.TryParse(searchBar.Text, out _) == true)
+                {
+                    showStocks = defaultStocks.Where(x => x.Discarded == Convert.ToInt32(searchBar.Text)).DefaultIfEmpty().ToList();
+                    LVBookStock.ItemsSource = showStocks;
+                }
+            }
+            else
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
 
@@ -185,6 +214,16 @@ namespace Bibblan.Views
             {
                 amountBox.Foreground = Brushes.LightGray;
                 amountBox.Text = "Antal";
+            }
+        }
+
+        public void ClearAndRetrieveVirtualDb()
+        {
+            dbVirtual.Clear();
+
+            foreach (var item in DbInitialiser.Db.Stocks)
+            {
+                dbVirtual.Add(item);
             }
         }
     }
