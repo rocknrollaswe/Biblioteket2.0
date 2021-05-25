@@ -19,7 +19,6 @@
             <ListView x:Name="LVReport" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding UserId}" Header="ID" Width="111"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Firstname}" Header="Namn" Width="111"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="Email" Width="111"/>
                         <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="Bok" Width="111"/>
