@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Bibblan.Models;
+using System.Configuration; 
 
 namespace Bibblan.Services
 {
@@ -13,6 +14,10 @@ namespace Bibblan.Services
         {
             Db = new BiblioteketContext();
         }
+
+
+
+        
 
     }
 }
