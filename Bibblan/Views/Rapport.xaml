@@ -10,10 +10,13 @@
 
     <Grid Margin="0, 0, 0, 0">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Border Background="#80B3B5" Panel.ZIndex="-2" Opacity="0.3" />
-        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200">
-            <ListView x:Name="LVBookStock" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Border Background="#80B3B5" Panel.ZIndex="-2" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        
+        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListView x:Name="LVReport" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding UserId}" Header="ID" Width="111"/>
@@ -25,17 +28,26 @@
                 </ListView.View>
             </ListView>
         </Border>
-        <StackPanel Width="200" Height="200" Margin="0,-100,-700,0" Grid.Column="1">
-            <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Användare" Width="200" Height="50" FontSize="18"/>
-            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Borttagna Objekt" Width="200" Height="50" FontSize="18"/>
-        </StackPanel>
+        
+        <WrapPanel Height="400" Width="500" Grid.Column="1" Margin="50 0 0 0">
+            <StackPanel>
+                <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Margin="10 220 0 0" Foreground="LightGray"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBox Width="200" Height="30" Text="ISBN?" FontSize="20" Margin="75 220 0 0" Foreground="LightGray"></TextBox>
+            </StackPanel>
+        </WrapPanel>
+        
+        <WrapPanel Width="500" Height="50" Margin="70,200,0,0" Grid.Column="1" Orientation="Horizontal">
+            <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Användare" Width="200" Height="50" FontSize="18" Click="seeUserButton_Click"/>
+            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Borttagna Objekt" Width="200" Height="50" FontSize="18" Margin="80 0 0 0" Click="seeDeletedObjects_Click"/>
+        </WrapPanel>
 
-        <TextBlock 
+        <TextBlock  Grid.Column="0" Grid.ColumnSpan="2"
             Style="{StaticResource CardoFont}"  
             VerticalAlignment="Top" HorizontalAlignment="Left" 
             FontSize="50" Height="72" 
             Foreground="Black" 
-            Grid.Row="0" Grid.Column="0" 
             Panel.ZIndex="2"
             Margin="485,31,0,0" Width="292"><Run Language="en-gb" Text="Rapportering"/></TextBlock>
     </Grid>

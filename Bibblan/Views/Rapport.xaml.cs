@@ -22,6 +22,31 @@ namespace Bibblan.Views
         {
             InitializeComponent();
         }
+        private void seeUserButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+        private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (epostTextBox.Foreground == Brushes.LightGray)
+            {
+                epostTextBox.Text = "";
+                epostTextBox.Foreground = Brushes.Black;
+            }
+        }
+        private void epostTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (epostTextBox.Text == "" || epostTextBox.Text == null)
+            {
+                epostTextBox.Foreground = Brushes.LightGray;
+                epostTextBox.Text = "E-post";
+            }
+        }
     }
 }
