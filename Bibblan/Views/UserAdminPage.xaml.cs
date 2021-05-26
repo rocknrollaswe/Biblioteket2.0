@@ -25,12 +25,11 @@ namespace Bibblan.Views
     public partial class UserAdminPage : Page
     {
         readonly List<User> dbVirtual = new List<User>();
+        User u = new User(); 
         public UserAdminPage()
         {
             InitializeComponent();
             
-
-
             foreach (var item in DbInitialiser.Db.Users)
             {
                 dbVirtual.Add(item);
@@ -43,7 +42,7 @@ namespace Bibblan.Views
         {
             if (LVModifyUser.SelectedItem != null)
             {
-                User u = LVModifyUser.SelectedItem as User;
+                u = LVModifyUser.SelectedItem as User;
 
                 firstName.Text = u.Firstname;
                 lastName.Text = u.Lastname;
@@ -53,7 +52,10 @@ namespace Bibblan.Views
                 if(u.UserComment != "") 
                 {
                     CommentBox.Text = u.UserComment;
-                    CommentBox.Foreground = Brushes.Black; 
+                    CommentBox.Foreground = Brushes.Black;
+                    if (CommentBox.Text == "Amärkningar")
+                        CommentBox.Foreground = Brushes.LightGray;       
+
                 }
                
                 firstName.Foreground = Brushes.Black;
@@ -61,6 +63,8 @@ namespace Bibblan.Views
                 eMail.Foreground = Brushes.Black;
                 
             }
+            
+            return; 
         }
         private void rButtonChangeUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
@@ -74,6 +78,18 @@ namespace Bibblan.Views
         private void ButtonChangeUser_Click(object sender, RoutedEventArgs e) // knapp för att ändra data på användare
         {
             User userToChange = LVModifyUser.SelectedItem as User; // sätter de nya ändringarna på vald användare
+
+            if(LVModifyUser.SelectedItem == null) 
+            {
+                MessageBox.Show("Du måste välja en användare i listan först.");
+                return; 
+            }
+
+            if(rButtonChangeUser.IsChecked == false && rButtonRemoveUser.IsChecked == false) 
+            {
+                MessageBox.Show("Markera om du vill ta bort eller ändra vald användare.");
+                return;
+            }
 
             if (userToChange != null && rButtonChangeUser.IsChecked == true)
             {
@@ -367,6 +383,69 @@ namespace Bibblan.Views
             {
                 dbVirtual.Add(item);
             }
+        }
+
+        private void RestrictButton_Click(object sender, RoutedEventArgs e)
+        {
+            string whoRestricted = ""; 
+            if (GlobalClass.userPermission == 2)
+                whoRestricted = "admin";
+            else whoRestricted = "bibliotekarie"; 
+
+            if (u == null)
+            {
+                MessageBox.Show("Du har inte valt någon användare att spärra"); 
+                return;
+            }
+            else
+            {
+                if (u.Permissions == 2 && GlobalClass.userPermission != 2) 
+                {
+                    MessageBox.Show("Du har inte rättigheter att göra detta");
+                    return; 
+                }
+
+                if (GlobalClass.userPermission == 1 || GlobalClass.userPermission == 2)
+                {
+                    MessageBoxResult result = MessageBox.Show("Är det säkert att du vill spärra den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            if (loanRightsComboBox.SelectedItem != null)
+                            {
+                                u.UserComment += $"\n--- Lånekort spärrat av {whoRestricted} datum: {DateTime.Now}";
+                                u.HasLoanCard = 0;
+                                loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;  
+
+                            }
+                            DbInitialiser.Db.Update(u);
+                            DbInitialiser.Db.SaveChanges();
+                            MessageBox.Show("Du har nu spärrat användaren");
+                            break;
+
+                        case MessageBoxResult.No:
+                            return;
+
+                    }
+
+                }
+
+                ClearAndRetrieveVirtualDb();
+                return; 
+
+
+
+            }
+            
+            
+            
+            
+
+           
+
+
+
         }
     }
 }

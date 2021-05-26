@@ -60,7 +60,9 @@
         </Grid>
 
         <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
-        <Image Source="/img/books_background.jpg" Grid.ColumnSpan="5" Grid.RowSpan="5" Height="800" Width="1500" Opacity="0.05" />
+        'userAdminRestrictFunction'
+        <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Stretch="Fill" Grid.RowSpan="4" Height="800" Width="1500" Opacity="0.05" />
+
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2">
 
