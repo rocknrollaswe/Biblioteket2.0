@@ -12,6 +12,7 @@ namespace Bibblan.Models
         public string Comment { get; set; }
         public string Condition { get; set; }
         public int? Discarded { get; set; }
+        public int? Available { get; set; }
 
         public virtual Book IsbnNavigation { get; set; }
     }

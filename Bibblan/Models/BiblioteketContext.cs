@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Configuration; 
 
 #nullable disable
 
@@ -18,6 +19,7 @@ namespace Bibblan.Models
         }
 
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<BookStockLoan> BookStockLoans { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Loanlog> Loanlogs { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
@@ -28,8 +30,8 @@ namespace Bibblan.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:bladerunnerdb.database.windows.net,1433;Initial Catalog=Biblioteket;Persist Security Info=False;User ID=harrison;Password=Blade1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
             }
         }
 
@@ -80,6 +82,29 @@ namespace Bibblan.Models
                     .HasConstraintName("FK__Books__Category__531856C7");
             });
 
+            modelBuilder.Entity<BookStockLoan>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("BookStockLoan");
+
+                entity.Property(e => e.Author)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ddk).HasColumnName("DDK");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.CategoryId).ValueGeneratedNever();
@@ -96,9 +121,9 @@ namespace Bibblan.Models
 
                 entity.ToTable("Loanlog");
 
-                entity.Property(e => e.Loandate).HasColumnType("datetime");
+                entity.Property(e => e.Loandate).HasColumnType("date");
 
-                entity.Property(e => e.Returndate).HasColumnType("datetime");
+                entity.Property(e => e.Returndate).HasColumnType("date");
 
                 entity.Property(e => e.StockId).HasColumnName("StockID");
 
@@ -158,6 +183,8 @@ namespace Bibblan.Models
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
+                entity.Property(e => e.Debt).HasColumnType("decimal(7, 2)");
+
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(45)
@@ -180,7 +207,7 @@ namespace Bibblan.Models
                 entity.Property(e => e.Socialsecuritynumber).IsRequired();
 
                 entity.Property(e => e.UserComment)
-                    .HasMaxLength(45)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.PermissionsNavigation)
