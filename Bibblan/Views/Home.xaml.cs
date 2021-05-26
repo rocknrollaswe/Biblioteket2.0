@@ -55,5 +55,10 @@ namespace Bibblan.Views
             this.Close();
             mainwindow.Show();
         }
+        
+        private void Rapportering_Click(object sender, RoutedEventArgs e)
+        {
+            Main2.Navigate(new Rapport());
+        }
     }
 }
