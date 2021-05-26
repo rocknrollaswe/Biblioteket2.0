@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Bibblan.Services;
+using Bibblan.Models;
+using System.Linq;
 
 namespace Bibblan.Views
 {
@@ -18,17 +21,55 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Rapport : Page
     {
+        List<Book> dbVirtual = new List<Book>();
+        List<Stock> dbVirtual2 = new List<Stock>();
         public Rapport()
         {
             InitializeComponent();
+            DatabaseInitialiser();
+
         }
+
+        private void DatabaseInitialiser()
+        {
+            foreach (var item in DbInitialiser.Db.Books)
+            {
+                dbVirtual.Add(item);
+            }
+            foreach (var item in DbInitialiser.Db.Stocks)
+            {
+                dbVirtual2.Add(item);
+            }
+        }
+
+
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
+            var fan = dbVirtual2.Join(
+                            dbVirtual,
+                            x => x.Isbn,
+                            c => c.Isbn,
+                            (x, c) => new
+                            {
+                                StockId = x.StockId,
+                                Isbn = x.Isbn,
+                                BookTitle = c.Title,
+                                Edition = c.Edition,
+                                Comment = x.Comment,
+                                Condition = x.Condition,
+                                Discarded = x.Discarded
+                            }) ;
 
+
+            LVReportUser.Visibility = Visibility.Hidden;
+            LVReportObject.Visibility = Visibility.Visible;
+
+            DataContext = fan;
+            LVReportObjectView.ItemsSource = fan.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
         }
 
 

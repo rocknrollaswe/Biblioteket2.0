@@ -14,9 +14,9 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Border Background="#80B3B5" Panel.ZIndex="-2" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        
-        <Border CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200" Grid.Column="0" Grid.ColumnSpan="2">
-            <ListView x:Name="LVReport" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+        <Border x:Name="LVReportUser" CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Visible">
+            <ListView x:Name="LVReportUserView" BorderBrush="Transparent" Background="Transparent" Width="576" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding UserId}" Header="ID" Width="111"/>
@@ -28,7 +28,21 @@
                 </ListView.View>
             </ListView>
         </Border>
-        
+        <Border x:Name="LVReportObject" CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Hidden">
+            <ListView x:Name="LVReportObjectView" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="ID" Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="ISBN" Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding BookTitle}" Header="Titel" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Edition}" Header="Titel" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Comment}" Header="Anledning" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Condition}" Header="Skick" Width="111"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
         <WrapPanel Height="400" Width="500" Grid.Column="1" Margin="50 0 0 0">
             <StackPanel>
                 <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Margin="10 220 0 0" Foreground="LightGray"></TextBox>
@@ -37,7 +51,7 @@
                 <TextBox Width="200" Height="30" Text="ISBN?" FontSize="20" Margin="75 220 0 0" Foreground="LightGray"></TextBox>
             </StackPanel>
         </WrapPanel>
-        
+
         <WrapPanel Width="500" Height="50" Margin="70,200,0,0" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Användare" Width="200" Height="50" FontSize="18" Click="seeUserButton_Click"/>
             <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Borttagna Objekt" Width="200" Height="50" FontSize="18" Margin="80 0 0 0" Click="seeDeletedObjects_Click"/>
