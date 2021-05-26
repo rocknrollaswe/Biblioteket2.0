@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Configuration; 
@@ -25,12 +26,12 @@ namespace Bibblan.Models
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserReport> UserReports { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-
                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
             }
         }
@@ -215,6 +216,27 @@ namespace Bibblan.Models
                     .HasForeignKey(d => d.Permissions)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Users__Permissio__2BFE89A6");
+            });
+
+            modelBuilder.Entity<UserReport>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("UserReport");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Returndate).HasColumnType("date");
+
+                entity.Property(e => e.StockId).HasColumnName("StockID");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
