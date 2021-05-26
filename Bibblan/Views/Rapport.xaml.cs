@@ -26,51 +26,21 @@ namespace Bibblan.Views
         {
             InitializeComponent();
 
-            foreach (var item in DbInitialiser.Db.Loanlogs)
-            {
-                dbVirtual.Add(item);
-            }
+            //foreach (var item in DbInitialiser.Db.Loanlogs)
+            //{
+            //    dbVirtual.Add(item);
+            //}
         }
 
 
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            //var joinTest = DbInitialiser.Db.Loanlogs.Join(
-            //    DbInitialiser.Db.Users, 
-            //    x => x.UserId, 
-            //    c => c.UserId, 
-            //    (x, c) => new { 
-            //        firstName = c.Firstname, 
-            //        email = c.Email, 
-            //        stockId = x.StockId, 
-            //        returnDate = x.Returndate })
-            //    .Join(DbInitialiser.Db.Stocks,
-            //    x => x.stockId,
-            //    c => c.StockId,
-            //    (x, c) => new {
-            //        isbn = c.Isbn,
-            //        firstName = x.firstName,
-            //        email = x.email,
-            //        stockId = c.StockId,
-            //        returnDate = x.returnDate
-            //    }).Join();
+            List<UserReport> bigJoin = new List<UserReport>();
 
-            //var join2Test = DbInitialiser.Db.Loanlogs.Join(
-            //    DbInitialiser.Db.Stocks,
-            //    x => x.StockId,
-            //    c => c.StockId,
-            //    (x, c) => new
-            //    {
-            //        isbn = c.Isbn,
-            //        stockId = x.StockId
-            //    }).ToList();
+            LVReport.ItemsSource = bigJoin;
 
-            //var join3Test = join2Test.Join(
-            //    DbInitialiser.Db.Books, 
-            //    x => x.isbn, 
-            //    c => c.Isbn, 
-            //    (x, c) => new { 
-            //    title = c.Title }).ToList();
+            //var join2Test = DbInitialiser.Db.Loanlogs.Join(DbInitialiser.Db.Stocks,x => x.StockId,c => c.StockId,(x, c) => new{isbn = c.Isbn, stockId = x.StockId}).ToList();
+            //var join3Test = join2Test.Join(DbInitialiser.Db.Books,x => x.isbn,c => c.Isbn, (x, c) => new{title = c.Title}).ToList();
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
