@@ -19,18 +19,20 @@
             <ListView x:Name="LVReport" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Namn" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="111"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="Email" Width="111"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="Bok" Width="111"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding ReturnDate}" Header="Returdatum" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="Bok ID" Width="111"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Returndate, StringFormat='yyyy-MM-dd'}" Header="Returdatum" Width="111"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Border>
+
+        <Button x:Name="bookStockButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" VerticalAlignment="Bottom" Margin="90 0 0 100" FontSize="20" Click="bookStockButton_Click">Se bok i lager</Button>
         
         <WrapPanel Height="400" Width="500" Grid.Column="1" Margin="50 0 0 0">
             <StackPanel>
-                <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Margin="10 220 0 0" Foreground="LightGray"></TextBox>
+                <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Margin="10 220 0 0" Foreground="LightGray" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus"></TextBox>
             </StackPanel>
             <StackPanel>
                 <TextBox Width="200" Height="30" Text="ISBN?" FontSize="20" Margin="75 220 0 0" Foreground="LightGray"></TextBox>

@@ -13,6 +13,7 @@ namespace Bibblan.Services
         public static int? currentUserID { get; set; }
         public static string? userFirstName { get; set; }
         public static Book? chosenBook { get; set; }
+        public static UserReport? chosenBookReport { get; set; }
 #nullable disable //slutet av nullable, allt efter kan inte nullas
     }
 }
