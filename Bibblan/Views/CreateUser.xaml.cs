@@ -127,9 +127,6 @@ namespace Bibblan.Views
         }
 
 
-        
-
-
         //Nedan är 'focus' för Grå hints inom Textboxen
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
