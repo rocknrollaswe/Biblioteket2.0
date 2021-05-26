@@ -21,30 +21,44 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Rapport : Page
     {
-        List<Loanlog> dbVirtual = new List<Loanlog>();
+        List<UserReport> dbVirtual = new List<UserReport>();
         public Rapport()
         {
             InitializeComponent();
 
-            //foreach (var item in DbInitialiser.Db.Loanlogs)
-            //{
-            //    dbVirtual.Add(item);
-            //}
+            foreach (var item in DbInitialiser.Db.UserReports)
+            {
+                dbVirtual.Add(item);
+            }
         }
-
-
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            List<UserReport> bigJoin = new List<UserReport>();
-
-            LVReport.ItemsSource = bigJoin;
-
-            //var join2Test = DbInitialiser.Db.Loanlogs.Join(DbInitialiser.Db.Stocks,x => x.StockId,c => c.StockId,(x, c) => new{isbn = c.Isbn, stockId = x.StockId}).ToList();
-            //var join3Test = join2Test.Join(DbInitialiser.Db.Books,x => x.isbn,c => c.Isbn, (x, c) => new{title = c.Title}).ToList();
+            if(epostTextBox.Text != null || epostTextBox.Text != "")
+            {
+                var userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
+                LVReport.ItemsSource = userReport;
+            }
+            else
+            {
+                MessageBox.Show("Var vänlig fyll i en e-post adress");
+            }
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void bookStockButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(LVReport.SelectedItem != null)
+            {
+                GlobalClass.chosenBookReport = LVReport.SelectedItem as UserReport;
+
+                this.NavigationService.Navigate(new BookStock());
+            }
+            else
+            {
+                MessageBox.Show("Var vänlig tryck i ett värde i listan");
+            }
         }
 
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
