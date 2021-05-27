@@ -26,7 +26,7 @@ namespace Bibblan.Views
     public partial class BookStock : Page
     {
         List<Stock> dbVirtual = new List<Stock>();
-        List<Stock> defaultStocks = new List<Stock>();
+        IEnumerable<Stock> defaultStocks;
         Stock selectedStock = new Stock();
         public BookStock()
         {
@@ -37,12 +37,19 @@ namespace Bibblan.Views
                 dbVirtual.Add(item);
             }
 
-            defaultStocks = dbVirtual.Where(x => x.Isbn.ToString() == GlobalClass.chosenBook.Isbn.ToString()).ToList();
             searchBar.Text = "Sök";
+            defaultStocks = dbVirtual.Where(x => x.Isbn.ToString() == GlobalClass.chosenBook.Isbn.ToString()).ToList();
             test88.Content = GlobalClass.chosenBook.Title;
+
             if(GlobalClass.chosenBook.Category == 1)
             {
                 test88.Content += " (E-bok)";
+            }
+
+            if(GlobalClass.chosenBookReport != null)
+            {
+                var userReportStock = dbVirtual.Where(x => x.StockId == GlobalClass.chosenBookReport.StockId).ToList();
+                LVBookStock.ItemsSource = userReportStock;
             }
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)

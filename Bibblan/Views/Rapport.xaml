@@ -27,6 +27,12 @@
                 </ListView.View>
             </ListView>
         </Border>
+      
+        <WrapPanel VerticalAlignment="Bottom" Margin="130 0 0 100">
+            <Button x:Name="downloadReportButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" FontSize="20" Click="downloadReportButton_Click">Ladda ned rapport</Button>
+            <Button x:Name="bookStockButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" Margin="70 0 0 0"  FontSize="20" Click="bookStockButton_Click">Se bok i lager</Button>
+        </WrapPanel> 
+
         <Border x:Name="LVReportObject" CornerRadius="20" Background="AliceBlue" Opacity="1" Margin="77,169,548,200" Grid.Column="0" Grid.ColumnSpan="2">
             <ListView x:Name="LVReportObjectView" BorderBrush="Transparent" Background="Transparent" Width="564" Height="416" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <ListView.View>
@@ -40,8 +46,7 @@
                 </ListView.View>
             </ListView>
         </Border>
-        <Button x:Name="bookStockButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" VerticalAlignment="Bottom" Margin="90 0 0 100" FontSize="20" Click="bookStockButton_Click">Se bok i lager</Button>
-        
+      
         <WrapPanel Height="400" Width="500" Grid.Column="1" Margin="50 0 0 0">
             <StackPanel>
                 <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Margin="10 220 0 0" Foreground="LightGray" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus"></TextBox>
