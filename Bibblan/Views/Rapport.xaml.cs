@@ -22,6 +22,7 @@ namespace Bibblan.Views
     public partial class Rapport : Page
     {
         List<UserReport> dbVirtual = new List<UserReport>();
+        IEnumerable<UserReport> userReport;
         public Rapport()
         {
             InitializeComponent();
@@ -33,9 +34,9 @@ namespace Bibblan.Views
         }
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if(epostTextBox.Text != null || epostTextBox.Text != "")
+            if(epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
-                var userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
+                userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
                 LVReport.ItemsSource = userReport;
             }
             else
@@ -51,7 +52,12 @@ namespace Bibblan.Views
         {
             if(LVReport.SelectedItem != null)
             {
-                GlobalClass.chosenBookReport = LVReport.SelectedItem as UserReport;
+                UserReport chosenBookReport = LVReport.SelectedItem as UserReport;
+                GlobalClass.chosenBookReport = chosenBookReport;
+                Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == chosenBookReport.StockId).FirstOrDefault();
+                Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
+
+                GlobalClass.chosenBook = bookToBookStock;
 
                 this.NavigationService.Navigate(new BookStock());
             }
@@ -75,6 +81,26 @@ namespace Bibblan.Views
             {
                 epostTextBox.Foreground = Brushes.LightGray;
                 epostTextBox.Text = "E-post";
+            }
+        }
+
+        private async void downloadReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(LVReport.ItemsSource != null && userReport != null)
+            {
+                using (var streamWriter = new System.IO.StreamWriter("output.csv", false))
+                {
+                    streamWriter.WriteLine($"               Email: {userReport.First().Email} \n");
+                    foreach (var item in userReport)
+                    {
+                        await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sök på en användare först!");
+                return;
             }
         }
     }
