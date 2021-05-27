@@ -22,13 +22,28 @@ namespace Bibblan.Views
     public partial class Rapport : Page
     {
         List<UserReport> dbVirtual = new List<UserReport>();
+        List<Book> dbVirtualBooks = new List<Book>();
+        List<Stock> dbVirtualStocks = new List<Stock>();
         public Rapport()
         {
             InitializeComponent();
+            DatabaseInitialiser();
 
+        }
+        private void DatabaseInitialiser()
+        {
             foreach (var item in DbInitialiser.Db.UserReports)
             {
                 dbVirtual.Add(item);
+            }
+
+            foreach (var item in DbInitialiser.Db.Books)
+            {
+                dbVirtualBooks.Add(item);
+            }
+            foreach (var item in DbInitialiser.Db.Stocks)
+            {
+                dbVirtualStocks.Add(item);
             }
         }
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
@@ -45,7 +60,47 @@ namespace Bibblan.Views
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
+            IEnumerable<dynamic> fan = dbVirtualStocks.Join(
+                dbVirtualBooks,
+                x => x.Isbn,
+                c => c.Isbn,
+                (x, c) => new
+                {
+                    StockId = x.StockId,
+                    Isbn = x.Isbn,
+                    BookTitle = c.Title,
+                    Edition = c.Edition,
+                    Comment = x.Comment,
+                    Condition = x.Condition,
+                    Discarded = x.Discarded
+                }); //Custom Variable (Join) to grab all the things we want to see in the ListView
 
+            LVReportUser.Visibility = Visibility.Hidden;
+            LVReportObject.Visibility = Visibility.Visible;
+
+            DataContext = fan;
+            LVReportObjectView.ItemsSource = fan.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
+            blah(fan);
+
+        }
+
+        private void blah(IEnumerable<dynamic> Fan)
+        {
+            string filepath = "shit.txt";
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(filepath, false))
+                {
+                    foreach (var item in Fan.Where(x => x.Discarded == 1))
+                    {
+                        file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
+                    }               
+                }
+            }
+            catch(Exception ex)
+            {
+               MessageBox.Show(ex.Message);
+            }
         }
         private void bookStockButton_Click(object sender, RoutedEventArgs e)
         {
