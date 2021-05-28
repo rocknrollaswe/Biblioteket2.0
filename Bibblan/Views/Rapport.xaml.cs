@@ -22,16 +22,16 @@ namespace Bibblan.Views
     public partial class Rapport : Page
     {
         List<UserReport> dbVirtual = new List<UserReport>();
-        
         IEnumerable<UserReport> userReport;
         List<Book> dbVirtualBooks = new List<Book>();
         List<Stock> dbVirtualStocks = new List<Stock>();
-        
+        IEnumerable<dynamic> objectJoin;
+
+
         public Rapport()
         {
             InitializeComponent();
             DatabaseInitialiser();
-
         }
         private void DatabaseInitialiser()
         {
@@ -39,7 +39,6 @@ namespace Bibblan.Views
             {
                 dbVirtual.Add(item);
             }
-
             foreach (var item in DbInitialiser.Db.Books)
             {
                 dbVirtualBooks.Add(item);
@@ -54,7 +53,10 @@ namespace Bibblan.Views
             if(epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
                 userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
-                LVReport.ItemsSource = userReport;
+                LVReportUser.ItemsSource = userReport;
+
+                userBorder.Visibility = Visibility.Visible;
+                LVReportObject.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -63,7 +65,7 @@ namespace Bibblan.Views
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
-            IEnumerable<dynamic> fan = dbVirtualStocks.Join(
+            objectJoin = dbVirtualStocks.Join(
                 dbVirtualBooks,
                 x => x.Isbn,
                 c => c.Isbn,
@@ -78,38 +80,17 @@ namespace Bibblan.Views
                     Discarded = x.Discarded
                 }); //Custom Variable (Join) to grab all the things we want to see in the ListView
 
-            LVReportUser.Visibility = Visibility.Hidden;
+            userBorder.Visibility = Visibility.Hidden;
             LVReportObject.Visibility = Visibility.Visible;
 
-            DataContext = fan;
-            LVReportObjectView.ItemsSource = fan.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
-            blah(fan);
-
-        }
-
-        private void blah(IEnumerable<dynamic> Fan)
-        {
-            string filepath = "shit.txt";
-            try
-            {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(filepath, false))
-                {
-                    foreach (var item in Fan.Where(x => x.Discarded == 1))
-                    {
-                        file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
-                    }               
-                }
-            }
-            catch(Exception ex)
-            {
-               MessageBox.Show(ex.Message);
-            }
+            DataContext = objectJoin;
+            LVReportObjectView.ItemsSource = objectJoin.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
         }
         private void bookStockButton_Click(object sender, RoutedEventArgs e)
         {
-            if(LVReport.SelectedItem != null)
+            if(LVReportUser.SelectedItem != null)
             {
-                UserReport chosenBookReport = LVReport.SelectedItem as UserReport;
+                UserReport chosenBookReport = LVReportUser.SelectedItem as UserReport;
                 GlobalClass.chosenBookReport = chosenBookReport;
                 Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == chosenBookReport.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
@@ -123,29 +104,31 @@ namespace Bibblan.Views
                 MessageBox.Show("Var vänlig tryck i ett värde i listan");
             }
         }
-
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (epostTextBox.Foreground == Brushes.LightGray)
-            {
-                epostTextBox.Text = "";
-                epostTextBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(epostTextBox);
         }
         private void epostTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (epostTextBox.Text == "" || epostTextBox.Text == null)
+            Thematics.Watermark.ForLostFocus(epostTextBox, "E-post");
+        }
+        private void downloadReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(userBorder.Visibility == Visibility.Visible)
             {
-                epostTextBox.Foreground = Brushes.LightGray;
-                epostTextBox.Text = "E-post";
+                downloadUserReport();
+            }
+            else if(LVReportObject.Visibility == Visibility.Visible)
+            {
+                removedObjectsReport(objectJoin);
             }
         }
 
-        private async void downloadReportButton_Click(object sender, RoutedEventArgs e)
+        private async void downloadUserReport()
         {
-            if(LVReport.ItemsSource != null && userReport != null)
+            if (LVReportUser.ItemsSource != null && userReport != null)
             {
-                using (var streamWriter = new System.IO.StreamWriter("output.csv", false))
+                using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
                 {
                     streamWriter.WriteLine($"               Email: {userReport.First().Email} \n");
                     foreach (var item in userReport)
@@ -158,6 +141,23 @@ namespace Bibblan.Views
             {
                 MessageBox.Show("Sök på en användare först!");
                 return;
+            }
+        }
+        private void removedObjectsReport(IEnumerable<dynamic> Fan)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter("discardedReport.csv", false))
+                {
+                    foreach (var item in Fan.Where(x => x.Discarded == 1))
+                    {
+                        file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

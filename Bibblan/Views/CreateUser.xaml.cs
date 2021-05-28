@@ -130,76 +130,43 @@ namespace Bibblan.Views
         //Nedan är 'focus' för Grå hints inom Textboxen
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
-            if(firstName.Foreground == Brushes.LightGray)
-            {
-                firstName.Text = "";
-                firstName.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(firstName);
         }
-        private void FirstLost(object sender, RoutedEventArgs e)
+        private void FirstLost(object sender, RoutedEventArgs e) 
         {
-            if(firstName.Text == "" || firstName.Text == null)
-            {
-                firstName.Foreground = Brushes.LightGray;
-                firstName.Text = "Förnamn";
-            }
+            Thematics.Watermark.ForLostFocus(firstName, "Förnamn");
         }
 
         private void LastFocus(object sender, RoutedEventArgs e)
         {
-            if (lastName.Foreground == Brushes.LightGray)
-            {
-                lastName.Text = "";
-                lastName.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(lastName);
         }
-        private void LastLost(object sender, RoutedEventArgs e)
+        private void LastLost(object sender, RoutedEventArgs e) 
         {
-            if(lastName.Text == "" || firstName.Text == null)
-            {
-                lastName.Foreground = Brushes.LightGray;
-                lastName.Text = "Efternamn";
-            }
+            Thematics.Watermark.ForLostFocus(lastName, "Efternamn");
         }
 
         private void EmailFocus(object sender, RoutedEventArgs e)
         {
-            if (eMail.Foreground == Brushes.LightGray)
-            {
-                eMail.Text = "";
-                eMail.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(eMail);
         }
         private void EmailLost(object sender, RoutedEventArgs e)
         {
-            if (eMail.Text == "" || firstName.Text == null)
-            {
-                eMail.Foreground = Brushes.LightGray;
-                eMail.Text = "E-post";
-            }
+            Thematics.Watermark.ForLostFocus(eMail, "E-post");
         }
 
         private void SSNFocus(object sender, RoutedEventArgs e)
         {
-            if (SSN.Foreground == Brushes.LightGray)
-            {
-                SSN.Text = "";
-                SSN.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(SSN);
         }
-        private void SSNLost(object sender, RoutedEventArgs e)
+        private void SSNLost(object sender, RoutedEventArgs e) 
         {
-            if (SSN.Text == "" || firstName.Text == null)
-            {
-                SSN.Foreground = Brushes.LightGray;
-                SSN.Text = "Personnummer";
-            }
+            Thematics.Watermark.ForLostFocus(SSN, "Personnummer");
         }
         private void PassFocus(object sender, RoutedEventArgs e)
         {
             passwordInfo.Visibility = Visibility.Visible;
         }
-
         private void PassLost(object sender, RoutedEventArgs e)
         {
             passwordInfo.Visibility = Visibility.Collapsed;
@@ -208,13 +175,13 @@ namespace Bibblan.Views
                 passWordFalse.Visibility = Visibility.Visible;
             }
         }
-
         private void PassFalseFocus(object sender, RoutedEventArgs e)
         {
             passWordFalse.Visibility = Visibility.Collapsed;
             passWord.Focus();
         }
 
+        //Textchanged för validering 
         private void firstName_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$") && firstName.Foreground == Brushes.Black)
@@ -242,7 +209,6 @@ namespace Bibblan.Views
                 lastNameImg.Visibility = Visibility.Visible;
             }
         }
-
         private void eMail_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black)
@@ -256,7 +222,6 @@ namespace Bibblan.Views
                 eMailImg.Visibility = Visibility.Visible;
             }
         }
-
         private void SSN_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Regex.IsMatch(SSN.Text, @"^([0-9]{12})$") && SSN.Foreground == Brushes.Black)
@@ -270,7 +235,6 @@ namespace Bibblan.Views
                 SSNImg.Visibility = Visibility.Visible;
             }
         }
-
         private void passWord_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
