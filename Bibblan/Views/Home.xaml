@@ -66,7 +66,7 @@
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2">
 
-            <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="user_button" Click="Menu_Click">
+            <Button Style="{StaticResource ROB}" Background="LightGreen"  Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="user_button" Click="Menu_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"  
                                Style="{StaticResource RobotoFont}" FontSize="14">
@@ -75,7 +75,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="AddBooks" Click="AddBooks_Click">
+            <Button Style="{StaticResource ROB}" Background="LightGreen" Height="38" Margin="0,10,0,0" Width="170" Padding="10" x:Name="AddBooks" Click="AddBooks_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
                                FontSize="14"
@@ -84,14 +84,20 @@
                     </TextBlock>
                 </StackPanel>
             </Button>
-            <Button Style="{StaticResource ROB}" Height="38" Margin="0,10,0,0" Width="170" Padding="10" Click="Rapportering_Click">
+            <Button Style="{StaticResource ROB}" Background="LightGreen" Height="38" Margin="0,10,0,0" Width="170" Padding="10" Click="Rapportering_Click">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
                         FontSize="14"
                         Style="{StaticResource RobotoFont}"><Run Text="Rapportering"/></TextBlock>
                 </StackPanel>
             </Button>
-            
+            <Button Style="{StaticResource ROB}" Background="LightGreen" Height="38" Margin="0,10,0,0" Width="170" Padding="10" Click="LoanBooks_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5,0"
+                        FontSize="14"
+                        Style="{StaticResource RobotoFont}"><Run Text="Sök och låna böcker"/></TextBlock>
+                </StackPanel>
+            </Button>
 
             <!--<Button Style="{StaticResource ROB}" Width="170" Height="38" Margin="0,10,0,0" Padding="10" x:Name="SeeUser">
                 <StackPanel Orientation="Horizontal">
@@ -107,6 +113,6 @@
 
 
         </Frame>
-        <Button x:Name="Loggaut" Click="LogOut_Click" Content="Logga ut" FontSize="18" Style="{StaticResource ROB}" HorizontalAlignment="Center" Height="40" Margin="0,96,0,0" Grid.Row="3" VerticalAlignment="Top" Width="122"/>
+        <Button x:Name="Loggaut" Click="LogOut_Click" Content="Logga ut" FontSize="18" Style="{StaticResource ROB}" Background="LawnGreen" HorizontalAlignment="Center" Height="40" Margin="0,96,0,0" Grid.Row="3" VerticalAlignment="Top" Width="122"/>
     </Grid>
 </Window>

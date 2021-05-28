@@ -56,6 +56,7 @@ namespace Bibblan.Views
                     var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
                     dbStockItem.Comment = commentSelected.Content.ToString();
                     dbStockItem.Discarded = 1;
+                    dbStockItem.Available = 1; 
                     DbInitialiser.Db.SaveChanges();
 
                     LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);

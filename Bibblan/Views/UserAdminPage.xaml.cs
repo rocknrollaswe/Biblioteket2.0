@@ -434,7 +434,7 @@ namespace Bibblan.Views
                 ClearAndRetrieveVirtualDb();
                 return; 
 
-
+                
 
             }
             

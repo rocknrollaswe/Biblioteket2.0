@@ -396,6 +396,7 @@ namespace Bibblan.Views
                 stock.Isbn = Convert.ToInt32(b.Isbn);
                 stock.Condition = "Nyskick";
                 stock.Discarded = 0;
+                stock.Available = 1; 
                 DbInitialiser.Db.Add(stock);
             }
 

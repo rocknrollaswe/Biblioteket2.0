@@ -16,9 +16,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" Grid.ColumnSpan="2" >
-            
-        </Border>
+        <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" Grid.ColumnSpan="2"/>
 
         <TextBlock Text="Böcker" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="70" Height="80" Foreground="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="2" Margin="0, 30, 0, 0" Style="{StaticResource CardoFont}"/>
 
@@ -31,7 +29,7 @@
         </Border>
 
         <Border CornerRadius="30"  Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Width="600" Height="400" Margin="0,100,0,0">
-            <ListView x:Name="LVLoanBook" BorderBrush="Transparent" Background="Transparent" Width="480" Height="380" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVLoanBook_SelectionChanged">
+            <ListView x:Name="LVLoanBook" BorderBrush="Transparent" Background="Transparent" Width="580" Height="380" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVLoanBook_SelectionChanged">
                 <ListView.View >
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Titel" Width="100"/>
@@ -39,17 +37,12 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Beskrivning" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Ddk}" Header="Placering" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="EBok" Width="70"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Available}" Header="Tillgänglig" Width="70"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Border>
-        <ListView x:Name="LVAvailable" Margin="830,100,0,0" BorderBrush="Transparent" Background="Transparent" Width="100" Height="380"  HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding UserId}" Header="Tillgänglig" Width="100"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        
 
 
         <Button x:Name="loanButton" Content="Låna" Style="{StaticResource ROB}" HorizontalAlignment="Center" Margin="0,660,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2" Width="140" Height="40" FontSize="25" Click="loanButton_Click"/>

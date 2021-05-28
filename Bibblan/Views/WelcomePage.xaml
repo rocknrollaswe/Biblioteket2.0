@@ -1,0 +1,52 @@
+﻿<Page x:Class="Bibblan.Views.WelcomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Bibblan.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300"
+      Title="WelcomePage">
+
+    <Grid>
+        <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" />
+
+        <StackPanel>
+            <TextBlock Text="Välkommen till ditt bibliotek!" HorizontalAlignment="Center" FontSize="70" Margin="0,30,0,0" Style="{StaticResource CardoFont}"/>
+            <TextBlock Text="Här kan du låna och lämna tillbaka böcker, navigering sker på vänster sida!" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="15" Margin="0,50,0,0" >
+                Här är böckerna du lånat och återlämningsdatum för dessa!<LineBreak/>
+                Väljer du att lämna tillbaka boken idag är det bara att markera  boken i listan och trycka på <LineBreak/>'Lämna tillbaka'
+            </TextBlock>
+            <ListView  x:Name="LVBooksLoanedByUser" 
+                      BorderBrush="Transparent"
+                      Background="Transparent" 
+                      Width="500" 
+                      Height="280"
+                      UseLayoutRounding="True"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      Margin="0,20,0,0" SelectionChanged="LVModifyUser_SelectionChanged">>
+                <ListView.View>
+                    <GridView>
+                        <!--<GridViewColumn DisplayMemberBinding="Title" Header="Bok" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="Returndate" Header="Återlämningsdatum" Width="auto"/>-->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Style="{StaticResource ROB}" Content="Lämna tillbaka" Width="150" Height="40" Margin="0,20,0,0" />
+
+        </StackPanel>
+
+
+
+
+
+
+
+
+
+
+
+    </Grid>
+</Page>
