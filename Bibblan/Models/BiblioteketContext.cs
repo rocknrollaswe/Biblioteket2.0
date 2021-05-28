@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -247,6 +248,8 @@ namespace Bibblan.Models
                     .HasMaxLength(45)
                     .IsUnicode(false)
                     .HasColumnName("title");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
             });
 
             modelBuilder.Entity<User>(entity =>
