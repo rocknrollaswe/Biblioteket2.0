@@ -15,5 +15,6 @@ namespace Bibblan.Models
         public int? Available { get; set; }
 
         public virtual Book IsbnNavigation { get; set; }
+        public virtual Loanlog Loanlog { get; set; }
     }
 }

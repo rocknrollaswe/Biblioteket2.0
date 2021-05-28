@@ -24,6 +24,7 @@ namespace Bibblan.Models
         public virtual DbSet<Loanlog> Loanlogs { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
+        public virtual DbSet<StockLoanLogBooksJoin> StockLoanLogBooksJoins { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserReport> UserReports { get; set; }
 
@@ -91,6 +92,17 @@ namespace Bibblan.Models
                 entity.Property(e => e.Author)
                     .IsRequired()
                     .HasMaxLength(45)
+                    .IsUnicode(false)
+                    .HasColumnName("author");
+
+                entity.Property(e => e.Category).HasColumnName("category");
+
+                entity.Property(e => e.Comment)
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Condition)
+                    .HasMaxLength(45)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Ddk).HasColumnName("DDK");
@@ -99,10 +111,33 @@ namespace Bibblan.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Discarded).HasColumnName("discarded");
+
+                entity.Property(e => e.Edition).HasColumnName("edition");
+
+                entity.Property(e => e.Isbn).HasColumnName("isbn");
+
+                entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
+
+                entity.Property(e => e.Publisher)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false)
+                    .HasColumnName("publisher");
+
+                entity.Property(e => e.Sab)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("SAB");
+
+                entity.Property(e => e.Stockid).HasColumnName("stockid");
+
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("title");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -117,26 +152,29 @@ namespace Bibblan.Models
 
             modelBuilder.Entity<Loanlog>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.StockId)
+                    .HasName("PK__Loanlog__2C83A9E2838BB213");
 
                 entity.ToTable("Loanlog");
+
+                entity.Property(e => e.StockId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("StockID");
 
                 entity.Property(e => e.Loandate).HasColumnType("date");
 
                 entity.Property(e => e.Returndate).HasColumnType("date");
 
-                entity.Property(e => e.StockId).HasColumnName("StockID");
-
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Stock)
-                    .WithMany()
-                    .HasForeignKey(d => d.StockId)
+                    .WithOne(p => p.Loanlog)
+                    .HasForeignKey<Loanlog>(d => d.StockId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Loanlog__StockID__5BAD9CC8");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Loanlogs)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Loanlog__UserID__5AB9788F");
@@ -174,6 +212,42 @@ namespace Bibblan.Models
                     .HasForeignKey(d => d.Isbn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Stock__ISBN__55F4C372");
+            });
+
+            modelBuilder.Entity<StockLoanLogBooksJoin>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("StockLoanLogBooksJoin");
+
+                entity.Property(e => e.Author)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false)
+                    .HasColumnName("author");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Isbn).HasColumnName("isbn");
+
+                entity.Property(e => e.Loandate)
+                    .HasColumnType("date")
+                    .HasColumnName("loandate");
+
+                entity.Property(e => e.Returndate)
+                    .HasColumnType("date")
+                    .HasColumnName("returndate");
+
+                entity.Property(e => e.Stockid).HasColumnName("stockid");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false)
+                    .HasColumnName("title");
             });
 
             modelBuilder.Entity<User>(entity =>
