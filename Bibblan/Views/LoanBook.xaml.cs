@@ -28,9 +28,19 @@ namespace Bibblan.Views
         {            
             InitializeComponent();
 
-            ClearAndRetrieveVirtualDb(); 
+            ClearAndRetrieveVirtualDb();
+
+            Validation();
 
             LVLoanBook.ItemsSource = virtualBooksToLoan;     
+        }
+
+        public void Validation()
+        {
+            if (GlobalClass.loanPermission == 0 && GlobalClass.userPermission == 0) //Gömmer för ordinarie användare utan lånekort
+            {
+                loanButton.Visibility = Visibility.Collapsed; //Låna knappen göms
+            }
         }
 
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)

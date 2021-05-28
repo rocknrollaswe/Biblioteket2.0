@@ -33,8 +33,11 @@ namespace Bibblan.Views
             {
                 user_button.Visibility = Visibility.Collapsed; //Administrera Användare göms
                 AddBooks.Visibility = Visibility.Collapsed; //Lägg till Böcker göms
+
                 ReturnedBooksButton.Visibility = Visibility.Collapsed;  
                
+                Rapportering.Visibility = Visibility.Collapsed; //Rapportering göms
+
             }
         }
 

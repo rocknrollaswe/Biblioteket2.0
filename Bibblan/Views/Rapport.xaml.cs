@@ -13,6 +13,8 @@ using System.Windows.Shapes;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
+using System.Threading;
+using System.Timers;
 
 namespace Bibblan.Views
 {
@@ -26,8 +28,6 @@ namespace Bibblan.Views
         List<Book> dbVirtualBooks = new List<Book>();
         List<Stock> dbVirtualStocks = new List<Stock>();
         IEnumerable<dynamic> objectJoin;
-
-
         public Rapport()
         {
             InitializeComponent();
@@ -53,7 +53,10 @@ namespace Bibblan.Views
             if(epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
                 userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
-                LVReportUser.ItemsSource = userReport;
+
+                var userReportFinal = userReport.Join(DbInitialiser.Db.Users, x => x.Email, c => c.Email, (x, c) => new { firstName = c.Firstname, lastName = c.Lastname, email = x.Email, returnDate = x.Returndate, stockId = x.StockId, title = x.Title }).ToList();
+                
+                LVReportUser.ItemsSource = userReportFinal;
 
                 userBorder.Visibility = Visibility.Visible;
                 LVReportObject.Visibility = Visibility.Hidden;
@@ -90,9 +93,12 @@ namespace Bibblan.Views
         {
             if(LVReportUser.SelectedItem != null)
             {
-                UserReport chosenBookReport = LVReportUser.SelectedItem as UserReport;
-                GlobalClass.chosenBookReport = chosenBookReport;
-                Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == chosenBookReport.StockId).FirstOrDefault();
+                var chosenBookReport = LVReportUser.SelectedItem as dynamic;
+                UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
+
+                
+                GlobalClass.chosenBookReport = userReportFinal;
+                Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
 
                 GlobalClass.chosenBook = bookToBookStock;
