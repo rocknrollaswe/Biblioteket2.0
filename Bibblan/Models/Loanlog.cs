@@ -11,6 +11,7 @@ namespace Bibblan.Models
         public int StockId { get; set; }
         public DateTime Loandate { get; set; }
         public DateTime Returndate { get; set; }
+        public int? Pending { get; set; }
 
         public virtual Stock Stock { get; set; }
         public virtual User User { get; set; }

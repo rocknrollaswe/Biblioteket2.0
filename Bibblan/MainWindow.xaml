@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow"
         ResizeMode="NoResize"
-        Height="600" Width="1000">
+        Height="600" Width="1000"
+        Style="{StaticResource RobotoFont}">
 
     <Grid>
         <Image Source="img/books_background.jpg" Stretch="Fill" Opacity="0.7"/>

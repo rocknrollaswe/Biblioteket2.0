@@ -84,9 +84,10 @@ namespace Bibblan.Views
                 Loanlog loanLog = new Loanlog();
                 BookStockLoan b = LVLoanBook.SelectedItem as BookStockLoan;
 
-                var bookToLoan = DbInitialiser.Db.Stocks.Where(x => x.Isbn == b.Isbn && x.Available == 1).FirstOrDefault();
+                var bookToLoan = DbInitialiser.Db.Stocks.Where(x => x.Isbn == b.Isbn && x.Available != 0).FirstOrDefault();
 
-                if (bookToLoan == null)
+
+                if (bookToLoan== null)
                 {
                     MessageBox.Show("Boken du vill låna är inte tillgänglig för tillfället");
                     return;
@@ -124,6 +125,7 @@ namespace Bibblan.Views
                     }
 
                 }
+                   
                 return;
 
             }

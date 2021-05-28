@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Configuration; 
 
 #nullable disable
 
@@ -31,6 +32,7 @@ namespace Bibblan.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
             }
         }
@@ -247,6 +249,8 @@ namespace Bibblan.Models
                     .HasMaxLength(45)
                     .IsUnicode(false)
                     .HasColumnName("title");
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
             });
 
             modelBuilder.Entity<User>(entity =>
