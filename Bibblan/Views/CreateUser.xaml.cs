@@ -31,7 +31,6 @@ namespace Bibblan.Views
             InitializeComponent();
             WrongEntry += Alert;
         }
-
         public event EventHandler<string> WrongEntry;
         protected virtual void OnWrongEntry(string e)
         {
@@ -45,7 +44,6 @@ namespace Bibblan.Views
 
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
-           
             if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
             {
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
@@ -112,21 +110,17 @@ namespace Bibblan.Views
             user.Lastname = lastName.Text;
             user.Email = eMail.Text.ToLower();
             user.Permissions = 0; //Detta ska admin kunna ändra senare
-
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
-
             user.Password = Encryption.Encrypt(passWord.Password);
 
             DbInitialiser.Db.Add(user);
             DbInitialiser.Db.SaveChanges();
             MessageBox.Show("Du har nu skapat upp en användare.");
 
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow 
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;                        //navigerar tbx till MainWindow 
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
             NavigationService.Navigate(null);
         }
-
-
         //Nedan är 'focus' för Grå hints inom Textboxen
         private void FirstFocus(object sender, RoutedEventArgs e)
         {
@@ -136,7 +130,6 @@ namespace Bibblan.Views
         {
             Thematics.Watermark.ForLostFocus(firstName, "Förnamn");
         }
-
         private void LastFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(lastName);
@@ -145,7 +138,6 @@ namespace Bibblan.Views
         {
             Thematics.Watermark.ForLostFocus(lastName, "Efternamn");
         }
-
         private void EmailFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(eMail);
@@ -154,7 +146,6 @@ namespace Bibblan.Views
         {
             Thematics.Watermark.ForLostFocus(eMail, "E-post");
         }
-
         private void SSNFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(SSN);
@@ -180,7 +171,6 @@ namespace Bibblan.Views
             passWordFalse.Visibility = Visibility.Collapsed;
             passWord.Focus();
         }
-
         //Textchanged för validering 
         private void firstName_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -195,7 +185,6 @@ namespace Bibblan.Views
                 firstNameImg.Visibility = Visibility.Visible;
             }
         }
-
         private void lastName_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black)
