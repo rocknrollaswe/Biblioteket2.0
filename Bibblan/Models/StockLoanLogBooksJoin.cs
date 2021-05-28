@@ -7,6 +7,7 @@ namespace Bibblan.Models
 {
     public partial class StockLoanLogBooksJoin
     {
+        public int? Pending { get; set; }
         public int Stockid { get; set; }
         public int Userid { get; set; }
         public DateTime Loandate { get; set; }

@@ -10,6 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Bibblan.Models;
+using System.Linq;
+using Bibblan.Services; 
+
 
 namespace Bibblan.Views
 {
@@ -18,9 +22,60 @@ namespace Bibblan.Views
     /// </summary>
     public partial class WelcomePage : Page
     {
+        List<StockLoanLogBooksJoin> booksToReturn = new List<StockLoanLogBooksJoin>();  
         public WelcomePage()
         {
             InitializeComponent();
+            ClearAndRetrieveVirtualDb();
+
+            LVBooksLoanedByUser.ItemsSource = booksToReturn;
         }
+
+        private void ClearAndRetrieveVirtualDb()
+        {
+            booksToReturn.Clear(); 
+
+            foreach (var item in DbInitialiser.Db.StockLoanLogBooksJoins)
+            {
+                if (item.Userid == GlobalClass.currentUserID && item.Pending != 1)
+                {
+                    booksToReturn.Add(item);
+                }
+                continue;
+            }
+
+        }
+
+        private void ReturnBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            var bookId = LVBooksLoanedByUser.SelectedItem as Stock;
+            var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.StockId).FirstOrDefault();
+            bookToReturn.Pending = 1;
+            DbInitialiser.Db.SaveChanges(); 
+
+            ClearAndRetrieveVirtualDb();
+            LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
+            LVBooksLoanedByUser.ItemsSource = booksToReturn;
+
+            return; 
+        }
+        private void ReturnAllBooksButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in booksToReturn)
+            {
+                var book = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();
+                book.Pending = 1; 
+                
+            }
+            DbInitialiser.Db.SaveChanges(); 
+
+            ClearAndRetrieveVirtualDb();
+            LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
+            LVBooksLoanedByUser.ItemsSource = booksToReturn;
+
+            return;
+        }
+
     }
 }

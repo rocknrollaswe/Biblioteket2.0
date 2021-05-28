@@ -2,6 +2,7 @@
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Configuration; 
 
 #nullable disable
 
@@ -32,6 +33,7 @@ namespace Bibblan.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
                 optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
             }
         }

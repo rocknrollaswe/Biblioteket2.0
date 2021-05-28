@@ -6,46 +6,55 @@
       xmlns:local="clr-namespace:Bibblan.Views"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300"
-      Title="WelcomePage">
+      Title="WelcomePage"
+      Style="{StaticResource RobotoFont}">
 
     <Grid>
         <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" />
 
         <StackPanel>
             <TextBlock Text="Välkommen till ditt bibliotek!" HorizontalAlignment="Center" FontSize="70" Margin="0,30,0,0" Style="{StaticResource CardoFont}"/>
-            <TextBlock Text="Här kan du låna och lämna tillbaka böcker, navigering sker på vänster sida!" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="Här kan du låna och lämna tillbaka dina böcker, navigering sker på vänster sida!" HorizontalAlignment="Center" FontSize="20"/>
             <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="15" Margin="0,50,0,0" >
                 Här är böckerna du lånat och återlämningsdatum för dessa!<LineBreak/>
                 Väljer du att lämna tillbaka boken idag är det bara att markera  boken i listan och trycka på <LineBreak/>'Lämna tillbaka'
             </TextBlock>
-            <ListView  x:Name="LVBooksLoanedByUser" 
-                      BorderBrush="Transparent"
-                      Background="Transparent" 
-                      Width="500" 
-                      Height="280"
-                      UseLayoutRounding="True"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Top"
-                      Margin="0,20,0,0">
-                <ListView.View>
-                    <GridView>
-                        <!--<GridViewColumn DisplayMemberBinding="Title" Header="Bok" Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="Returndate" Header="Återlämningsdatum" Width="auto"/>-->
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button Style="{StaticResource ROB}" Content="Lämna tillbaka" Width="150" Height="40" Margin="0,20,0,0" />
+
+            <Border CornerRadius="30" 
+                Background="AliceBlue" 
+                Opacity="1" Panel.ZIndex="-1" 
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center" 
+                Width="620"
+                Height="300"
+                >
+                <ListView  x:Name="LVBooksLoanedByUser" 
+                          BorderBrush="Transparent"
+                          Background="Transparent" 
+                          Width="600" 
+                          Height="280"
+                          UseLayoutRounding="True"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          Margin="0,5,0,0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Bok" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Författare" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Loandate}" Header="Lånedatum" Width=" 150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Returndate}" Header="Återlämningsdatum" Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+
+            <WrapPanel HorizontalAlignment="Center" >
+                <Button Style="{StaticResource ROB}" FontSize="15" Content="Lämna tillbaka bok" Width="150" Height="40" Margin="0,20,0,0" Click="ReturnBookButton_Click" />
+                <Button Style="{StaticResource ROB}" FontSize="15" Content="Lämna tillbaka samtliga böcker!"  Width="250" Height="50" Margin="50,20,0,0" Click="ReturnAllBooksButton_Click" />
+            </WrapPanel>
+            
 
         </StackPanel>
-
-
-
-
-
-
-
-
-
 
 
     </Grid>

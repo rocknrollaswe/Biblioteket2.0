@@ -24,6 +24,7 @@ namespace Bibblan.Views
         {
             InitializeComponent();
             Validation();
+            Main2.Navigate(new WelcomePage()); 
         }
 
         public void Validation()
