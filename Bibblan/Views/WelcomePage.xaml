@@ -26,7 +26,7 @@
                       UseLayoutRounding="True"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Top"
-                      Margin="0,20,0,0" SelectionChanged="LVModifyUser_SelectionChanged">>
+                      Margin="0,20,0,0">
                 <ListView.View>
                     <GridView>
                         <!--<GridViewColumn DisplayMemberBinding="Title" Header="Bok" Width="auto"/>
