@@ -118,7 +118,6 @@ namespace Bibblan.Views
                 ebokCheck = 1;
 
             var book = new Book();
-           
 
             if (ebok.IsChecked == true)
             {
@@ -164,20 +163,17 @@ namespace Bibblan.Views
             book.Sab = sabBox.Text;
             book.Publisher = publisherBox.Text;
             book.Category = isEbook1Else0;
-
             DbInitialiser.Db.Add(book); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
                                         // hämtar isbn för den nyss tillagda boken
             DbInitialiser.Db.SaveChanges();
 
             MessageBox.Show("Du har nu lagt till en bok!");
-
             virtualBooks.Clear();
 
             foreach (var item in DbInitialiser.Db.Books)
             {
                 virtualBooks.Add(item);
             }
-            
         AddStockBook(title, edition, howMany);
         }
 

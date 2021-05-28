@@ -49,28 +49,23 @@ namespace Bibblan.Views
                 eMail.Text = u.Email;
                 permissionComboBox.SelectedIndex = u.Permissions;
                 loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;
+
                 if(u.UserComment != "") 
                 {
                     CommentBox.Text = u.UserComment;
                     CommentBox.Foreground = Brushes.Black;
-                    if (CommentBox.Text == "Amärkningar")
-                        CommentBox.Foreground = Brushes.LightGray;       
-
+                    if (CommentBox.Text == "Amärkningar") { CommentBox.Foreground = Brushes.LightGray;}    
                 }
-               
                 firstName.Foreground = Brushes.Black;
                 lastName.Foreground = Brushes.Black;
                 eMail.Foreground = Brushes.Black;
-                
             }
-            
             return; 
         }
         private void rButtonChangeUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
             if(rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; ButtonChangeUser.FontSize = 16; }
         }
-
         private void rButtonRemoveUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
             if (rButtonRemoveUser.IsChecked == true) { ButtonChangeUser.Content = rButtonRemoveUser.Content; ButtonChangeUser.FontSize = 16; }
@@ -114,6 +109,7 @@ namespace Bibblan.Views
                         {
                             if (userToChange.Firstname != firstName.Text) { userToChange.Firstname = firstName.Text; }
                         }
+
                         if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
                         {
                             MessageBox.Show("Du har inte angett ett korrekt efternamn!");
@@ -166,7 +162,6 @@ namespace Bibblan.Views
                             }
                         }
 
-
                         if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
                         {
 
@@ -179,8 +174,6 @@ namespace Bibblan.Views
                             userToChange.Permissions = permissionComboBox.SelectedIndex;
                         }
 
-
-
                         if (loanRightsComboBox.SelectedItem.ToString() != "--Lånerättighet--" && loanRightsComboBox.SelectedIndex != userToChange.HasLoanCard)
                         {
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -191,7 +184,6 @@ namespace Bibblan.Views
                             }
                             userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
                         }
-
 
                         if (userToChange.UserComment != CommentBox.Text)
                         {
@@ -218,12 +210,10 @@ namespace Bibblan.Views
                 }
                 ClearAndRetrieveVirtualDb();
                 return;
-
             }
             
             if (userToChange != null && rButtonRemoveUser.IsChecked == true)
             {
-                
                 User u = (LVModifyUser.SelectedItem as User);
                 
                 if ((u.Permissions == 2 || u.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -231,7 +221,6 @@ namespace Bibblan.Views
                     MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                     return;
                 }
-               
 
                 MessageBoxResult result = MessageBox.Show("Är det säkert att du vill ta bort den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -241,14 +230,12 @@ namespace Bibblan.Views
                         DbInitialiser.Db.Users.Remove(u);
                         DbInitialiser.Db.SaveChanges();
                         MessageBox.Show("Du har tagit bort användaren");
-                        
-                        
+
                         ClearAndRetrieveVirtualDb();
                         break; 
 
                     case MessageBoxResult.No:
-                        return; 
-                         
+                        return;  
                 }
             }
             else
@@ -289,58 +276,47 @@ namespace Bibblan.Views
         }
         private void firstNameBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (firstName.Foreground == Brushes.LightGray)
-            {
-                firstName.Text = "";
-                firstName.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(firstName);
         }
         private void firstNameBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (firstName.Text == "" || firstName.Text == null)
-            {
-                firstName.Foreground = Brushes.LightGray;
-                firstName.Text = "Förnamn";
-            }
+            Thematics.Watermark.ForLostFocus(firstName, "Förnamn");
         }
         private void lastNameBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (lastName.Foreground == Brushes.LightGray)
-            {
-                lastName.Text = "";
-                lastName.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(lastName);
         }
         private void lastNameBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (lastName.Text == "" || firstName.Text == null)
-            {
-                lastName.Foreground = Brushes.LightGray;
-                lastName.Text = "Efternamn";
-            }
+            Thematics.Watermark.ForLostFocus(lastName, "Efternamn");
         }
         private void emailBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (eMail.Foreground == Brushes.LightGray)
-            {
-                eMail.Text = "";
-                eMail.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(eMail);
         }
         private void emailBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (eMail.Text == "" || firstName.Text == null)
-            {
-                eMail.Foreground = Brushes.LightGray;
-                eMail.Text = "E-post";
-            }
+            Thematics.Watermark.ForLostFocus(eMail, "E-post");
+        }
+        private void CommentBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Thematics.Watermark.ForFocus(CommentBox);
+        }
+        private void CommentBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Thematics.Watermark.ForLostFocus(CommentBox, "Anmärkningar");
+        }
+        private void passWordText_GotFocus(object sender, RoutedEventArgs e)
+        {
+            passWordText.Visibility = Visibility.Collapsed;
+            passWord.Focus(); 
         }
         private void passwordBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(passWordText.Foreground == Brushes.LightGray)
+            if (passWordText.Foreground == Brushes.LightGray)
             {
                 passWordText.Visibility = Visibility.Collapsed;
-                passWord.Foreground = Brushes.Black; 
+                passWord.Foreground = Brushes.Black;
             }
             passWord.Visibility = Visibility.Visible;
         }
@@ -350,31 +326,9 @@ namespace Bibblan.Views
             {
                 passWordText.Visibility = Visibility.Visible;
                 passWordText.Foreground = Brushes.LightGray;
-                passWordText.Text = "Ändra Lösenord"; 
+                passWordText.Text = "Ändra Lösenord";
             }
         }
-        private void CommentBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (CommentBox.Foreground == Brushes.LightGray)
-            {
-                CommentBox.Text = "";
-                CommentBox.Foreground = Brushes.Black;
-            }
-        }
-        private void CommentBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (CommentBox.Text == "" || CommentBox.Text == null)
-            {
-                CommentBox.Foreground = Brushes.LightGray;
-                CommentBox.Text = "Anmärkningar";
-            }
-        }
-        private void passWordText_GotFocus(object sender, RoutedEventArgs e)
-        {
-            passWordText.Visibility = Visibility.Collapsed;
-            passWord.Focus(); 
-        }
-
         public void ClearAndRetrieveVirtualDb() 
         {
             dbVirtual.Clear(); 
@@ -384,12 +338,10 @@ namespace Bibblan.Views
                 dbVirtual.Add(item);
             }
         }
-
         private void RestrictButton_Click(object sender, RoutedEventArgs e)
         {
             string whoRestricted = ""; 
-            if (GlobalClass.userPermission == 2)
-                whoRestricted = "admin";
+            if (GlobalClass.userPermission == 2) { whoRestricted = "admin"; }
             else whoRestricted = "bibliotekarie"; 
 
             if (u == null)
@@ -416,8 +368,7 @@ namespace Bibblan.Views
                             {
                                 u.UserComment += $"\n--- Lånekort spärrat av {whoRestricted} datum: {DateTime.Now}";
                                 u.HasLoanCard = 0;
-                                loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;  
-
+                                loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;
                             }
                             DbInitialiser.Db.Update(u);
                             DbInitialiser.Db.SaveChanges();
@@ -426,26 +377,11 @@ namespace Bibblan.Views
 
                         case MessageBoxResult.No:
                             return;
-
                     }
-
                 }
-
                 ClearAndRetrieveVirtualDb();
                 return; 
-
-                
-
             }
-            
-            
-            
-            
-
-           
-
-
-
         }
     }
 }
