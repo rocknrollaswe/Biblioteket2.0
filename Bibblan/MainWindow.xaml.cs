@@ -47,7 +47,8 @@ namespace Bibblan
             {
                 GlobalClass.userPermission = connectedUser.Permissions;  //sätter våra globala variabler för den specifika användaren
                 GlobalClass.userFirstName = connectedUser.Firstname;       //FYLL PÅ HÄR OM VI BEHÖVER FLER GLOBALA VARIABLER
-                GlobalClass.currentUserID = connectedUser.UserId; 
+                GlobalClass.currentUserID = connectedUser.UserId;
+                GlobalClass.loanPermission = connectedUser.HasLoanCard;
                 
                 if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
                 {
