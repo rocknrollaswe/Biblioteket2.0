@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
 
 namespace Bibblan.Views
 {
@@ -28,6 +29,7 @@ namespace Bibblan.Views
         List<Stock> dbVirtual = new List<Stock>();
         IEnumerable<Stock> defaultStocks;
         Stock selectedStock = new Stock();
+        DateTime timerCheat;
         public BookStock()
         {
             InitializeComponent();
@@ -39,17 +41,22 @@ namespace Bibblan.Views
 
             searchBar.Text = "Sök";
             defaultStocks = dbVirtual.Where(x => x.Isbn.ToString() == GlobalClass.chosenBook.Isbn.ToString()).ToList();
-            test88.Content = GlobalClass.chosenBook.Title;
 
-            if(GlobalClass.chosenBook.Category == 1)
-            {
-                test88.Content += " (E-bok)";
-            }
-
-            if(GlobalClass.chosenBookReport != null)
+            if (GlobalClass.chosenBookReport != null) //går in här om användaren kommer ifrån rapporteringssidan
             {
                 var userReportStock = dbVirtual.Where(x => x.StockId == GlobalClass.chosenBookReport.StockId).ToList();
                 LVBookStock.ItemsSource = userReportStock;
+            }
+            else //går in här om användaren kommer ifrån rapporteringssidan
+            {
+                LVBookStock.ItemsSource = defaultStocks;
+            }
+
+            bookTitle.Content = GlobalClass.chosenBook.Title;
+
+            if(GlobalClass.chosenBook.Category == 1)
+            {
+                bookTitle.Content += " (E-bok)";
             }
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +70,7 @@ namespace Bibblan.Views
                     var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
                     dbStockItem.Comment = commentSelected.Content.ToString();
                     dbStockItem.Discarded = 1;
-                    dbStockItem.Available = 1; 
+                    dbStockItem.Available = 0; 
                     DbInitialiser.Db.SaveChanges();
 
                     LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -84,30 +91,23 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if(LVBookStock.SelectedItem != null)
+            if(Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
             {
-                if(Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
+                for(int i = 0; i < Convert.ToInt32(amountBox.Text); i++)
                 {
-                    for(int i = 0; i < Convert.ToInt32(amountBox.Text); i++)
-                    {
-                        Stock dbInput = new Stock() { Isbn = selectedStock.Isbn, Condition = "Nyskick", Discarded = 0 };
-                        DbInitialiser.Db.Stocks.Add(dbInput);
-                        DbInitialiser.Db.SaveChanges();
+                    Stock dbInput = new Stock() { Isbn = GlobalClass.chosenBook.Isbn, Condition = "Nyskick", Discarded = 0, Available = 1};
+                    DbInitialiser.Db.Stocks.Add(dbInput);
+                    DbInitialiser.Db.SaveChanges();
 
-                        LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
-                        ClearAndRetrieveVirtualDb();
-                        LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
-                    }
-                    MessageBox.Show($"{amountBox.Text} böcker tillagda!");
+                    LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+                    ClearAndRetrieveVirtualDb();
+                    LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
                 }
-                else
-                {
-                    MessageBox.Show("Vänligen sätt en mängd i siffror");
-                }
+                MessageBox.Show($"{amountBox.Text} böcker tillagda!");
             }
-            else 
+            else
             {
-                MessageBox.Show("Välj en bok!");
+                MessageBox.Show("Vänligen sätt en mängd i siffror");
             }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -143,20 +143,13 @@ namespace Bibblan.Views
             else
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
-
                 LVBookStock.ItemsSource = defaultStocks;
             }
-
-            //if (searchBar.Text == null || searchBar.Text == "")
-            //{
-            //    LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
-                
-            //    LVBookStock.ItemsSource = defaultStocks;
-            //}
         }
         private void LVBookStock_Selected(object sender, RoutedEventArgs e)
         {
-            if(LVBookStock.SelectedItem != null)
+            timerCheat = DateTime.Now;
+            if (LVBookStock.SelectedItem != null)
             {
                 selectedStock = LVBookStock.SelectedItem as Stock;
                 isbnBox.Foreground = Brushes.Black;
@@ -182,49 +175,37 @@ namespace Bibblan.Views
         }
         private void conditionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(selectedStock != null && conditionComboBox.SelectedItem != null)
+            var dateTimeBug = DateTime.Now;
+            if(dateTimeBug > timerCheat.AddSeconds(1)) //hejdå käre bugg, det var kul så länge det varade. Men nu måste vi lägga ned dig i din grav, puss :*
             {
-                var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
-                ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
-                dbStockItem.Condition = comboBoxSelection.Content.ToString();
-                DbInitialiser.Db.SaveChanges();
+                if (selectedStock != null && conditionComboBox.SelectedItem != null)
+                {
+                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
+                    ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
+                    dbStockItem.Condition = comboBoxSelection.Content.ToString();
+                    DbInitialiser.Db.SaveChanges();
+
+                    ICollectionView view = CollectionViewSource.GetDefaultView(LVBookStock.ItemsSource);
+                    view.Refresh();
+                }
             }
         }
         private void searchBar_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (searchBar.Foreground == Brushes.LightGray)
-            {
-                searchBar.Foreground = Brushes.Black;
-                searchBar.Text = "";
-            }
+            Thematics.Watermark.ForFocus(searchBar);
         }
         private void searchBar_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(searchBar.Text == "" || searchBar.Text == null)
-            {
-                searchBar.Foreground = Brushes.LightGray;
-                searchBar.Text = "Sök";
-            }
+            Thematics.Watermark.ForLostFocus(searchBar, "Sök");
         }
-
         private void amountBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (amountBox.Foreground == Brushes.LightGray)
-            {
-                amountBox.Foreground = Brushes.Black;
-                amountBox.Text = "";
-            }
+            Thematics.Watermark.ForFocus(amountBox);
         }
-
         private void amountBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(amountBox.Text == "")
-            {
-                amountBox.Foreground = Brushes.LightGray;
-                amountBox.Text = "Antal";
-            }
+            Thematics.Watermark.ForLostFocus(amountBox, "antal");
         }
-
         public void ClearAndRetrieveVirtualDb()
         {
             dbVirtual.Clear();

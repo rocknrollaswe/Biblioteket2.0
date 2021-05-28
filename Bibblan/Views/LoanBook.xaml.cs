@@ -71,9 +71,7 @@ namespace Bibblan.Views
                 b = LVLoanBook.SelectedItem as BookStockLoan;
                 
                 MessageBox.Show($"Beskrivning:\n{b.Description}");
-              
             }
-   
         }
 
         private void loanButton_Click(object sender, RoutedEventArgs e)
@@ -119,15 +117,12 @@ namespace Bibblan.Views
                             }
                             break;
 
-
                         case MessageBoxResult.No:
-                            return;
+                        return;
                     }
-
                 }
                    
                 return;
-
             }
             else
             {
@@ -135,8 +130,6 @@ namespace Bibblan.Views
                 return;
             }
         }
-    
-    
         public void ClearAndRetrieveVirtualDb()
         {
             virtualBooksToLoan.Clear();
@@ -174,20 +167,7 @@ namespace Bibblan.Views
                 titleTemp = item.Title;
                 availableTemp = item.Available;
                 counter++;
-
             }
-
         }
-    
-    
-    
-    
-    
     }
-
-
-   
-
-
-
 }

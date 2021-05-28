@@ -35,28 +35,19 @@ namespace Bibblan
                     dbVirtual.Add(item);
                 }
             });
-            //var home = new Home();
-            //this.Hide();
-            //home.Show();
         }
 
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
-
             string emailLow = emailTextBox.Text.ToLower();
-
             var userList = DbInitialiser.Db.Users.ToList();
-
             var connectedUser = userList.Find(x => x.Email == emailLow);    
-                
-                //Where(x => x.Email == emailLow).SingleOrDefault();
 
             if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Password)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
             {
                 GlobalClass.userPermission = connectedUser.Permissions;  //sätter våra globala variabler för den specifika användaren
                 GlobalClass.userFirstName = connectedUser.Firstname;       //FYLL PÅ HÄR OM VI BEHÖVER FLER GLOBALA VARIABLER
                 GlobalClass.currentUserID = connectedUser.UserId; 
-
                 
                 if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
                 {
@@ -82,11 +73,10 @@ namespace Bibblan
         {
             if(emailTextBox.Foreground == Brushes.LightGray)
             {
-                emailTextBox.Text = "email@gmail.com";
+                emailTextBox.Text = "email@gmail.com"; //TA BORT NÄR VI SLÄPPER PROGRAMMET
                 emailTextBox.Foreground = Brushes.Black;
             }
         }
-
         private void passWordTextBox_GotFocus(object sender, RoutedEventArgs e)     //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
         {
             if (passwordTextBox.Foreground == Brushes.LightGray)
@@ -94,7 +84,6 @@ namespace Bibblan
                 passWordFalse.Visibility = Visibility.Collapsed;
             }
         }
-
         private void PassFalseFocus(object sender, RoutedEventArgs e)
         {
             passWordFalse.Visibility = Visibility.Collapsed;
@@ -109,11 +98,7 @@ namespace Bibblan
         }
         private void emailTextBox_LostFocus(object sender, RoutedEventArgs e)       //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
         {
-            if (emailTextBox.Text == "")
-            {
-                emailTextBox.Text = "E-post";
-                emailTextBox.Foreground = Brushes.LightGray;
-            }
+            Thematics.Watermark.ForLostFocus(emailTextBox, "E-post");
         }
         private void registerButton_Click(object sender, RoutedEventArgs e)
         {

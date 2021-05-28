@@ -23,7 +23,6 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Addbooks : Page
     {
-
         List<Book> virtualBooks = new List<Book>();
         public Addbooks()
         {
@@ -37,14 +36,12 @@ namespace Bibblan.Views
             DataContext = virtualBooks;
             LVBooks.ItemsSource = virtualBooks;
         }
-
         public static void Alert(object sender, string message)
         { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
 
         }
-
         public event EventHandler<string> WrongEntry;
 
         protected virtual void OnWrongEntry(string e)
@@ -59,28 +56,24 @@ namespace Bibblan.Views
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
                 return;
             }
-
             if (titleBox.Text.Length == 0)
             {
                 MessageBox.Show("Ange Titel!");
                 titleBox.Focus();
                 return;
             }
-
             if (authorBox.Text.Length == 0)
             {
                 MessageBox.Show("Ange Författare!");
                 authorBox.Focus();
                 return;
             }
-
             if (descriptionBox.Text.Length == 0)
             {
                 MessageBox.Show("Ange Beskrivning!");
                 descriptionBox.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(editionBox.Text, @"^([0-9]{4})$"))
             {
                 MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga!");
@@ -93,7 +86,6 @@ namespace Bibblan.Views
                 publisherBox.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
 
             {
@@ -101,21 +93,18 @@ namespace Bibblan.Views
                 priceBox.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
                 MessageBox.Show("Ange bara siffror i DDK!");
                 ddkBox.Focus();
                 return;
             }
-
             if (sabBox.Text.Length == 0)
             {
                 MessageBox.Show("Ange Sab!");
                 sabBox.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(amountBox.Text, @"^([0-9]{1,3})$") || Convert.ToInt32(amountBox.Text)>=100)
             {
                 MessageBox.Show("Ange Antal! Får ej vara mer än 99 st");
@@ -129,7 +118,6 @@ namespace Bibblan.Views
                 ebokCheck = 1;
 
             var book = new Book();
-           
 
             if (ebok.IsChecked == true)
             {
@@ -137,8 +125,6 @@ namespace Bibblan.Views
                 {
                     OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
                     return;
-
-
                 }
             }
 
@@ -148,12 +134,8 @@ namespace Bibblan.Views
                 {
                     OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
                     return;
-
-
                 }
             }
-
-
 
             MessageBoxResult result = MessageBox.Show($"Är det säkert att du vill lägga till den här boken? " +
                 $"\nTitel: {titleBox.Text}\nFörfattare: {authorBox.Text}\nBeskrivning: {descriptionBox.Text}\nUpplaga: {editionBox.Text}\nFörlag: {publisherBox.Text}\nPris: {priceBox.Text}\nDDK: {ddkBox.Text}\nSab: {sabBox.Text}\nAntal: {amountBox.Text} styck",
@@ -165,11 +147,9 @@ namespace Bibblan.Views
 
                 LVBooks.Items.Refresh();
                 Clearer();
-
             }
             return;
         }
-
         public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
         {
             var book = new Book();
@@ -183,25 +163,18 @@ namespace Bibblan.Views
             book.Sab = sabBox.Text;
             book.Publisher = publisherBox.Text;
             book.Category = isEbook1Else0;
-
-
             DbInitialiser.Db.Add(book); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
                                         // hämtar isbn för den nyss tillagda boken
             DbInitialiser.Db.SaveChanges();
 
             MessageBox.Show("Du har nu lagt till en bok!");
-
             virtualBooks.Clear();
 
             foreach (var item in DbInitialiser.Db.Books)
             {
                 virtualBooks.Add(item);
             }
-
-
-
-            AddStockBook(title, edition, howMany);
-
+        AddStockBook(title, edition, howMany);
         }
 
         public void Clearer()
@@ -226,163 +199,78 @@ namespace Bibblan.Views
             amountBox.Foreground = Brushes.LightGray;
             amountBox.Text = "Antal";
         }
-
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
-            if (titleBox.Foreground == Brushes.LightGray)
-            {
-                titleBox.Text = "";
-                titleBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(titleBox);
         }
         private void TitleLost(object sender, RoutedEventArgs e)
         {
-            if (titleBox.Text == "" || titleBox.Text == null)
-            {
-                titleBox.Foreground = Brushes.LightGray;
-                titleBox.Text = "Titel";
-            }
+            Thematics.Watermark.ForLostFocus(titleBox, "Titel");
         }
-
         private void AuthorFocus(object sender, RoutedEventArgs e)
         {
-            if (authorBox.Foreground == Brushes.LightGray)
-            {
-                authorBox.Text = "";
-                authorBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(authorBox);
         }
         private void AuthorLost(object sender, RoutedEventArgs e)
         {
-            if (authorBox.Text == "" || titleBox.Text == null)
-            {
-                authorBox.Foreground = Brushes.LightGray;
-                authorBox.Text = "Författare";
-            }
+            Thematics.Watermark.ForLostFocus(authorBox, "Författare");
         }
-
         private void DescriptionFocus(object sender, RoutedEventArgs e)
         {
-            if (descriptionBox.Foreground == Brushes.LightGray)
-            {
-                descriptionBox.Text = "";
-                descriptionBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(descriptionBox);
         }
         private void DescriptionLost(object sender, RoutedEventArgs e)
         {
-            if (descriptionBox.Text == "" || titleBox.Text == null)
-            {
-                descriptionBox.Foreground = Brushes.LightGray;
-                descriptionBox.Text = "Beskrivning";
-            }
+            Thematics.Watermark.ForLostFocus(descriptionBox, "Beskrivning");
         }
-
         private void EditionFocus(object sender, RoutedEventArgs e)
         {
-            if (editionBox.Foreground == Brushes.LightGray)
-            {
-                editionBox.Text = "";
-                editionBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(editionBox);
         }
         private void EditionLost(object sender, RoutedEventArgs e)
         {
-            if (editionBox.Text == "" || titleBox.Text == null)
-            {
-                editionBox.Foreground = Brushes.LightGray;
-                editionBox.Text = "Upplaga";
-            }
+            Thematics.Watermark.ForLostFocus(editionBox, "Upplaga");
         }
-
         private void PublisherFocus(object sender, RoutedEventArgs e)
         {
-            if (publisherBox.Foreground == Brushes.LightGray)
-            {
-                publisherBox.Text = "";
-                publisherBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(publisherBox);
         }
         private void PublisherLost(object sender, RoutedEventArgs e)
         {
-            if (publisherBox.Text == "" || titleBox.Text == null)
-            {
-                publisherBox.Foreground = Brushes.LightGray;
-                publisherBox.Text = "Förlag";
-            }
+            Thematics.Watermark.ForLostFocus(publisherBox, "Förlag");
         }
-
-
         private void PriceFocus(object sender, RoutedEventArgs e)
         {
-            if (priceBox.Foreground == Brushes.LightGray)
-            {
-                priceBox.Text = "";
-                priceBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(priceBox);
         }
         private void PriceLost(object sender, RoutedEventArgs e)
         {
-            if (priceBox.Text == "" || titleBox.Text == null)
-            {
-                priceBox.Foreground = Brushes.LightGray;
-                priceBox.Text = "Pris";
-            }
+            Thematics.Watermark.ForLostFocus(priceBox, "Pris");
         }
-
         private void DdkFocus(object sender, RoutedEventArgs e)
         {
-            if (ddkBox.Foreground == Brushes.LightGray)
-            {
-                ddkBox.Text = "";
-                ddkBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(ddkBox);
         }
         private void DdkLost(object sender, RoutedEventArgs e)
         {
-            if (ddkBox.Text == "" || titleBox.Text == null)
-            {
-                ddkBox.Foreground = Brushes.LightGray;
-                ddkBox.Text = "DDK";
-            }
+            Thematics.Watermark.ForLostFocus(ddkBox, "DDK");
         }
-
         private void SabFocus(object sender, RoutedEventArgs e)
         {
-            if (sabBox.Foreground == Brushes.LightGray)
-            {
-                sabBox.Text = "";
-                sabBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(sabBox);
         }
         private void SabLost(object sender, RoutedEventArgs e)
         {
-            if (sabBox.Text == "" || titleBox.Text == null)
-            {
-                sabBox.Foreground = Brushes.LightGray;
-                sabBox.Text = "Sab";
-            }
+            Thematics.Watermark.ForLostFocus(sabBox, "Sab");
         }
-
-
         private void AmountFocus(object sender, RoutedEventArgs e)
         {
-            if (amountBox.Foreground == Brushes.LightGray)
-            {
-                amountBox.Text = "";
-                amountBox.Foreground = Brushes.Black;
-            }
+            Thematics.Watermark.ForFocus(amountBox);
         }
         private void AmountLost(object sender, RoutedEventArgs e)
         {
-            if (amountBox.Text == "" || titleBox.Text == null)
-            {
-                amountBox.Foreground = Brushes.LightGray;
-                amountBox.Text = "Antal";
-            }
+            Thematics.Watermark.ForLostFocus(amountBox, "Antal");
         }
-
-
         public void AddStockBook(string title, string edition, int amount)
         {
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
@@ -404,7 +292,6 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
 
         }
-
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
 
@@ -416,7 +303,6 @@ namespace Bibblan.Views
         {
             Searchfunction();
         }
-
         private void Searchfunction()
         {
             LVBooks.ClearValue(ItemsControl.ItemsSourceProperty);

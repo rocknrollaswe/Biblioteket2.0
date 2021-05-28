@@ -20,7 +20,6 @@
                 Väljer du att lämna tillbaka boken idag är det bara att markera  boken i listan och trycka på <LineBreak/>'Lämna tillbaka'
             </TextBlock>
 
-
             <Border CornerRadius="30" 
                 Background="AliceBlue" 
                 Opacity="1" Panel.ZIndex="-1" 
