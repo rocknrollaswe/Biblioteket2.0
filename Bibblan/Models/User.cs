@@ -7,6 +7,11 @@ namespace Bibblan.Models
 {
     public partial class User
     {
+        public User()
+        {
+            Loanlogs = new HashSet<Loanlog>();
+        }
+
         public int UserId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -19,5 +24,6 @@ namespace Bibblan.Models
         public decimal Debt { get; set; }
 
         public virtual Permission PermissionsNavigation { get; set; }
+        public virtual ICollection<Loanlog> Loanlogs { get; set; }
     }
 }
