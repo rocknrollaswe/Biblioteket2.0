@@ -60,5 +60,15 @@ namespace Bibblan.Views
         {
             Main2.Navigate(new Rapport());
         }
+   
+        private void LoanBooks_Click(object sender, RoutedEventArgs e) 
+        {
+            Main2.Navigate(new LoanBook()); 
+        
+        }
+
+
+
+
     }
 }
