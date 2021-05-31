@@ -25,14 +25,9 @@ namespace Bibblan.Views
         public ReturnedBooksPage()
         {
             InitializeComponent();
-
             ClearAndRetrieveVirtualDb();
-
-            LVBooksReturnedByUser.ItemsSource = booksToValidate; 
-
-
+            LVBooksReturnedByUser.ItemsSource = booksToValidate;
         }
-
         private void ClearAndRetrieveVirtualDb()
         {
             booksToValidate.Clear();
@@ -43,18 +38,15 @@ namespace Bibblan.Views
                 {
                     booksToValidate.Add(item);
                 }
-
                 continue;
-
             }
         }
-   
         public void ValidateBookButton_Click(object sender, EventArgs e) 
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
-            if(LVBooksReturnedByUser.SelectedItem != null)
+            if (LVBooksReturnedByUser.SelectedItem != null)
             {
-
                 var selectedBook = LVBooksReturnedByUser.SelectedItem as StockLoanLogBooksJoin;
                 var sameBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedBook.Stockid).FirstOrDefault();
    
@@ -67,25 +59,21 @@ namespace Bibblan.Views
                 DbInitialiser.Db.SaveChanges();
 
                 ClearAndRetrieveVirtualDb();
-
                 LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty); 
-
                 LVBooksReturnedByUser.ItemsSource = booksToValidate;
-
 
                 MessageBox.Show($"Du har nu validerat objektet");
                 return; 
             }
-
             MessageBox.Show("Du måste markera ett objekt att validera!");
             return; 
         }
-
         public void ValidateAllBooksButton_Click(object sender, EventArgs e) 
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             if (LVBooksReturnedByUser != null)
             {
-
                 foreach (var item in booksToValidate)
                 {
                     var bookToValidate = DbInitialiser.Db.Stocks.Where(x => x.StockId == item.Stockid).FirstOrDefault();
@@ -97,24 +85,18 @@ namespace Bibblan.Views
                     loanLogToClear.Pending = 0;
 
                     DbInitialiser.Db.Loanlogs.Remove(loanLogToClear);
-
                 }
-
                 DbInitialiser.Db.SaveChanges();
 
                 ClearAndRetrieveVirtualDb();
-
                 LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
-
                 LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
                 MessageBox.Show("Du har nu validerat samtliga objekt!");
                 return; 
             }
-
             MessageBox.Show("Det finns inga objekt att validera");
-            return; 
-
+            return;
         }
 
     }

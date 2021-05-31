@@ -17,8 +17,10 @@
         <Border Background="LightGray" Opacity="0.85" Grid.ColumnSpan="2"></Border>
 
 
+
         <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,30,0,0">
             <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="30, 0, 0, -40" FontSize="15" HorizontalAlignment="Left" Click="Back_button_Click"/>
+
 
             <Label  FontSize="40" HorizontalAlignment="Center"  Style="{StaticResource CardoFont}">Registrering</Label>
             <TextBlock HorizontalAlignment="Center" FontSize="20"  TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>

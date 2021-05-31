@@ -23,18 +23,14 @@ namespace Bibblan.Views
     {
         BookStockLoan b = new BookStockLoan();  
         List<BookStockLoan> virtualBooksToLoan = new List<BookStockLoan>();
-        
         public LoanBook()
         {            
             InitializeComponent();
-
             ClearAndRetrieveVirtualDb();
-
             Validation();
 
             LVLoanBook.ItemsSource = virtualBooksToLoan;     
         }
-
         public void Validation()
         {
             if (GlobalClass.loanPermission == 0 && GlobalClass.userPermission == 0) //Gömmer för ordinarie användare utan lånekort
@@ -42,16 +38,13 @@ namespace Bibblan.Views
                 loanButton.Visibility = Visibility.Collapsed; //Låna knappen göms
             }
         }
-
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             Searchfunction();
         }
-
         private void Searchfunction()
         {
             LVLoanBook.ClearValue(ItemsControl.ItemsSourceProperty);
-
 
             List<BookStockLoan> bookList = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
                                                     || x.Author.ToLower().Contains(searchBar.Text.ToLower())
@@ -67,13 +60,10 @@ namespace Bibblan.Views
             else if (Int32.TryParse(searchBar.Text, out var _)) //kollar om userInput är en int eller ej
             {
                 List<BookStockLoan> query = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
-
                 LVLoanBook.ItemsSource = query;
-
                 return;
             }
         }
-
         private void LVLoanBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         { 
             if (LVLoanBook.SelectedItem != null)
@@ -83,9 +73,10 @@ namespace Bibblan.Views
                 MessageBox.Show($"Beskrivning:\n{b.Description}");
             }
         }
-
         private void loanButton_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             User query = DbInitialiser.Db.Users.Where(x => x.UserId == GlobalClass.currentUserID).FirstOrDefault();
             if (query.HasLoanCard == 1)
             {
@@ -93,7 +84,6 @@ namespace Bibblan.Views
                 BookStockLoan b = LVLoanBook.SelectedItem as BookStockLoan;
 
                 var bookToLoan = DbInitialiser.Db.Stocks.Where(x => x.Isbn == b.Isbn && x.Available != 0).FirstOrDefault();
-
 
                 if (bookToLoan== null)
                 {
@@ -126,12 +116,10 @@ namespace Bibblan.Views
                                 MessageBox.Show($"Du har nu lånat {b.Title}.\nDatum för återlämning är sen {loanLog.Returndate}");
                             }
                             break;
-
                         case MessageBoxResult.No:
                         return;
                     }
                 }
-                   
                 return;
             }
             else

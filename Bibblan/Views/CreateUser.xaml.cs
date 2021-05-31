@@ -49,44 +49,38 @@ namespace Bibblan.Views
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
                 return;
             }
-
-            if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            if (!Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$"))
             {
                 MessageBox.Show("Ange korrekt e-mail.");
                 eMail.Select(0, eMail.Text.Length);
                 eMail.Focus();
                 return;
             }
-
             if (passWord.Password.Length == 0)
             {
                 MessageBox.Show("Ange Lösenord.");
                 passWord.Focus();
                 return;
             }
-
-            if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$"))
+            if (!Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
                 MessageBox.Show("Ange bara bokstäver.");
                 firstName.Focus();
                 return;
             }
-            
-            if(!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$"))
+            if(!Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
                 MessageBox.Show("Ange bara bokstäver.");
                 lastName.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(SSN.Text, @"^([0-9]{12})$"))
             {
                 MessageBox.Show("Ange bara siffror.");
                 firstName.Focus();
                 return;
             }
-
-            if(!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            if(!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-ZÅÄÖ])(?=.*?[a-zåäö])(?=.*?[0-9]).{8,}$"))
             {
                 MessageBox.Show("Ange minst en stor och liten bokstav samt en siffra.");
                 passWord.Focus();
@@ -109,6 +103,7 @@ namespace Bibblan.Views
             user.Firstname = firstName.Text;
             user.Lastname = lastName.Text;
             user.Email = eMail.Text.ToLower();
+            user.HasLoanCard = 0;
             user.Permissions = 0; //Detta ska admin kunna ändra senare
             user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
             user.Password = Encryption.Encrypt(passWord.Password);
@@ -117,7 +112,7 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
             MessageBox.Show("Du har nu skapat upp en användare.");
 
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;                        //navigerar tbx till MainWindow 
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow 
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
             NavigationService.Navigate(null);
         }
