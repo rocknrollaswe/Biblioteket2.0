@@ -51,26 +51,22 @@ namespace Bibblan.Views
 
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if (titleBox.Text == "" || authorBox.Text == "" || descriptionBox.Text == "" || editionBox.Text == "" || priceBox.Text == "" || ddkBox.Text == "" || sabBox.Text == "" || publisherBox.Text == "") //Kollar om user input är tomt
-            {
-                OnWrongEntry("Du har inte angett data i samtliga fält!");
-                return;
-            }
-            if (titleBox.Text.Length == 0)
+           
+            if (titleBox.Text.Length == 0 || titleBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Titel!");
                 titleBox.Focus();
                 return;
             }
-            if (authorBox.Text.Length == 0)
+            if (authorBox.Text.Length == 0 || authorBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Författare!");
                 authorBox.Focus();
                 return;
             }
-            if (descriptionBox.Text.Length == 0)
+            if (descriptionBox.Text.Length == 0 || descriptionBox.Text.Length >= 500 || descriptionBox.Foreground == Brushes.LightGray  )
             {
-                MessageBox.Show("Ange Beskrivning!");
+                MessageBox.Show("Ange Beskrivning! Får ej vara mer än 500 tecken.");
                 descriptionBox.Focus();
                 return;
             }
@@ -80,7 +76,7 @@ namespace Bibblan.Views
                 editionBox.Focus();
                 return;
             }
-            if (publisherBox.Text.Length == 0)
+            if (publisherBox.Text.Length == 0 || publisherBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Förlag!");
                 publisherBox.Focus();
@@ -99,7 +95,7 @@ namespace Bibblan.Views
                 ddkBox.Focus();
                 return;
             }
-            if (sabBox.Text.Length == 0)
+            if (sabBox.Text.Length == 0 || sabBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Sab!");
                 sabBox.Focus();
@@ -111,6 +107,12 @@ namespace Bibblan.Views
                 amountBox.Focus();
                 return;
             }
+
+            //if (titleBox.Text == "" || titleBox.Foreground == Brushes.LightGray || authorBox.Text == "" || authorBox.Foreground == Brushes.LightGray || descriptionBox.Text == "" || descriptionBox.Foreground == Brushes.LightGray || editionBox.Text == "" || editionBox.Foreground == Brushes.LightGray || priceBox.Text == "" || priceBox.Foreground == Brushes.LightGray || ddkBox.Text == "" || ddkBox.Foreground == Brushes.LightGray || sabBox.Text == "" || sabBox.Foreground == Brushes.LightGray || publisherBox.Text == "" || publisherBox.Foreground == Brushes.LightGray) //Kollar om user input är tomt
+            //{
+            //    OnWrongEntry("Du har inte angett data i samtliga fält!");
+            //    return;
+            //}
 
             int ebokCheck = 0;
 
