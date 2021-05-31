@@ -32,7 +32,6 @@ namespace Bibblan.Views
             {
                 virtualBooks.Add(item);
             }
-
             DataContext = virtualBooks;
             LVBooks.ItemsSource = virtualBooks;
         }
@@ -43,16 +42,13 @@ namespace Bibblan.Views
 
         }
         public event EventHandler<string> WrongEntry;
-
         protected virtual void OnWrongEntry(string e)
         {
             WrongEntry?.Invoke(this, e);
         }
-
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (titleBox.Text.Length == 0 || titleBox.Foreground == Brushes.LightGray)
+
             {
                 MessageBox.Show("Ange Titel!");
                 titleBox.Focus();
@@ -154,6 +150,8 @@ namespace Bibblan.Views
         }
         public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             var book = new Book();
    
             book.Title = titleBox.Text;
@@ -178,7 +176,6 @@ namespace Bibblan.Views
             }
         AddStockBook(title, edition, howMany);
         }
-
         public void Clearer()
         {
             LVBooks.Items.Refresh();
@@ -275,6 +272,8 @@ namespace Bibblan.Views
         }
         public void AddStockBook(string title, string edition, int amount)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
                 (b => b.Title == title && b.Edition == int.Parse(edition));
 
@@ -289,14 +288,10 @@ namespace Bibblan.Views
                 stock.Available = 1; 
                 DbInitialiser.Db.Add(stock);
             }
-
-
             DbInitialiser.Db.SaveChanges();
-
         }
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-
             GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
 
             this.NavigationService.Navigate(new BookStock()); 
@@ -308,7 +303,6 @@ namespace Bibblan.Views
         private void Searchfunction()
         {
             LVBooks.ClearValue(ItemsControl.ItemsSourceProperty);
-
 
             List<Book> bookList = virtualBooks.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
                                                     || x.Author.ToLower().Contains(searchBar.Text.ToLower()))
@@ -322,7 +316,6 @@ namespace Bibblan.Views
             else if (Int32.TryParse(searchBar.Text, out var _)) //kollar om userInput är en int eller ej
             {
                 List<Book> query = virtualBooks.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
-
                 LVBooks.ItemsSource = query;
 
                 return;

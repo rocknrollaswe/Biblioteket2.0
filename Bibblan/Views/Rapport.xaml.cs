@@ -50,7 +50,9 @@ namespace Bibblan.Views
         }
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if(epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
+            if (epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
                 userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
 
@@ -68,6 +70,8 @@ namespace Bibblan.Views
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             objectJoin = dbVirtualStocks.Join(
                 dbVirtualBooks,
                 x => x.Isbn,
@@ -96,7 +100,6 @@ namespace Bibblan.Views
                 var chosenBookReport = LVReportUser.SelectedItem as dynamic;
                 UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
 
-                
                 GlobalClass.chosenBookReport = userReportFinal;
                 Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
@@ -129,7 +132,6 @@ namespace Bibblan.Views
                 removedObjectsReport(objectJoin);
             }
         }
-
         private async void downloadUserReport()
         {
             if (LVReportUser.ItemsSource != null && userReport != null)

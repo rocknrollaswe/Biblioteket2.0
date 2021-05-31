@@ -61,6 +61,8 @@ namespace Bibblan.Views
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             if (LVBookStock.SelectedItem != null)
             {
                 if(commentComboBox.SelectedItem != null)
@@ -91,7 +93,9 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
+            if (Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
             {
                 for(int i = 0; i < Convert.ToInt32(amountBox.Text); i++)
                 {
@@ -175,6 +179,8 @@ namespace Bibblan.Views
         }
         private void conditionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             var dateTimeBug = DateTime.Now;
             if(dateTimeBug > timerCheat.AddSeconds(1)) //hejdå käre bugg, det var kul så länge det varade. Men nu måste vi lägga ned dig i din grav, puss :*
             {
