@@ -49,6 +49,7 @@ namespace Bibblan.Views
         {
             var bookId = LVBooksLoanedByUser.SelectedItem as Stock;
             var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.StockId).FirstOrDefault();
+
             bookToReturn.Pending = 1;
             DbInitialiser.Db.SaveChanges(); 
 

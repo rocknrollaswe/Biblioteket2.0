@@ -33,7 +33,11 @@ namespace Bibblan.Views
             {
                 user_button.Visibility = Visibility.Collapsed; //Administrera Användare göms
                 AddBooks.Visibility = Visibility.Collapsed; //Lägg till Böcker göms
+
+                ReturnedBooksButton.Visibility = Visibility.Collapsed;  
+               
                 Rapportering.Visibility = Visibility.Collapsed; //Rapportering göms
+
             }
         }
 
@@ -69,8 +73,14 @@ namespace Bibblan.Views
         
         }
 
+        private void ReturnedBooks_button_Click(object sender, RoutedEventArgs e)
+        {
+            Main2.Navigate(new ReturnedBooksPage()); 
+        }
 
-
-
+        private void Home_button_Click(object sender, RoutedEventArgs e)
+        {
+            Main2.Navigate(new WelcomePage()); 
+        }
     }
 }
