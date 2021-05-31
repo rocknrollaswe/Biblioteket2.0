@@ -15,16 +15,18 @@
         <Label FontSize="40" HorizontalAlignment="Center" Margin="0 10 0 520" Style="{StaticResource CardoFont}">Registrering</Label>
         <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0 80 0 460" TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>
 
-        <Image x:Name="firstNameImg" Visibility="Collapsed" Margin="144,172,823,402" Source="/img/checkInvalid.png"/>
-        <Image x:Name="lastNameImg" Visibility="Collapsed" Margin="144,266,823,308" Source="/img/checkInvalid.png"/>
-        <Image x:Name="SSNImg" Visibility="Collapsed" Margin="144,363,823,211" Source="/img/checkInvalid.png"/>
-        <Image x:Name="eMailImg" Visibility="Collapsed" Margin="492,172,475,402" Source="/img/checkInvalid.png"/>
-        <Image x:Name="passWordImg" Visibility="Collapsed" Margin="492,266,475,308" Source="/img/checkInvalid.png"/>
-        <Image x:Name="firstNameImgValid" Visibility="Collapsed" Margin="144,172,823,402" Source="/img/checkValid.png"/>
-        <Image x:Name="lastNameImgValid" Visibility="Collapsed" Margin="144,266,823,308" Source="/img/checkValid.png"/>
-        <Image x:Name="SSNImgValid" Visibility="Collapsed" Margin="144,363,823,211" Source="/img/checkValid.png"/>
-        <Image x:Name="eMailImgValid" Visibility="Collapsed" Margin="492,172,475,402" Source="/img/checkValid.png"/>
-        <Image x:Name="passWordImgValid" Visibility="Collapsed" Margin="492,266,475,308" Source="/img/checkValid.png"/>
+        
+        <Image x:Name="firstNameImg" Visibility="Visible" Margin="144,172,823,402" Source="/img/checkInvalid.png"/>
+        <Image x:Name="lastNameImg" Visibility="Visible" Margin="144,266,823,308" Source="/img/checkInvalid.png"/>
+        <Image x:Name="SSNImg" Visibility="Visible" Margin="144,363,823,211" Source="/img/checkInvalid.png"/>
+        <Image x:Name="firstNameImgValid" Visibility="Visible" Margin="144,172,823,402" Source="/img/checkValid.png"/>
+        <Image x:Name="lastNameImgValid" Visibility="Visible" Margin="144,266,823,308" Source="/img/checkValid.png"/>
+        <Image x:Name="SSNImgValid" Visibility="Visible" Margin="144,363,823,211" Source="/img/checkValid.png"/>
+
+        <Image x:Name="eMailImg" Visibility="Visible" Margin="492,172,475,402" Source="/img/checkInvalid.png"/>
+        <Image x:Name="passWordImg" Visibility="Visible" Margin="492,266,475,308" Source="/img/checkInvalid.png"/>
+        <Image x:Name="eMailImgValid" Visibility="Visible" Margin="492,172,475,402" Source="/img/checkValid.png"/>
+        <Image x:Name="passWordImgValid" Visibility="Visible" Margin="492,266,475,308" Source="/img/checkValid.png"/>
 
         <Button x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="214" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5" Margin="388,391,0,0"/>
         <TextBox x:Name="firstName" VerticalContentAlignment="Center" Text="Förnamn" LostFocus="FirstLost" GotFocus="FirstFocus" Foreground="LightGray" Margin="178,157,526,387" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="firstName_TextChanged"/>
