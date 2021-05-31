@@ -67,7 +67,7 @@ namespace Bibblan
         {
             GlobalClass.userPermission = -1;        //Sätter permission till -1 för att visa att det inte är en inloggad användare
             GlobalClass.userFirstName = "Gäst";
-            Main.NavigationService.Navigate(new SearchbookA()); //skickas just nu till searchbookA, vi gör nog en gästsöksida dock
+            Main.NavigationService.Navigate(new GuestPage()); //skickas just nu till Gästsidan för sök
         }
 
         private void emailTextBox_GotFocus(object sender, RoutedEventArgs e)        //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
