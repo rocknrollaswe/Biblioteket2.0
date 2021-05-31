@@ -50,7 +50,9 @@ namespace Bibblan.Views
         }
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if(epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
+            if (epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
                 userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
 
@@ -68,6 +70,8 @@ namespace Bibblan.Views
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             objectJoin = dbVirtualStocks.Join(
                 dbVirtualBooks,
                 x => x.Isbn,

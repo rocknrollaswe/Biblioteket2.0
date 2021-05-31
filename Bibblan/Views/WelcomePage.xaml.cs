@@ -30,7 +30,6 @@ namespace Bibblan.Views
 
             LVBooksLoanedByUser.ItemsSource = booksToReturn;
         }
-
         private void ClearAndRetrieveVirtualDb()
         {
             booksToReturn.Clear(); 
@@ -47,6 +46,8 @@ namespace Bibblan.Views
         }
         private void ReturnBookButton_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             var bookId = LVBooksLoanedByUser.SelectedItem as Stock;
             var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.StockId).FirstOrDefault();
 
@@ -61,6 +62,8 @@ namespace Bibblan.Views
         }
         private void ReturnAllBooksButton_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             foreach (var item in booksToReturn)
             {
                 var book = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();

@@ -40,6 +40,8 @@ namespace Bibblan.Views
         }
         private void LVModifyUser_SelectionChanged(object sender, SelectionChangedEventArgs e) // fyller i textboxarna på höger sida för ev ändring 
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             if (LVModifyUser.SelectedItem != null)
             {
                 u = LVModifyUser.SelectedItem as User;
@@ -64,14 +66,20 @@ namespace Bibblan.Views
         }
         private void rButtonChangeUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
-            if(rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; ButtonChangeUser.FontSize = 16; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
+            if (rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; ButtonChangeUser.FontSize = 16; }
         }
         private void rButtonRemoveUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             if (rButtonRemoveUser.IsChecked == true) { ButtonChangeUser.Content = rButtonRemoveUser.Content; ButtonChangeUser.FontSize = 16; }
         }
         private void ButtonChangeUser_Click(object sender, RoutedEventArgs e) // knapp för att ändra data på användare
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             User userToChange = LVModifyUser.SelectedItem as User; // sätter de nya ändringarna på vald användare
 
             if(LVModifyUser.SelectedItem == null) 
@@ -243,6 +251,8 @@ namespace Bibblan.Views
         }
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
           
             List<User> userList = dbVirtual.Where(x => x.Firstname.ToLower().Substring(0,3).Contains(searchBar.Text.ToLower()) 
@@ -337,6 +347,8 @@ namespace Bibblan.Views
         }
         private void RestrictButton_Click(object sender, RoutedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
             string whoRestricted = ""; 
             if (GlobalClass.userPermission == 2) { whoRestricted = "admin"; }
             else whoRestricted = "bibliotekarie"; 
