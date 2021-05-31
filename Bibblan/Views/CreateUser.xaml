@@ -10,36 +10,73 @@
         Title="CreateUser" Height="600" Width="1000">
 
     <Grid>
-        <Border Background="LightGray" Opacity="0.85"></Border>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Background="LightGray" Opacity="0.85" Grid.ColumnSpan="2"></Border>
 
-        <Label FontSize="40" HorizontalAlignment="Center" Margin="0 10 0 520" Style="{StaticResource CardoFont}">Registrering</Label>
-        <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="0 80 0 460" TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>
 
-        <Image x:Name="firstNameImg" Visibility="Collapsed" Margin="144,172,823,402" Source="/img/checkInvalid.png"/>
-        <Image x:Name="lastNameImg" Visibility="Collapsed" Margin="144,266,823,308" Source="/img/checkInvalid.png"/>
-        <Image x:Name="SSNImg" Visibility="Collapsed" Margin="144,363,823,211" Source="/img/checkInvalid.png"/>
-        <Image x:Name="eMailImg" Visibility="Collapsed" Margin="492,172,475,402" Source="/img/checkInvalid.png"/>
-        <Image x:Name="passWordImg" Visibility="Collapsed" Margin="492,266,475,308" Source="/img/checkInvalid.png"/>
-        <Image x:Name="firstNameImgValid" Visibility="Collapsed" Margin="144,172,823,402" Source="/img/checkValid.png"/>
-        <Image x:Name="lastNameImgValid" Visibility="Collapsed" Margin="144,266,823,308" Source="/img/checkValid.png"/>
-        <Image x:Name="SSNImgValid" Visibility="Collapsed" Margin="144,363,823,211" Source="/img/checkValid.png"/>
-        <Image x:Name="eMailImgValid" Visibility="Collapsed" Margin="492,172,475,402" Source="/img/checkValid.png"/>
-        <Image x:Name="passWordImgValid" Visibility="Collapsed" Margin="492,266,475,308" Source="/img/checkValid.png"/>
+        <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,30,0,0">
+            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="30, 0, 0, -40" FontSize="15" HorizontalAlignment="Left" Click="Back_button_Click"/>
 
-        <Button x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="214" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5" Margin="388,391,0,0"/>
-        <TextBox x:Name="firstName" VerticalContentAlignment="Center" Text="Förnamn" LostFocus="FirstLost" GotFocus="FirstFocus" Foreground="LightGray" Margin="178,157,526,387" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="firstName_TextChanged"/>
-        <TextBox x:Name="lastName" VerticalContentAlignment="Center" LostFocus="LastLost" Text="Efternamn" GotFocus="LastFocus" Foreground="LightGray" Margin="178,231,526,312" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="lastName_TextChanged"/>
-        <TextBox x:Name="eMail" VerticalContentAlignment="Center" LostFocus="EmailLost" GotFocus="EmailFocus" Foreground="LightGray" Text="E-post" Margin="526,154,178,384" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="eMail_TextChanged"/>
-        <TextBox x:Name="SSN" VerticalContentAlignment="Center" LostFocus="SSNLost" GotFocus="SSNFocus" Foreground="LightGray" Text="Personnummer" Margin="172,306,520,238" MaxWidth="295" MaxHeight="41.04"  FontSize="24" TextWrapping="Wrap" TextChanged="SSN_TextChanged"/>
+            <Label  FontSize="40" HorizontalAlignment="Center"  Style="{StaticResource CardoFont}">Registrering</Label>
+            <TextBlock HorizontalAlignment="Center" FontSize="20"  TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>
 
-        <PasswordBox x:Name="passWord" VerticalContentAlignment="Center" LostFocus="PassLost" GotFocus="PassFocus" Margin="512,232,164,312" MaxWidth="295" MaxHeight="41.04" FontSize="22" PasswordChanged="passWord_PasswordChanged"/>
-        <TextBox x:Name="passWordFalse" VerticalContentAlignment="Center" GotFocus="PassFalseFocus" Margin="512,232,164,312" MaxWidth="295" MaxHeight="41.04" FontSize="22" Text="Lösenord" Foreground="LightGray"/>
 
-        <Label x:Name="passwordInfo" Visibility="Collapsed" Margin="526,306,178,224">
-            <TextBlock Focusable="True" Grid.Column="4" Grid.Row="3" Height="70" FontSize="15" MaxWidth="250" Width="286">Lösenordet ska vara 8 i längd <LineBreak/> Lösenordet kräver en stor bokstav <LineBreak/> Lösenordet kräver en siffra</TextBlock>
-        </Label>
 
-        <TextBlock HorizontalAlignment="Center" Margin="0,490,0,60" FontSize="20">För att kunna låna böcker, kontakta bibliotekspersonal efter registrering</TextBlock>
+            <Grid Margin="0, 20, 0, 0" Width="650" Height="200">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+            
+            
 
+                
+                    <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png"/>
+                    <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="firstName" VerticalContentAlignment="Center" Text="Förnamn" LostFocus="FirstLost" GotFocus="FirstFocus" Foreground="LightGray" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="firstName_TextChanged"/>
+
+
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png" />
+                    <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="lastName" VerticalContentAlignment="Center" LostFocus="LastLost" Text="Efternamn" GotFocus="LastFocus" Foreground="LightGray" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="lastName_TextChanged"/>
+
+                    <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png"/>
+                    <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="SSN" VerticalContentAlignment="Center" LostFocus="SSNLost" GotFocus="SSNFocus" Foreground="LightGray" Text="Personnummer" MaxWidth="295" MaxHeight="41.04"  FontSize="24" TextWrapping="Wrap" TextChanged="SSN_TextChanged"/>
+
+                    <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImg" Visibility="Visible" Height="30"  Source="/img/checkInvalid.png" />
+                    <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <TextBox Grid.Row="0" Grid.Column="4" x:Name="eMail" VerticalContentAlignment="Center" LostFocus="EmailLost" GotFocus="EmailFocus" Foreground="LightGray" Text="E-post" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="eMail_TextChanged"/>
+
+                    <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png" />
+                    <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <PasswordBox Grid.Row="1" Grid.Column="4" x:Name="passWord" VerticalContentAlignment="Center" LostFocus="PassLost" GotFocus="PassFocus" MaxWidth="295" MaxHeight="41.04" FontSize="22" PasswordChanged="passWord_PasswordChanged"/>
+                    <TextBox Grid.Row="1" Grid.Column="4" x:Name="passWordFalse" VerticalContentAlignment="Center" GotFocus="PassFalseFocus" MaxWidth="295" MaxHeight="41.04" FontSize="22" Text="Lösenord" Foreground="LightGray"/>
+                    <Label Grid.Row="2" Grid.Column="4" x:Name="passwordInfo" Visibility="Visible">
+                    <TextBlock Focusable="True" Grid.Column="4" Grid.Row="2" Height="70" FontSize="15" MaxWidth="250" Width="286">Lösenordet ska vara 8 i längd <LineBreak/> Lösenordet kräver en stor bokstav <LineBreak/> Lösenordet kräver en siffra</TextBlock>
+                    </Label>
+        
+            </Grid>   
+            
+            
+           
+            <Button x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="214" Margin="30" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5"/>
+       
+ 
+            <TextBlock HorizontalAlignment="Center"  FontSize="20">För att kunna låna böcker, kontakta bibliotekspersonal efter registrering</TextBlock>
+
+           
+        </StackPanel>
     </Grid>
 </Page>

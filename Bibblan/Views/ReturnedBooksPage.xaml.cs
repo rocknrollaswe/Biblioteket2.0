@@ -42,8 +42,6 @@ namespace Bibblan.Views
                 if (item.Pending == 1)
                 {
                     booksToValidate.Add(item);
-
-
                 }
 
                 continue;
@@ -118,26 +116,6 @@ namespace Bibblan.Views
             return; 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

@@ -37,29 +37,64 @@
                     <Border 
                         Background="HotPink" 
                         Opacity="0.8"
-                        Width="670"
+                        Width="830"
                         Height="35" 
                         CornerRadius="20"
                         Margin="-30, 0, 0, 0"/>
 
                     <Border 
                         Background="LightPink" 
-                        Width="650"
+                        Width="820"
                         Height="35" 
                         CornerRadius="20"
                         Margin="-110, 6, 0, 0"/>
                     <Border  
                         Background="LightCoral"
     
-                        Width="720"
+                        Width="840"
                         Height="35" 
                         CornerRadius="20"
                         Margin="20, 8, 0, 0"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
+        
+        <Grid Grid.ColumnSpan="4" 
+              Grid.RowSpan="3"
+              Margin= "1500, 100, -800, 0" Opacity="0.55">
 
-        <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                <Grid.RenderTransform>
+                    <RotateTransform Angle="110"/>
+                </Grid.RenderTransform>
+
+                <StackPanel Orientation="Horizontal" Panel.ZIndex="-1" >
+                    <StackPanel>
+                        <Border 
+                        Background="HotPink" 
+                        Opacity="0.8"
+                        Width="800"
+                        Height="35" 
+                        CornerRadius="20"
+                        Margin="-30, 0, 0, 0"/>
+
+                        <Border 
+                        Background="LightPink" 
+                        Width="800"
+                        Height="35" 
+                        CornerRadius="20"
+                        Margin="-110, 6, 0, 0"/>
+                        <Border  
+                        Background="LightCoral"
+    
+                        Width="900"
+                        Height="35" 
+                        CornerRadius="20"
+                        Margin="20, 8, 0, 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Image Source="/img/LIBSYS.png" Opacity="0.7" Grid.Row="0" Grid.Column="0" Margin="5"/>
         
         <Image Source="/img/books_background.jpg" Grid.ColumnSpan="4" Stretch="Fill" Grid.RowSpan="4" Height="800" Width="1500" Opacity="0.05" />
 

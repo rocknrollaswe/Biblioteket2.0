@@ -237,5 +237,16 @@ namespace Bibblan.Views
                 passWordImg.Visibility = Visibility.Visible;
             }
         }
+
+        //private void Back_button_Click(object sender, RoutedEventArgs e)
+        //{
+                  // OBSOBSOBS HÄR SKA DET LIGGA LOGIK FÖR ATT NAVIGERA TILLBAKA TILL LOGIN
+        //}
+    
+    
+    
+    
+    
+    
     }
 }
