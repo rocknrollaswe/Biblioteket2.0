@@ -98,5 +98,6 @@ namespace Bibblan.Views
             MessageBox.Show("Det finns inga objekt att validera");
             return;
         }
+
     }
 }
