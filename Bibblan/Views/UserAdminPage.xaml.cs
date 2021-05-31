@@ -169,7 +169,6 @@ namespace Bibblan.Views
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                                 return;
-
                             }
                             userToChange.Permissions = permissionComboBox.SelectedIndex;
                         }
@@ -180,15 +179,13 @@ namespace Bibblan.Views
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                                 return;
-
                             }
                             userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
                         }
 
                         if (userToChange.UserComment != CommentBox.Text)
                         {
-                            if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray)
-                                return;
+                            if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray) { return; }
                             else
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {

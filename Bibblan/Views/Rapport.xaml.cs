@@ -96,7 +96,6 @@ namespace Bibblan.Views
                 var chosenBookReport = LVReportUser.SelectedItem as dynamic;
                 UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
 
-                
                 GlobalClass.chosenBookReport = userReportFinal;
                 Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
@@ -129,7 +128,6 @@ namespace Bibblan.Views
                 removedObjectsReport(objectJoin);
             }
         }
-
         private async void downloadUserReport()
         {
             if (LVReportUser.ItemsSource != null && userReport != null)

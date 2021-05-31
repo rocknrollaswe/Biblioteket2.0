@@ -45,10 +45,8 @@ namespace Bibblan.Views
             }
 
         }
-
         private void ReturnBookButton_Click(object sender, RoutedEventArgs e)
         {
-            
             var bookId = LVBooksLoanedByUser.SelectedItem as Stock;
             var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.StockId).FirstOrDefault();
             bookToReturn.Pending = 1;
@@ -76,6 +74,5 @@ namespace Bibblan.Views
 
             return;
         }
-
     }
 }
