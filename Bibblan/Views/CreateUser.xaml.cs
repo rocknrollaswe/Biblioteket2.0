@@ -49,7 +49,6 @@ namespace Bibblan.Views
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
                 return;
             }
-
             if (!Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$"))
             {
                 MessageBox.Show("Ange korrekt e-mail.");
@@ -57,35 +56,30 @@ namespace Bibblan.Views
                 eMail.Focus();
                 return;
             }
-
             if (passWord.Password.Length == 0)
             {
                 MessageBox.Show("Ange Lösenord.");
                 passWord.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
                 MessageBox.Show("Ange bara bokstäver.");
                 firstName.Focus();
                 return;
             }
-            
             if(!Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
                 MessageBox.Show("Ange bara bokstäver.");
                 lastName.Focus();
                 return;
             }
-
             if (!Regex.IsMatch(SSN.Text, @"^([0-9]{12})$"))
             {
                 MessageBox.Show("Ange bara siffror.");
                 firstName.Focus();
                 return;
             }
-
             if(!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-ZÅÄÖ])(?=.*?[a-zåäö])(?=.*?[0-9]).{8,}$"))
             {
                 MessageBox.Show("Ange minst en stor och liten bokstav samt en siffra.");
