@@ -19,6 +19,9 @@ namespace Bibblan.Models
         {
         }
 
+
+        public static string testConnectionString; 
+
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<BookStockLoan> BookStockLoans { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -33,11 +36,18 @@ namespace Bibblan.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                if (!String.IsNullOrEmpty(testConnectionString))
+                {
+                    optionsBuilder.UseSqlServer(testConnectionString);
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
 
-                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings[1].ConnectionString);
+                }
+
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
