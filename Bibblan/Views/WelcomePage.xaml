@@ -41,8 +41,8 @@
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Bok" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Författare" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Loandate}" Header="Lånedatum" Width=" 150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Returndate}" Header="Återlämningsdatum" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Loandate, ConverterCulture='sv-SE', StringFormat={} {0:D}}" Header="Lånedatum" Width=" 150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Returndate, ConverterCulture='sv-SE', StringFormat={} {0:D}}" Header="Återlämningsdatum" Width="150"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
