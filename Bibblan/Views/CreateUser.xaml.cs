@@ -112,7 +112,8 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
             MessageBox.Show("Du har nu skapat upp en användare.");
 
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow 
+            //MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow
+            MainWindow mainWindow = GlobalClass.currentinstance;
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
             NavigationService.Navigate(null);
         }
