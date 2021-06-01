@@ -104,15 +104,18 @@ namespace Bibblan
         private void registerButton_Click(object sender, RoutedEventArgs e)
         {
             passwordTextBox.Visibility = Visibility.Collapsed;
+            passWordFalse.Visibility = Visibility.Collapsed;
             emailTextBox.Visibility = Visibility.Collapsed;
             guestButton.Visibility = Visibility.Collapsed;
             registerButton.Visibility = Visibility.Collapsed;
             loginButton.Visibility = Visibility.Collapsed;
             Main.NavigationService.Navigate(new CreateUser());
+            GlobalClass.currentinstance = this; 
         }
         private void cheatButton_Click(object sender, RoutedEventArgs e)
         {
             passwordTextBox.Visibility = Visibility.Visible;
+            passWordFalse.Visibility = Visibility.Visible;
             emailTextBox.Visibility = Visibility.Visible;
             guestButton.Visibility = Visibility.Visible;
             registerButton.Visibility = Visibility.Visible;
