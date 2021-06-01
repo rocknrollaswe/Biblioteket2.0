@@ -9,7 +9,7 @@
         ResizeMode="NoResize">
 
 
-    <Grid Background="#80B3B5">
+    <Grid Background="#546b68">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -23,10 +23,9 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-
         <Grid Grid.ColumnSpan="4" 
               Grid.RowSpan="3"
-              Margin= "70, -20, 0, 0" Opacity="0.55">
+              Margin= "70, -20, 0, 0" Opacity="0.35">
 
             <Grid.RenderTransform>
                 <RotateTransform Angle="55"/>
@@ -61,7 +60,7 @@
         
         <Grid Grid.ColumnSpan="4" 
               Grid.RowSpan="3"
-              Margin= "1500, 100, -800, 0" Opacity="0.55">
+              Margin= "1500, 100, -800, 0" Opacity="0.45">
 
                 <Grid.RenderTransform>
                     <RotateTransform Angle="110"/>

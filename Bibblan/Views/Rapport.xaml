@@ -65,10 +65,10 @@
 
         <TextBlock  Grid.Column="0" Grid.ColumnSpan="2"
             Style="{StaticResource CardoFont}"  
-            VerticalAlignment="Top" HorizontalAlignment="Left" 
+            VerticalAlignment="Top"  
             FontSize="50" Height="72" 
             Foreground="Black" 
             Panel.ZIndex="2"
-            Margin="485,31,0,0" Width="292"><Run Language="en-gb" Text="Rapportering"/></TextBlock>
+            HorizontalAlignment="Center" Margin="0, 30, 0, 0" Width="292"><Run Language="en-gb" Text="Rapportering"/></TextBlock>
     </Grid>
 </Page>

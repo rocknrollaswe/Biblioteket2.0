@@ -48,7 +48,7 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (titleBox.Text.Length == 0 || titleBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Titel!");
                 titleBox.Focus();
@@ -104,11 +104,7 @@ namespace Bibblan.Views
                 return;
             }
 
-            //if (titleBox.Text == "" || titleBox.Foreground == Brushes.LightGray || authorBox.Text == "" || authorBox.Foreground == Brushes.LightGray || descriptionBox.Text == "" || descriptionBox.Foreground == Brushes.LightGray || editionBox.Text == "" || editionBox.Foreground == Brushes.LightGray || priceBox.Text == "" || priceBox.Foreground == Brushes.LightGray || ddkBox.Text == "" || ddkBox.Foreground == Brushes.LightGray || sabBox.Text == "" || sabBox.Foreground == Brushes.LightGray || publisherBox.Text == "" || publisherBox.Foreground == Brushes.LightGray) //Kollar om user input är tomt
-            //{
-            //    OnWrongEntry("Du har inte angett data i samtliga fält!");
-            //    return;
-            //}
+     
 
             int ebokCheck = 0;
 
