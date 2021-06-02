@@ -9,22 +9,15 @@ namespace BibblanTest
 {    
     public class TestData
     {
-      
         public void SetupTestDb() 
         {
             BiblioteketContext.testConnectionString = "Server = tcp:bladerunnerdb.database.windows.net,1433; Initial Catalog = Biblioteket_Kopiera; Persist Security Info = False; User ID = harrison; " +
             "Password = Blade1234; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30";
 
-            DbInitialiser.InitialiseDB();
-
-      
+            DbInitialiser.InitialiseDB(); 
         }
-
-
-
     } 
-    
-        
+       
     [TestClass]
     public class BookTests
     {
@@ -73,12 +66,8 @@ namespace BibblanTest
             DbInitialiser.Db.Books.Remove(bookToCheck); // Tar bort böckerna från testdatabasen när testet är klart.
             DbInitialiser.Db.Books.Remove(bookToFail);
             DbInitialiser.Db.SaveChanges();
-
         }
 
-
-
-       
         [TestMethod]
         public void AddStockBookTest()
         {
@@ -115,7 +104,6 @@ namespace BibblanTest
             //Assert
             Assert.IsTrue(StockEquals(isbnBook, expected));
 
-           
             //Cleanup
             var stocksToRemove = DbInitialiser.Db.Stocks.Where(x => x.Isbn == isbnBook.Isbn).ToList(); 
            
@@ -129,33 +117,33 @@ namespace BibblanTest
 
         }
 
-        public void AddLoanLogTest() 
-        {
-            //Arrange
-            td.SetupTestDb();
+        //public void AddLoanLogTest() 
+        //{
+        //    //Arrange
+        //    td.SetupTestDb();
 
-            bool LoanLogEquals(Loanlog actual, Loanlog other)   //Metod som kollar om LoanLogsen är 'likadana', vår tidigare override i Equals i Booksmodellen skapade nya problem med grundläggande funktioner 
-            {
-                if (actual.StockId == other.StockId && actual.UserId == other.UserId && actual.Loandate == other.Loandate && actual.Returndate == other.Returndate)
-                    return true;
+        //    bool LoanLogEquals(Loanlog actual, Loanlog other)   //Metod som kollar om LoanLogsen är 'likadana', vår tidigare override i Equals i Booksmodellen skapade nya problem med grundläggande funktioner 
+        //    {
+        //        if (actual.StockId == other.StockId && actual.UserId == other.UserId && actual.Loandate == other.Loandate && actual.Returndate == other.Returndate)
+        //            return true;
 
-                else return false;
-            }
-
-
-
-            //Act
+        //        else return false;
+        //    }
 
 
 
-
-            //Assert
+        //    //Act
 
 
 
 
+        //    //Assert
 
-        }
+
+
+
+
+        //}
 
 
 

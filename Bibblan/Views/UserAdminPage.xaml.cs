@@ -237,6 +237,8 @@ namespace Bibblan.Views
                         MessageBox.Show("Du har tagit bort användaren");
 
                         ClearAndRetrieveVirtualDb();
+                        LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
+                        LVModifyUser.ItemsSource = dbVirtual; 
                         break; 
 
                     case MessageBoxResult.No:
