@@ -107,7 +107,6 @@ namespace Bibblan.Views
                 return;
             }
 
-     
 
             int ebokCheck = 0;
 

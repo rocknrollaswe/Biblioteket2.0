@@ -113,7 +113,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"  
                                Style="{StaticResource RobotoFont}" FontSize="14">
-                               Återlämnade Böcker
+                               Kvittering
                     </TextBlock>
                 </StackPanel>
             </Button>
@@ -123,7 +123,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"  
                                Style="{StaticResource RobotoFont}" FontSize="14">
-                               Administrera Användare
+                               Administrera användare
                     </TextBlock>
                 </StackPanel>
             </Button>
@@ -150,7 +150,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,0"
                         FontSize="14"
-                        Style="{StaticResource RobotoFont}"><Run Text="Sök och låna böcker"/></TextBlock>
+                        Style="{StaticResource RobotoFont}"><Run Text="Låna böcker"/></TextBlock>
                 </StackPanel>
             </Button>
 

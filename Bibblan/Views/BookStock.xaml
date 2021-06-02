@@ -15,7 +15,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border Background="#80B3B5" Height="800" Width="1300" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Label FontSize="48" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 18 0 0"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2">Lager</Label>
+        <Label FontSize="70" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 18 0 0"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2">Lager</Label>
 
        
 
