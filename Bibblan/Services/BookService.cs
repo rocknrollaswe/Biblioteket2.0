@@ -24,9 +24,11 @@ namespace Bibblan.Services
 
             DbInitialiser.Db.Add(book); 
             DbInitialiser.Db.SaveChanges();
-
-            return book;
+         
+            return book; 
         }
+      
+      
         public static Loanlog AddLoanlog(int stockId, int userId, DateTime loanDate, DateTime returnDate)
         {
             Loanlog loanLog = new Loanlog();

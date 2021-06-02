@@ -140,6 +140,7 @@ namespace Bibblan.Views
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
 
+
                 BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
                 MessageBox.Show("Du har nu lagt till en bok!");
@@ -151,30 +152,12 @@ namespace Bibblan.Views
                     Clearer();
                 }
                 LVBooks.Items.Refresh();
+
+
+                Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
+
             }
             return;
-        }
-        public void Clearer()
-        {
-            LVBooks.Items.Refresh();
-            titleBox.Foreground = Brushes.LightGray;
-            titleBox.Text = "Titel";
-            authorBox.Foreground = Brushes.LightGray;
-            authorBox.Text = "Författare";
-            descriptionBox.Foreground = Brushes.LightGray;
-            descriptionBox.Text = "Beskrivning";
-            editionBox.Foreground = Brushes.LightGray;
-            editionBox.Text = "Upplaga";
-            publisherBox.Foreground = Brushes.LightGray;
-            publisherBox.Text = "Förlag";
-            priceBox.Foreground = Brushes.LightGray;
-            priceBox.Text = "Pris";
-            ddkBox.Foreground = Brushes.LightGray;
-            ddkBox.Text = "DDK";
-            sabBox.Foreground = Brushes.LightGray;
-            sabBox.Text = "Sab";
-            amountBox.Foreground = Brushes.LightGray;
-            amountBox.Text = "Antal";
         }
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
