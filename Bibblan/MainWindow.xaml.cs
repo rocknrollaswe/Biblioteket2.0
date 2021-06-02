@@ -36,7 +36,6 @@ namespace Bibblan
                 }
             });
         }
-
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
             string emailLow = emailTextBox.Text.ToLower();
@@ -62,14 +61,12 @@ namespace Bibblan
                 MessageBox.Show("Fel uppgifter angivna");
             }
         }
-
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
         {
             GlobalClass.userPermission = -1;        //Sätter permission till -1 för att visa att det inte är en inloggad användare
             GlobalClass.userFirstName = "Gäst";
             Main.NavigationService.Navigate(new GuestPage()); //skickas just nu till Gästsidan för sök
         }
-
         private void emailTextBox_GotFocus(object sender, RoutedEventArgs e)        //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
         {
             if(emailTextBox.Foreground == Brushes.LightGray)

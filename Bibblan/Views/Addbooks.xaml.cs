@@ -25,7 +25,6 @@ namespace Bibblan.Views
     public partial class Addbooks : Page
     {
         List<Book> virtualBooks = new List<Book>();
-
         public Addbooks()
         {
             InitializeComponent();
@@ -42,7 +41,6 @@ namespace Bibblan.Views
         { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
-
         }
         public event EventHandler<string> WrongEntry;
         protected virtual void OnWrongEntry(string e)
@@ -107,7 +105,6 @@ namespace Bibblan.Views
                 return;
             }
 
-
             int ebokCheck = 0;
 
             if (ebok.IsChecked == true)
@@ -152,6 +149,7 @@ namespace Bibblan.Views
                 foreach (var item in DbInitialiser.Db.Books)
                 {
                     virtualBooks.Add(item);
+                    Clearer();
                 }
                 LVBooks.Items.Refresh();
 
@@ -161,32 +159,6 @@ namespace Bibblan.Views
             }
             return;
         }
-
-
-        public void AddStockBook(string title, string edition, int amount)
-        {
-            
-            IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == title && b.Edition == int.Parse(edition));
-
-            Book b = isbnBook.FirstOrDefault();
-
-            for (int i = 0; i < amount; i++)
-            {
-                var stock = new Stock();
-                stock.Isbn = Convert.ToInt32(b.Isbn);
-                stock.Condition = "Nyskick";
-                stock.Discarded = 0;
-                stock.Available = 1;
-                DbInitialiser.Db.Add(stock);
-            }
-            DbInitialiser.Db.SaveChanges();
-        }
-
-            }
-            return;
-        }
-
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
