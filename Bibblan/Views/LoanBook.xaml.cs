@@ -46,27 +46,30 @@ namespace Bibblan.Views
         }
         private void Searchfunction()
         {
-          
             LVLoanBook.ClearValue(ItemsControl.ItemsSourceProperty);
 
-            List<BookStockLoan> bookList = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
-                                                    || x.Author.ToLower().Contains(searchBar.Text.ToLower())
-                                                    || x.Category.ToString().Contains(searchBar.Text.ToLower()))
-                                                   
-
-                                                    .ToList(); //tar fram böckerna som innehåller userinput för TITEL 
-
-            if (bookList != null) // VÄLDIGT simpel sökfunktion, ska byggas på
+            if(Int32.TryParse(searchBar.Text, out var _) == false)
             {
+                List<BookStockLoan> bookList = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
+                                                    || x.Author.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
                 LVLoanBook.ItemsSource = bookList;
                 return;
             }
-            else if (Int32.TryParse(searchBar.Text, out var _)) //kollar om userInput är en int eller ej
+            else if (Int32.TryParse(searchBar.Text, out var _) == true) //kollar om userInput är en int eller ej
             {
-                List<BookStockLoan> query = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
-                                                                        
-                LVLoanBook.ItemsSource = query;
-                return;
+                List<BookStockLoan> query;
+                if (searchBar.Text.Length == 1)
+                {
+                    query = virtualBooksToLoan.Where(x => x.Category.ToString() == searchBar.Text).DefaultIfEmpty().ToList();
+                    LVLoanBook.ItemsSource = query;
+                    return;
+                }
+                else
+                {
+                    query = virtualBooksToLoan.Where(x => x.Isbn.ToString().Contains(searchBar.Text)).DefaultIfEmpty().ToList();
+                    LVLoanBook.ItemsSource = query;
+                    return;
+                }
             }
         }
         private void LVLoanBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,22 +107,17 @@ namespace Bibblan.Views
                     {
                         case MessageBoxResult.Yes:
                             {
+                                loanLog = BookService.AddLoanlog(bookToLoan.StockId, (int)GlobalClass.currentUserID, DateTime.Now.Date, DateTime.Now.AddMonths(1)); //Skapar upp ny loanlog och populerar den
+
                                 bookToLoan.Available = 0; // sätter tillgänglighet på aktuell bok till 'ej tillänglig'
 
-                                loanLog.StockId = bookToLoan.StockId;              //Skapar upp ny loanlog och populerar den
-                                loanLog.UserId = (int)GlobalClass.currentUserID;
-                                loanLog.Loandate = DateTime.Now.Date;
-                                loanLog.Returndate = DateTime.Now.AddMonths(1);
-
-                                DbInitialiser.Db.Loanlogs.Add(loanLog);
                                 DbInitialiser.Db.Stocks.Update(bookToLoan);
-
                                 DbInitialiser.Db.SaveChanges(); // sparar databasen
 
                                 ClearAndRetrieveVirtualDb();
                                 LVLoanBook.ClearValue(ItemsControl.ItemsSourceProperty);
                                 LVLoanBook.ItemsSource = virtualBooksToLoan;
-                                MessageBox.Show($"Du har nu lånat {b.Title}.\nDatum för återlämning är sen {loanLog.Returndate}");
+                                MessageBox.Show($"Du har nu lånat {b.Title}.\nDatum för återlämning är {loanLog.Returndate}");
                             }
                             break;
                         case MessageBoxResult.No:
@@ -144,7 +142,6 @@ namespace Bibblan.Views
 
             foreach (var item in DbInitialiser.Db.BookStockLoans)
             {
-                
                 if (item.Title == titleTemp && item.Available == availableTemp)
                 {
                     continue;
