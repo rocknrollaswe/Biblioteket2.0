@@ -153,9 +153,37 @@ namespace Bibblan.Views
                     virtualBooks.Add(item);
                 }
                 LVBooks.Items.Refresh();
+
+                Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
             }
             return;
         }
+
+
+        public void AddStockBook(string title, string edition, int amount)
+        {
+            
+            IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
+                (b => b.Title == title && b.Edition == int.Parse(edition));
+
+            Book b = isbnBook.FirstOrDefault();
+
+            for (int i = 0; i < amount; i++)
+            {
+                var stock = new Stock();
+                stock.Isbn = Convert.ToInt32(b.Isbn);
+                stock.Condition = "Nyskick";
+                stock.Discarded = 0;
+                stock.Available = 1;
+                DbInitialiser.Db.Add(stock);
+            }
+            DbInitialiser.Db.SaveChanges();
+        }
+
+            }
+            return;
+        }
+
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
