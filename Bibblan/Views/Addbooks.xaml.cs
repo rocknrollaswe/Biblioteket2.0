@@ -142,14 +142,10 @@ namespace Bibblan.Views
                 if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
-                
-                
-                DbInitialiser.Db.Add(bookToAdd); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
-                DbInitialiser.Db.SaveChanges();
 
-                AddStockBook(bookToAdd.Title, bookToAdd.Edition.ToString(), Convert.ToInt32(amountBox.Text));
-                
-                                        
+
+                BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
+
                 MessageBox.Show("Du har nu lagt till en bok!");
                 virtualBooks.Clear();
 
@@ -157,9 +153,11 @@ namespace Bibblan.Views
                 {
                     virtualBooks.Add(item);
                 }
-
                 LVBooks.Items.Refresh();
-         
+
+
+                Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
+
             }
             return;
         }
@@ -169,7 +167,7 @@ namespace Bibblan.Views
         {
             
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == title && b.Edition == int.Parse(edition)); // hämtar isbn för den nyss tillagda boken
+                (b => b.Title == title && b.Edition == int.Parse(edition));
 
             Book b = isbnBook.FirstOrDefault();
 
@@ -185,7 +183,10 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
         }
 
-       
+            }
+            return;
+        }
+
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
