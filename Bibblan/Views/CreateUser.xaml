@@ -20,9 +20,6 @@
 
         <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,30,0,0">
 
-            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="30, 0, 0, -40" FontSize="15" HorizontalAlignment="Left" />
-
-
 
             <Label  FontSize="50" HorizontalAlignment="Center"  Style="{StaticResource CardoFont}">Registrering</Label>
             <TextBlock HorizontalAlignment="Center" FontSize="20"  TextAlignment="Center">Fyll i dina personuppgifter och tryck sedan<LineBreak/> på knappen Registrera</TextBlock>
@@ -81,7 +78,6 @@
             <TextBlock HorizontalAlignment="Center" Width="230" FontSize="20">För att kunna låna böcker,</TextBlock>
             <TextBlock HorizontalAlignment="Center"  Width="400" FontSize="20">kontakta bibliotekspersonal efter registrering</TextBlock>
             <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="20, 10, 0, 0" FontSize="15" HorizontalAlignment="Left"/>
-            <!--Click="Back_button_Click"/>-->
 
 
         </StackPanel>
