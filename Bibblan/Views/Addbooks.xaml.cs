@@ -143,13 +143,14 @@ namespace Bibblan.Views
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
                 
-                AddStockBook(titleBox.Text, editionBox.Text, Convert.ToInt32(amountBox.Text));
-
-
+                
                 DbInitialiser.Db.Add(bookToAdd); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
-                                            // hämtar isbn för den nyss tillagda boken
                 DbInitialiser.Db.SaveChanges();
 
+                AddStockBook(bookToAdd.Title, bookToAdd.Edition.ToString(), Convert.ToInt32(amountBox.Text));
+                
+                                           
+                
                 MessageBox.Show("Du har nu lagt till en bok!");
                 virtualBooks.Clear();
 
@@ -159,7 +160,7 @@ namespace Bibblan.Views
                 }
 
                 LVBooks.Items.Refresh();
-                Clearer();
+                //Clearer();
             }
             return;
         }
@@ -169,7 +170,7 @@ namespace Bibblan.Views
         {
             
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == title && b.Edition == int.Parse(edition));
+                (b => b.Title == title && b.Edition == int.Parse(edition)); // hämtar isbn för den nyss tillagda boken
 
             Book b = isbnBook.FirstOrDefault();
 
@@ -185,28 +186,28 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
         }
 
-        public void Clearer()
-        {
-            LVBooks.Items.Refresh();
-            titleBox.Foreground = Brushes.LightGray;
-            titleBox.Text = "Titel";
-            authorBox.Foreground = Brushes.LightGray;
-            authorBox.Text = "Författare";
-            descriptionBox.Foreground = Brushes.LightGray;
-            descriptionBox.Text = "Beskrivning";
-            editionBox.Foreground = Brushes.LightGray;
-            editionBox.Text = "Upplaga";
-            publisherBox.Foreground = Brushes.LightGray;
-            publisherBox.Text = "Förlag";
-            priceBox.Foreground = Brushes.LightGray;
-            priceBox.Text = "Pris";
-            ddkBox.Foreground = Brushes.LightGray;
-            ddkBox.Text = "DDK";
-            sabBox.Foreground = Brushes.LightGray;
-            sabBox.Text = "Sab";
-            amountBox.Foreground = Brushes.LightGray;
-            amountBox.Text = "Antal";
-        }
+        //public void Clearer()
+        //{
+        //    LVBooks.Items.Refresh();
+        //    titleBox.Foreground = Brushes.LightGray;
+        //    titleBox.Text = "Titel";
+        //    authorBox.Foreground = Brushes.LightGray;
+        //    authorBox.Text = "Författare";
+        //    descriptionBox.Foreground = Brushes.LightGray;
+        //    descriptionBox.Text = "Beskrivning";
+        //    editionBox.Foreground = Brushes.LightGray;
+        //    editionBox.Text = "Upplaga";
+        //    publisherBox.Foreground = Brushes.LightGray;
+        //    publisherBox.Text = "Förlag";
+        //    priceBox.Foreground = Brushes.LightGray;
+        //    priceBox.Text = "Pris";
+        //    ddkBox.Foreground = Brushes.LightGray;
+        //    ddkBox.Text = "DDK";
+        //    sabBox.Foreground = Brushes.LightGray;
+        //    sabBox.Text = "Sab";
+        //    amountBox.Foreground = Brushes.LightGray;
+        //    amountBox.Text = "Antal";
+        //}
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);

@@ -104,7 +104,6 @@ namespace Bibblan.Views
 
             MessageBox.Show("Du har nu skapat upp en användare.");
 
-            //MainWindow mainWindow = Application.Current.MainWindow as MainWindow;       //navigerar tbx till MainWindow
             MainWindow mainWindow = GlobalClass.currentinstance;
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
             NavigationService.Navigate(null);
@@ -226,10 +225,12 @@ namespace Bibblan.Views
             }
         }
 
-        //private void Back_button_Click(object sender, RoutedEventArgs e)
-        //{
-                  // OBSOBSOBS HÄR SKA DET LIGGA LOGIK FÖR ATT NAVIGERA TILLBAKA TILL LOGIN
-        //}
+        private void Back_button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = GlobalClass.currentinstance;
+            mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
+            NavigationService.Navigate(null);
+        }
     
     
     
