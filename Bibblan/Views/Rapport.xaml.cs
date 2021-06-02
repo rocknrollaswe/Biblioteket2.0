@@ -99,8 +99,8 @@ namespace Bibblan.Views
             {
                 var chosenBookReport = LVReportUser.SelectedItem as dynamic;
                 UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
-#nullable enable
                 GlobalClass.chosenBookReport = userReportFinal;
+#nullable enable
                 Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
 #nullable disable
@@ -126,23 +126,37 @@ namespace Bibblan.Views
             if(userBorder.Visibility == Visibility.Visible)
             {
                 downloadUserReport();
+                MessageBox.Show("Användar rapport nedladdad!");
             }
             else if(LVReportObject.Visibility == Visibility.Visible)
             {
                 removedObjectsReport(objectJoin);
+                MessageBox.Show("Raport om borttagna objekt nedladdad!");
             }
         }
         private async void downloadUserReport()
         {
             if (LVReportUser.ItemsSource != null && userReport != null)
             {
-                using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
+                if (LVReportUser.SelectedItem != null)
                 {
-                    streamWriter.WriteLine($"               Email: {userReport.First().Email} \n");
-                    foreach (var item in userReport)
+                    dynamic selectedUser = LVReportUser.SelectedItems as dynamic;
+
+                    IEnumerable<UserReport> userLoans = userReport.Where(x => x.Email == selectedUser[0].email);
+
+                    using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
                     {
-                        await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
+                        streamWriter.WriteLine($"               Email: {selectedUser[0].email} \n");
+                        foreach (var item in userLoans)
+                        {
+                            await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Välj en användare för att ladda ned rapporten!");
+                    return;
                 }
             }
             else
