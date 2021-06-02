@@ -25,7 +25,6 @@ namespace Bibblan.Views
     public partial class Addbooks : Page
     {
         List<Book> virtualBooks = new List<Book>();
-
         public Addbooks()
         {
             InitializeComponent();
@@ -42,7 +41,6 @@ namespace Bibblan.Views
         { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
-
         }
         public event EventHandler<string> WrongEntry;
         protected virtual void OnWrongEntry(string e)
@@ -107,7 +105,6 @@ namespace Bibblan.Views
                 return;
             }
 
-
             int ebokCheck = 0;
 
             if (ebok.IsChecked == true)
@@ -151,10 +148,33 @@ namespace Bibblan.Views
                 foreach (var item in DbInitialiser.Db.Books)
                 {
                     virtualBooks.Add(item);
+                    Clearer();
                 }
                 LVBooks.Items.Refresh();
             }
             return;
+        }
+        public void Clearer()
+        {
+            LVBooks.Items.Refresh();
+            titleBox.Foreground = Brushes.LightGray;
+            titleBox.Text = "Titel";
+            authorBox.Foreground = Brushes.LightGray;
+            authorBox.Text = "Författare";
+            descriptionBox.Foreground = Brushes.LightGray;
+            descriptionBox.Text = "Beskrivning";
+            editionBox.Foreground = Brushes.LightGray;
+            editionBox.Text = "Upplaga";
+            publisherBox.Foreground = Brushes.LightGray;
+            publisherBox.Text = "Förlag";
+            priceBox.Foreground = Brushes.LightGray;
+            priceBox.Text = "Pris";
+            ddkBox.Foreground = Brushes.LightGray;
+            ddkBox.Text = "DDK";
+            sabBox.Foreground = Brushes.LightGray;
+            sabBox.Text = "Sab";
+            amountBox.Foreground = Brushes.LightGray;
+            amountBox.Text = "Antal";
         }
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
