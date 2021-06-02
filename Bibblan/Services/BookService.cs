@@ -7,7 +7,7 @@ namespace Bibblan.Services
 {
     public static class BookService
     {
-        public static void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0)
+        public static Book AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0)
         {
             var book = new Book();
 
@@ -23,6 +23,8 @@ namespace Bibblan.Services
 
             DbInitialiser.Db.Add(book); 
             DbInitialiser.Db.SaveChanges();
+
+            return book; 
         }
         public static Loanlog AddLoanlog(int stockId, int userId, DateTime loanDate, DateTime returnDate)
         {

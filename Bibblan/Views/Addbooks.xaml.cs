@@ -149,8 +149,7 @@ namespace Bibblan.Views
 
                 AddStockBook(bookToAdd.Title, bookToAdd.Edition.ToString(), Convert.ToInt32(amountBox.Text));
                 
-                                           
-                
+                                        
                 MessageBox.Show("Du har nu lagt till en bok!");
                 virtualBooks.Clear();
 
@@ -160,7 +159,7 @@ namespace Bibblan.Views
                 }
 
                 LVBooks.Items.Refresh();
-                //Clearer();
+         
             }
             return;
         }
@@ -186,28 +185,7 @@ namespace Bibblan.Views
             DbInitialiser.Db.SaveChanges();
         }
 
-        //public void Clearer()
-        //{
-        //    LVBooks.Items.Refresh();
-        //    titleBox.Foreground = Brushes.LightGray;
-        //    titleBox.Text = "Titel";
-        //    authorBox.Foreground = Brushes.LightGray;
-        //    authorBox.Text = "Författare";
-        //    descriptionBox.Foreground = Brushes.LightGray;
-        //    descriptionBox.Text = "Beskrivning";
-        //    editionBox.Foreground = Brushes.LightGray;
-        //    editionBox.Text = "Upplaga";
-        //    publisherBox.Foreground = Brushes.LightGray;
-        //    publisherBox.Text = "Förlag";
-        //    priceBox.Foreground = Brushes.LightGray;
-        //    priceBox.Text = "Pris";
-        //    ddkBox.Foreground = Brushes.LightGray;
-        //    ddkBox.Text = "DDK";
-        //    sabBox.Foreground = Brushes.LightGray;
-        //    sabBox.Text = "Sab";
-        //    amountBox.Foreground = Brushes.LightGray;
-        //    amountBox.Text = "Antal";
-        //}
+       
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
