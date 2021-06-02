@@ -348,6 +348,11 @@ namespace Bibblan.Views
         private void RestrictButton_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (LVModifyUser.SelectedItem == null)
+            {
+                MessageBox.Show("Vänligen välj en användare först!");
+                return;
+            }
 
             string whoRestricted = ""; 
             if (GlobalClass.userPermission == 2) { whoRestricted = "admin"; }
@@ -366,7 +371,7 @@ namespace Bibblan.Views
                     return; 
                 }
 
-                if (GlobalClass.userPermission == 1 || GlobalClass.userPermission == 2)
+                if ((GlobalClass.userPermission == 1 && u.Permissions < 1)|| GlobalClass.userPermission == 2)
                 {
                     MessageBoxResult result = MessageBox.Show("Är det säkert att du vill spärra den här användaren?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -387,6 +392,10 @@ namespace Bibblan.Views
                         case MessageBoxResult.No:
                             return;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Du har inte rättigheter att göra detta");
                 }
                 ClearAndRetrieveVirtualDb();
                 return; 

@@ -84,7 +84,7 @@ namespace Bibblan.Views
         }
         private void loanButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LVLoanBook == null)
+            if (LVLoanBook.SelectedItem == null)
             {
                 MessageBox.Show("Du måste välja en bok först!");
                 return;

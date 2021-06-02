@@ -73,6 +73,15 @@ namespace Bibblan.Views
                 editionBox.Focus();
                 return;
             }
+            if (Int32.TryParse(editionBox.Text, out var _) == true)
+            {
+                if (Convert.ToInt32(editionBox.Text) > Convert.ToInt32(DateTime.Now.Year))
+                {
+                    MessageBox.Show("Boken har inte kommit ut ännu!");
+                    editionBox.Focus();
+                    return;
+                }
+            }
             if (publisherBox.Text.Length == 0 || publisherBox.Foreground == Brushes.LightGray)
             {
                 MessageBox.Show("Ange Förlag!");
@@ -140,7 +149,6 @@ namespace Bibblan.Views
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
 
-
                 BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
                 MessageBox.Show("Du har nu lagt till en bok!");
@@ -152,9 +160,7 @@ namespace Bibblan.Views
                 }
                 LVBooks.Items.Refresh();
 
-
                 Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
-
             }
             return;
         }
@@ -233,9 +239,16 @@ namespace Bibblan.Views
        
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
-
-            this.NavigationService.Navigate(new BookStock()); 
+            if (LVBooks.SelectedItem == null)
+            {
+                MessageBox.Show("Välj en bok!");
+                return;
+            }
+            else
+            {
+                GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
+                this.NavigationService.Navigate(new BookStock());
+            }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
