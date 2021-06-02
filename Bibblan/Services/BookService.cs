@@ -28,8 +28,6 @@ namespace Bibblan.Services
          
             return book; 
         }
-      
-      
         public static Loanlog AddLoanlog(int stockId, int userId, DateTime loanDate, DateTime returnDate)
         {
             Loanlog loanLog = new Loanlog();
@@ -44,7 +42,6 @@ namespace Bibblan.Services
 
             return loanLog;
         }
-
         public static void AddStockBook(Book book, int amount)
         {
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where

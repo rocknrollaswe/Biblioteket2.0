@@ -126,12 +126,10 @@ namespace Bibblan.Views
             if(userBorder.Visibility == Visibility.Visible)
             {
                 downloadUserReport();
-                MessageBox.Show("Användar rapport nedladdad!");
             }
             else if(LVReportObject.Visibility == Visibility.Visible)
             {
                 removedObjectsReport(objectJoin);
-                MessageBox.Show("Raport om borttagna objekt nedladdad!");
             }
         }
         private async void downloadUserReport()
@@ -152,6 +150,7 @@ namespace Bibblan.Views
                             await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
                         }
                     }
+                    MessageBox.Show("Användar rapport nedladdad!");
                 }
                 else
                 {
@@ -176,6 +175,7 @@ namespace Bibblan.Views
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
                 }
+                MessageBox.Show("Raport om borttagna objekt nedladdad!");
             }
             catch (Exception ex)
             {

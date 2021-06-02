@@ -49,6 +49,11 @@ namespace Bibblan.Views
         private void ReturnBookButton_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (LVBooksLoanedByUser.SelectedItem == null)
+            {
+                MessageBox.Show("Vänligen välj en bok först!");
+                return;
+            }
 
             var bookId = LVBooksLoanedByUser.SelectedItem as StockLoanLogBooksJoin;
             MessageBoxResult result = MessageBox.Show("Är det säkert att du vill lämna tillbaka?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
