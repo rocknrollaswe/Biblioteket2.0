@@ -142,13 +142,8 @@ namespace Bibblan.Views
                 if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
-                
-                AddStockBook(titleBox.Text, editionBox.Text, Convert.ToInt32(amountBox.Text));
 
-
-                DbInitialiser.Db.Add(bookToAdd); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
-                                            // hämtar isbn för den nyss tillagda boken
-                DbInitialiser.Db.SaveChanges();
+                BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
                 MessageBox.Show("Du har nu lagt till en bok!");
                 virtualBooks.Clear();
@@ -157,8 +152,8 @@ namespace Bibblan.Views
                 {
                     virtualBooks.Add(item);
                 }
-
                 LVBooks.Items.Refresh();
+
                 Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
             }
             return;
@@ -184,6 +179,11 @@ namespace Bibblan.Views
             }
             DbInitialiser.Db.SaveChanges();
         }
+
+            }
+            return;
+        }
+
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
