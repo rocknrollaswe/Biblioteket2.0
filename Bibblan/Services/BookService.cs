@@ -6,6 +6,7 @@ using Bibblan.Models;
 
 namespace Bibblan.Services
 {
+    
     public static class BookService
     {
         public static Book AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0)
@@ -47,7 +48,7 @@ namespace Bibblan.Services
         public static void AddStockBook(Book book, int amount)
         {
             IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == book.Title && b.Edition == book.Edition); // hämtar isbn för den nyss tillagda boken
+                (b => b.Title == book.Title && b.Edition == book.Edition && b.Category == book.Category); // hämtar isbn för den nyss tillagda boken
 
             Book b = isbnBook.FirstOrDefault();
 
