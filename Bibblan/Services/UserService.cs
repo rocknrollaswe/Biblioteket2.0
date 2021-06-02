@@ -23,17 +23,13 @@ namespace Bibblan.Services
             DbInitialiser.Db.SaveChanges();
 
             return registeredUser;
-
-
-
-
-            //user.Firstname = firstName.Text;
-            //user.Lastname = lastName.Text;
-            //user.Email = eMail.Text.ToLower();
-            //user.HasLoanCard = 0;
-            //user.Permissions = 0; //Detta ska admin kunna ändra senare
-            //user.Socialsecuritynumber = Encryption.Encrypt(SSN.Text); //Flyttade encryption metoden till Services.Encryption.cs, så vi kan använda den överallt i programmet. 
-            //user.Password = Encryption.Encrypt(passWord.Password);
+        }
+        public static void Login(int userPermission, string userFirstName, int userId, byte? loanPermission)
+        {
+            GlobalClass.userPermission = userPermission;
+            GlobalClass.userFirstName = userFirstName;
+            GlobalClass.currentUserID = userId;
+            GlobalClass.loanPermission = loanPermission;
         }
     }
 }
