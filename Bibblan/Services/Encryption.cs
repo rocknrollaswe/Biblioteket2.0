@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Bibblan.Services
 {
-    class Encryption
+    public class Encryption
     {
         public static byte[] Encrypt(string toEncrypt)
         {

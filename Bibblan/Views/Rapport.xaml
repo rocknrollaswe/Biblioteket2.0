@@ -65,9 +65,11 @@
 
         <TextBlock  Grid.Column="0" Grid.ColumnSpan="2" Margin="0,30,0,0"
             Style="{StaticResource CardoFont}"  
+
             VerticalAlignment="Top" HorizontalAlignment="Center" 
             FontSize="70" Height="100" 
             Foreground="Black" 
             Panel.ZIndex="2" Width="425"><Run Language="en-gb" Text="Rapportering"/></TextBlock>
+
     </Grid>
 </Page>

@@ -21,9 +21,11 @@ namespace Bibblan.Views
     /// <summary>
     /// Interaction logic for Addbooks.xaml
     /// </summary>
+    
     public partial class Addbooks : Page
     {
         List<Book> virtualBooks = new List<Book>();
+
         public Addbooks()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace Bibblan.Views
             DataContext = virtualBooks;
             LVBooks.ItemsSource = virtualBooks;
         }
+       
         public static void Alert(object sender, string message)
         { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -104,6 +107,7 @@ namespace Bibblan.Views
                 return;
             }
 
+
             int ebokCheck = 0;
 
             if (ebok.IsChecked == true)
@@ -135,41 +139,52 @@ namespace Bibblan.Views
            
             if (result == MessageBoxResult.Yes)
             {
-                AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck, Convert.ToInt32(amountBox.Text));
+                if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+
+                Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
+                
+                AddStockBook(titleBox.Text, editionBox.Text, Convert.ToInt32(amountBox.Text));
+
+
+                DbInitialiser.Db.Add(bookToAdd); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
+                                            // hämtar isbn för den nyss tillagda boken
+                DbInitialiser.Db.SaveChanges();
+
+                MessageBox.Show("Du har nu lagt till en bok!");
+                virtualBooks.Clear();
+
+                foreach (var item in DbInitialiser.Db.Books)
+                {
+                    virtualBooks.Add(item);
+                }
 
                 LVBooks.Items.Refresh();
                 Clearer();
             }
             return;
         }
-        public void AddBook(string title, string author, string description, string edition, string price, string ddk, string sab, string publisher, int isEbook1Else0, int howMany)
+
+
+        public void AddStockBook(string title, string edition, int amount)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            
+            IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
+                (b => b.Title == title && b.Edition == int.Parse(edition));
 
-            var book = new Book();
-   
-            book.Title = titleBox.Text;
-            book.Author = authorBox.Text;
-            book.Description = descriptionBox.Text;
-            book.Edition = int.Parse(editionBox.Text);
-            book.Price = decimal.Parse(priceBox.Text);
-            book.Ddk = int.Parse(ddkBox.Text);
-            book.Sab = sabBox.Text;
-            book.Publisher = publisherBox.Text;
-            book.Category = isEbook1Else0;
-            DbInitialiser.Db.Add(book); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
-                                        // hämtar isbn för den nyss tillagda boken
-            DbInitialiser.Db.SaveChanges();
+            Book b = isbnBook.FirstOrDefault();
 
-            MessageBox.Show("Du har nu lagt till en bok!");
-            virtualBooks.Clear();
-
-            foreach (var item in DbInitialiser.Db.Books)
+            for (int i = 0; i < amount; i++)
             {
-                virtualBooks.Add(item);
+                var stock = new Stock();
+                stock.Isbn = Convert.ToInt32(b.Isbn);
+                stock.Condition = "Nyskick";
+                stock.Discarded = 0;
+                stock.Available = 1;
+                DbInitialiser.Db.Add(stock);
             }
-        AddStockBook(title, edition, howMany);
+            DbInitialiser.Db.SaveChanges();
         }
+
         public void Clearer()
         {
             LVBooks.Items.Refresh();
@@ -264,26 +279,7 @@ namespace Bibblan.Views
         {
             Thematics.Watermark.ForLostFocus(amountBox, "Antal");
         }
-        public void AddStockBook(string title, string edition, int amount)
-        {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
-
-            IEnumerable<Book> isbnBook = DbInitialiser.Db.Books.Where
-                (b => b.Title == title && b.Edition == int.Parse(edition));
-
-            Book b = isbnBook.FirstOrDefault();
-
-            for (int i = 0; i < amount; i++)
-            {
-                var stock = new Stock();
-                stock.Isbn = Convert.ToInt32(b.Isbn);
-                stock.Condition = "Nyskick";
-                stock.Discarded = 0;
-                stock.Available = 1; 
-                DbInitialiser.Db.Add(stock);
-            }
-            DbInitialiser.Db.SaveChanges();
-        }
+       
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
             GlobalClass.chosenBook = LVBooks.SelectedItem as Book;

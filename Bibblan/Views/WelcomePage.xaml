@@ -10,7 +10,7 @@
       Style="{StaticResource RobotoFont}">
 
     <Grid>
-        <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" />
+        <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.25" />
 
         <StackPanel>
             <TextBlock Text="Välkommen till ditt bibliotek!" HorizontalAlignment="Center" FontSize="70" Margin="0,30,0,0" Style="{StaticResource CardoFont}"/>
@@ -41,8 +41,8 @@
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Bok" Width="150"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Författare" Width="150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Loandate}" Header="Lånedatum" Width=" 150"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Returndate}" Header="Återlämningsdatum" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Loandate, ConverterCulture='sv-SE', StringFormat={} {0:D}}" Header="Lånedatum" Width=" 150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Returndate, ConverterCulture='sv-SE', StringFormat={} {0:D}}" Header="Återlämningsdatum" Width="150"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
