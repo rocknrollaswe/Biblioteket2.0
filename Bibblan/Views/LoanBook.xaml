@@ -38,6 +38,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Ddk}" Header="Placering" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="EBok" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Available}" Header="Tillgänglig" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="Isbn" Width="50"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

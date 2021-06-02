@@ -43,10 +43,11 @@
                 </WrapPanel>
             </Border>
 
-            <Border CornerRadius="30" Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" Grid.Column="2" Width="500" Height="380" RenderTransformOrigin="0.5,0.5" Margin="-300,0,0,0">
-                <ListView x:Name="LVBooks" BorderBrush="Transparent" Background="Transparent" Width="480" Height="360" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+            <Border CornerRadius="30" Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" Grid.Column="2" Width="600" Height="380" RenderTransformOrigin="0.5,0.5" Margin="-300,0,0,0">
+                <ListView x:Name="LVBooks" BorderBrush="Transparent" Background="Transparent" Width="580" Height="360" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                     <ListView.View>
-                        <GridView x:Name="GVbooks">
+                        <GridView x:Name="GVbooks"> 
+                            <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="Isbn" Width="50"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Titel" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Författare" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Beskrivning" Width="100"/>
@@ -54,7 +55,6 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Publisher}" Header="Förlag" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Ddk}" Header="DDK" Width="70"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Sab}" Header="SAB" Width="70"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Width="0"></GridViewColumn>
                             <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Ebok" Width="70"/>
                         </GridView>
                     </ListView.View>
