@@ -143,6 +143,7 @@ namespace Bibblan.Views
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
 
+
                 BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
                 MessageBox.Show("Du har nu lagt till en bok!");
@@ -154,7 +155,9 @@ namespace Bibblan.Views
                 }
                 LVBooks.Items.Refresh();
 
+
                 Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
+
             }
             return;
         }
