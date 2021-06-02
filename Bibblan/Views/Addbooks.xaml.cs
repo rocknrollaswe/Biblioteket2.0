@@ -159,7 +159,7 @@ namespace Bibblan.Views
                 }
 
                 LVBooks.Items.Refresh();
-                Clearer();
+                Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
             }
             return;
         }
@@ -183,29 +183,6 @@ namespace Bibblan.Views
                 DbInitialiser.Db.Add(stock);
             }
             DbInitialiser.Db.SaveChanges();
-        }
-
-        public void Clearer()
-        {
-            LVBooks.Items.Refresh();
-            titleBox.Foreground = Brushes.LightGray;
-            titleBox.Text = "Titel";
-            authorBox.Foreground = Brushes.LightGray;
-            authorBox.Text = "Författare";
-            descriptionBox.Foreground = Brushes.LightGray;
-            descriptionBox.Text = "Beskrivning";
-            editionBox.Foreground = Brushes.LightGray;
-            editionBox.Text = "Upplaga";
-            publisherBox.Foreground = Brushes.LightGray;
-            publisherBox.Text = "Förlag";
-            priceBox.Foreground = Brushes.LightGray;
-            priceBox.Text = "Pris";
-            ddkBox.Foreground = Brushes.LightGray;
-            ddkBox.Text = "DDK";
-            sabBox.Foreground = Brushes.LightGray;
-            sabBox.Text = "Sab";
-            amountBox.Foreground = Brushes.LightGray;
-            amountBox.Text = "Antal";
         }
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
