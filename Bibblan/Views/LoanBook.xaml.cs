@@ -52,8 +52,9 @@ namespace Bibblan.Views
             List<BookStockLoan> bookList = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
                                                     || x.Author.ToLower().Contains(searchBar.Text.ToLower())
                                                     || x.Category.ToString().Contains(searchBar.Text.ToLower()))
+                                                   
 
-                                                   .ToList(); //tar fram böckerna som innehåller userinput för TITEL 
+                                                    .ToList(); //tar fram böckerna som innehåller userinput för TITEL 
 
             if (bookList != null) // VÄLDIGT simpel sökfunktion, ska byggas på
             {
@@ -63,6 +64,7 @@ namespace Bibblan.Views
             else if (Int32.TryParse(searchBar.Text, out var _)) //kollar om userInput är en int eller ej
             {
                 List<BookStockLoan> query = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
+                                                                        
                 LVLoanBook.ItemsSource = query;
                 return;
             }

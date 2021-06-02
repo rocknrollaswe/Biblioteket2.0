@@ -24,14 +24,7 @@ namespace Bibblan.Models
         public int Category { get; set; }
 
 
-        public override bool Equals(object obj)
-        {
-            if (Title == ((Book)obj).Title && Author == ((Book)obj).Author && Description == ((Book)obj).Description && Category == ((Book)obj).Category)
-                return true;
-
-            else return false; 
-        }
-
+      
         public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
     }
