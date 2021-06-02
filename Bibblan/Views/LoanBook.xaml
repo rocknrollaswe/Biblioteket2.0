@@ -20,16 +20,21 @@
 
             <TextBlock Text="Låna Böcker" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="70" Height="80" Foreground="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="2" Margin="-0, 30, 0, 0" Style="{StaticResource CardoFont}"/>
 
-            <TextBlock Text="För att söka på E-Böcker, skriv in 1" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="-300,155,0,0"  VerticalAlignment="Top" FontSize="15"></TextBlock>
-            <Border CornerRadius="20" Height="30" Width="450" Background="AliceBlue"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="-300,180,0,0">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,120,0,0" Height="65">
+             Här kan du söka efter böcker. Letar du efter E-böcker, skriv in 1. <LineBreak/>
+                   För att låna böcker måste du markera vilken bok du vill ha, <LineBreak/>
+                         tryck sedan på knappen 'Låna'
+                
+                </TextBlock>
+            <Border CornerRadius="20" Height="30" Width="450" Background="AliceBlue"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="-300,220,0,0">
                 <WrapPanel Orientation="Horizontal" Margin="10, 5">
                     <TextBox x:Name="searchBar" Foreground="Black" Background="AliceBlue" Height="20" Width="400" Padding="2" BorderThickness="0" TextChanged="searchBar_TextChanged"/>
                     <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" RenderTransformOrigin="0.6,0.5"/>
                 </WrapPanel>
             </Border>
 
-            <Border CornerRadius="30"  Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Width="600" Height="400" Margin="-300,50,0,0">
-                <ListView x:Name="LVLoanBook" BorderBrush="Transparent" Background="Transparent" Width="580" Height="380" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVLoanBook_SelectionChanged">
+            <Border CornerRadius="30"  Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Width="600" Height="370" Margin="-300,100,0,0">
+                <ListView x:Name="LVLoanBook" BorderBrush="Transparent" Background="Transparent" Width="580" Height="350" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVLoanBook_SelectionChanged">
                     <ListView.View >
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Titel" Width="100"/>
@@ -43,16 +48,16 @@
                 </ListView>
             </Border>
 
-            <Border CornerRadius="20" Height="33" Width="300" Background="AliceBlue"  VerticalAlignment="Top" Grid.Column="1" Margin="170,250,0,0" HorizontalAlignment="Left" >
+            <Border CornerRadius="20" Height="35" Width="300" Background="AliceBlue"  VerticalAlignment="Top" Grid.Column="1" Margin="170,320,0,0" HorizontalAlignment="Left" >
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="Beskrivning" Width="115" FontSize="20" />
                 </WrapPanel>
             </Border>
-            <Border CornerRadius="20" Height="230" Width="320" Background="AliceBlue"  VerticalAlignment="Top" Grid.Column="1" Margin="50,290,45,0">
+            <Border CornerRadius="20" Height="230" Width="320" Background="AliceBlue"  VerticalAlignment="Top" Grid.Column="1" Margin="50,360,45,0">
                 <TextBox x:Name="descriptionBox" Text="" TextWrapping="Wrap" Width="300" Height="210" BorderBrush="Transparent" Background="Transparent" FontSize="12" />
             </Border>
 
-            <Button x:Name="loanButton" Content="Låna" Style="{StaticResource ROB}" HorizontalAlignment="Center" Margin="-300,660,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2" Width="140" Height="40" FontSize="25" Click="loanButton_Click"/>
+            <Button x:Name="loanButton" Content="Låna" Style="{StaticResource ROB}" HorizontalAlignment="Center" Margin="-300,670,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2" Width="140" Height="40" FontSize="25" Click="loanButton_Click"/>
 
         </Grid>
 
