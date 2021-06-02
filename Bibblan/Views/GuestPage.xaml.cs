@@ -32,6 +32,8 @@ namespace Bibblan.Views
 
             DataContext = virtualBooks;
             LVGuestBook.ItemsSource = virtualBooks;
+
+            descriptionBox.IsReadOnly = true;
         }
 
         private void LVGuestBook_SelectionChanged(object sender, SelectionChangedEventArgs e)

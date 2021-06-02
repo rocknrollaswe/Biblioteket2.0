@@ -84,7 +84,14 @@ namespace Bibblan.Views
         }
         private void loanButton_Click(object sender, RoutedEventArgs e)
         {
+            if (LVLoanBook == null)
+            {
+                MessageBox.Show("Du måste välja en bok först!");
+                return;
+            }
+            else
             if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            
 
             User query = DbInitialiser.Db.Users.Where(x => x.UserId == GlobalClass.currentUserID).FirstOrDefault();
             if (query.HasLoanCard == 1)
@@ -93,6 +100,7 @@ namespace Bibblan.Views
                 BookStockLoan b = LVLoanBook.SelectedItem as BookStockLoan;
 
                 var bookToLoan = DbInitialiser.Db.Stocks.Where(x => x.Isbn == b.Isbn && x.Available != 0).FirstOrDefault();
+                
 
                 if (bookToLoan== null)
                 {
@@ -131,6 +139,9 @@ namespace Bibblan.Views
                 MessageBox.Show("Du har inga låneprivilegier på ditt lånekort för tillfället. Kontakta bibliotekarie.");
                 return;
             }
+
+
+           
         }
         public void ClearAndRetrieveVirtualDb()
         {
