@@ -78,7 +78,7 @@ namespace Bibblan.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(null);
         }
     }
 }

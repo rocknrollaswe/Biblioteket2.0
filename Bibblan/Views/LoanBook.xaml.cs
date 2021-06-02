@@ -29,7 +29,9 @@ namespace Bibblan.Views
             ClearAndRetrieveVirtualDb();
             Validation();
 
-            LVLoanBook.ItemsSource = virtualBooksToLoan;     
+            LVLoanBook.ItemsSource = virtualBooksToLoan;
+
+            descriptionBox.IsReadOnly = true;
         }
         public void Validation()
         {
@@ -44,6 +46,7 @@ namespace Bibblan.Views
         }
         private void Searchfunction()
         {
+          
             LVLoanBook.ClearValue(ItemsControl.ItemsSourceProperty);
 
             List<BookStockLoan> bookList = virtualBooksToLoan.Where(x => x.Title.ToLower().Contains(searchBar.Text.ToLower())
@@ -69,8 +72,9 @@ namespace Bibblan.Views
             if (LVLoanBook.SelectedItem != null)
             {
                 b = LVLoanBook.SelectedItem as BookStockLoan;
-                
-                MessageBox.Show($"Beskrivning:\n{b.Description}");
+
+                descriptionBox.Text = b.Description;
+
             }
         }
         private void loanButton_Click(object sender, RoutedEventArgs e)

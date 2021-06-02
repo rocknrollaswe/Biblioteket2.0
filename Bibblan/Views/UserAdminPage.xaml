@@ -25,7 +25,7 @@
         <TextBlock Text="Administrera Användare" 
                    Style="{StaticResource CardoFont}"  
                    VerticalAlignment="Top" HorizontalAlignment="Center" 
-                   FontSize="50" Height="60" 
+                   FontSize="70" Height="90" 
                    Foreground="Black" 
                    Grid.Row="0" Grid.Column="0" 
                    Grid.ColumnSpan="2" 

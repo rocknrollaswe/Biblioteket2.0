@@ -49,8 +49,8 @@
             </Border>
 
             <WrapPanel HorizontalAlignment="Center" >
-                <Button Style="{StaticResource ROB}" FontSize="15" Content="Lämna tillbaka bok" Width="150" Height="40" Margin="0,20,0,0" Click="ReturnBookButton_Click" />
-                <Button Style="{StaticResource ROB}" FontSize="15" Content="Lämna tillbaka samtliga böcker!"  Width="250" Height="50" Margin="50,20,0,0" Click="ReturnAllBooksButton_Click" />
+                <Button Style="{StaticResource ROB}" FontSize="13" Content="Lämna tillbaka bok!" Width="200" Height="40" Margin="-20,40,0,0" Click="ReturnBookButton_Click" />
+                <Button Style="{StaticResource ROB}" FontSize="13" Content="Lämna tillbaka alla böcker!"  Width="210" Height="40" Margin="50,40,0,0" Click="ReturnAllBooksButton_Click" />
             </WrapPanel>
             
 

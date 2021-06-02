@@ -29,6 +29,8 @@ namespace Bibblan.Views
             ClearAndRetrieveVirtualDb();
 
             LVBooksLoanedByUser.ItemsSource = booksToReturn;
+
+        
         }
         private void ClearAndRetrieveVirtualDb()
         {
@@ -48,35 +50,43 @@ namespace Bibblan.Views
         {
             if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
-            var bookId = LVBooksLoanedByUser.SelectedItem as Stock;
-            var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.StockId).FirstOrDefault();
-
-            bookToReturn.Pending = 1;
-            DbInitialiser.Db.SaveChanges(); 
-
-            ClearAndRetrieveVirtualDb();
-            LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
-            LVBooksLoanedByUser.ItemsSource = booksToReturn;
-
+            var bookId = LVBooksLoanedByUser.SelectedItem as StockLoanLogBooksJoin;
+            MessageBoxResult result = MessageBox.Show("Är det säkert att du vill lämna tillbaka?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            
+            if (result == MessageBoxResult.Yes)
+            {
+                var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.Stockid).FirstOrDefault();
+                bookToReturn.Pending = 1;
+                DbInitialiser.Db.SaveChanges();
+                ClearAndRetrieveVirtualDb();
+                LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
+                LVBooksLoanedByUser.ItemsSource = booksToReturn;
+            }
+         
             return; 
         }
         private void ReturnAllBooksButton_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
-            foreach (var item in booksToReturn)
+            MessageBoxResult resultAll = MessageBox.Show("Är det säkert att du vill lämna tillbaka alla böcker?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+            if (resultAll == MessageBoxResult.Yes)
             {
-                var book = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();
-                book.Pending = 1; 
-                
+                foreach (var item in booksToReturn)
+                {
+                    var book = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();
+                    book.Pending = 1;
+
+                }
+                DbInitialiser.Db.SaveChanges();
+
+                ClearAndRetrieveVirtualDb();
+                LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
+                LVBooksLoanedByUser.ItemsSource = booksToReturn;
             }
-            DbInitialiser.Db.SaveChanges(); 
-
-            ClearAndRetrieveVirtualDb();
-            LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
-            LVBooksLoanedByUser.ItemsSource = booksToReturn;
-
             return;
+            
         }
     }
 }

@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Border Background="#80B3B5" Height="600" Width="1000" Panel.ZIndex="-2" Opacity="0.3" Grid.ColumnSpan="2">
+            <Border Background="#80B3B5" Height="600" Width="1000" Panel.ZIndex="-2" Opacity="0.80" Grid.ColumnSpan="2">
 
             </Border>
 
