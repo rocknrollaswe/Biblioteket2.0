@@ -149,7 +149,6 @@ namespace Bibblan.Views
                 foreach (var item in DbInitialiser.Db.Books)
                 {
                     virtualBooks.Add(item);
-                    Clearer();
                 }
                 LVBooks.Items.Refresh();
 
