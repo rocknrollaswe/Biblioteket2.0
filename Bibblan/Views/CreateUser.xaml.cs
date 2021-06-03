@@ -38,7 +38,7 @@ namespace Bibblan.Views
         }
         static void Alert(object sender, string message)
         {
-            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK);
             return;
         }
 
@@ -46,43 +46,43 @@ namespace Bibblan.Views
         {
             if (firstName.Text == "" || firstName.Foreground == Brushes.LightGray || lastName.Text == "" || lastName.Foreground == Brushes.LightGray || eMail.Text == "" || eMail.Foreground == Brushes.LightGray || SSN.Text == ""|| SSN.Foreground == Brushes.LightGray) //Kollar om user input är tomt
             {
-                MessageBox.Show("Du har inte angett data i samtliga fält!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Du har inte angett data i samtliga fält!", "Meddelande", MessageBoxButton.OK);
                 return;
             }
             if (!Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$"))
             {
-                MessageBox.Show("Ange korrekt e-mail.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange korrekt e-mail.", "Meddelande", MessageBoxButton.OK);
                 eMail.Select(0, eMail.Text.Length);
                 eMail.Focus();
                 return;
             }
             if (passWord.Password.Length == 0)
             {
-                MessageBox.Show("Ange Lösenord.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange Lösenord.", "Meddelande", MessageBoxButton.OK);
                 passWord.Focus();
                 return;
             }
             if (!Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
-                MessageBox.Show("Ange bara bokstäver.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange bara bokstäver.", "Meddelande", MessageBoxButton.OK);
                 firstName.Focus();
                 return;
             }
             if(!Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$"))
             {
-                MessageBox.Show("Ange bara bokstäver.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange bara bokstäver.", "Meddelande", MessageBoxButton.OK);
                 lastName.Focus();
                 return;
             }
             if (!Regex.IsMatch(SSN.Text, @"^([0-9]{12})$"))
             {
-                MessageBox.Show("Ange bara siffror.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange bara siffror.", "Meddelande", MessageBoxButton.OK);
                 firstName.Focus();
                 return;
             }
             if(!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-ZÅÄÖ])(?=.*?[a-zåäö])(?=.*?[0-9]).{8,}$"))
             {
-                MessageBox.Show("Ange minst en stor och liten bokstav samt en siffra.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange minst en stor och liten bokstav samt en siffra.", "Meddelande", MessageBoxButton.OK);
                 passWord.Focus();
                 return;
             }
@@ -91,18 +91,18 @@ namespace Bibblan.Views
 
             if (DbInitialiser.Db.Users.Where(y => y.Socialsecuritynumber == Encryption.Encrypt(SSN.Text)).FirstOrDefault() != null) //kollar om angivna SSN redan existerar i DB:n
             {
-                MessageBox.Show("Personnummret är redan kopplat till ett konto!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); //detta ska ändras till ett event
+                MessageBox.Show("Personnummret är redan kopplat till ett konto!", "Meddelande", MessageBoxButton.OK); //detta ska ändras till ett event
                 return;
             }
             else if (DbInitialiser.Db.Users.Where(y => y.Email == eMail.Text).FirstOrDefault() != null)
             {
-                MessageBox.Show("Emailen är redan kopplat till ett konto!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); //detta ska ändras till ett event
+                MessageBox.Show("Emailen är redan kopplat till ett konto!", "Meddelande", MessageBoxButton.OK); //detta ska ändras till ett event
                 return;
             }
 
             UserService.RegisterUser(firstName.Text, lastName.Text, eMail.Text.ToLower(), SSN.Text, passWord.Password);
 
-            MessageBox.Show("Du har nu skapat upp en användare.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Du har nu skapat upp en användare.", "Meddelande", MessageBoxButton.OK);
 
             MainWindow mainWindow = GlobalClass.currentinstance;
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
