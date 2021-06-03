@@ -88,8 +88,7 @@ namespace Bibblan.Views
                 publisherBox.Focus();
                 return;
             }
-            if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
-
+            if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,4}$"))
             {
                 MessageBox.Show("Ange Pris!");
                 priceBox.Focus();
@@ -101,7 +100,7 @@ namespace Bibblan.Views
                 ddkBox.Focus();
                 return;
             }
-            if (sabBox.Text.Length == 0 || sabBox.Foreground == Brushes.LightGray)
+            if (!Regex.IsMatch(sabBox.Text, @"^([a-zåäöA-ZÅÄÖ]{1,3})$"))
             {
                 MessageBox.Show("Ange Sab!");
                 sabBox.Focus();
