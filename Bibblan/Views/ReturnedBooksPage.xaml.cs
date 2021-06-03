@@ -43,7 +43,7 @@ namespace Bibblan.Views
         }
         public void ValidateBookButton_Click(object sender, EventArgs e) 
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!"); return; }
 
             if (LVBooksReturnedByUser.SelectedItem != null)
             {
@@ -62,40 +62,49 @@ namespace Bibblan.Views
                 LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty); 
                 LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
-                MessageBox.Show($"Du har nu validerat objektet");
+                MessageBox.Show($"Du har nu kvitterat objektet!");
                 return; 
             }
-            MessageBox.Show("Du måste markera ett objekt att validera!");
+            MessageBox.Show("Du måste markera ett objekt att kvittera!");
             return; 
         }
         public void ValidateAllBooksButton_Click(object sender, EventArgs e) 
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!"); return; }
 
             if (LVBooksReturnedByUser != null)
             {
-                foreach (var item in booksToValidate)
+                MessageBoxResult result = MessageBox.Show("Är det säkert att du vill kvittera samtliga objekt?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                switch (result)
                 {
-                    var bookToValidate = DbInitialiser.Db.Stocks.Where(x => x.StockId == item.Stockid).FirstOrDefault();
+                    case MessageBoxResult.Yes:
+                        foreach (var item in booksToValidate)
+                        {
+                            var bookToValidate = DbInitialiser.Db.Stocks.Where(x => x.StockId == item.Stockid).FirstOrDefault();
 
-                    bookToValidate.Available = 1;
+                            bookToValidate.Available = 1;
 
-                    var loanLogToClear = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();
+                            var loanLogToClear = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == item.Stockid).FirstOrDefault();
 
-                    loanLogToClear.Pending = 0;
+                            loanLogToClear.Pending = 0;
 
-                    DbInitialiser.Db.Loanlogs.Remove(loanLogToClear);
+                            DbInitialiser.Db.Loanlogs.Remove(loanLogToClear);
+                        }
+                        DbInitialiser.Db.SaveChanges();
+
+                        ClearAndRetrieveVirtualDb();
+                        LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
+                        LVBooksReturnedByUser.ItemsSource = booksToValidate;
+
+                        MessageBox.Show("Du har nu kvitterat samtliga objekt!");
+                        return;
+
+                    case MessageBoxResult.No:
+                        return;
                 }
-                DbInitialiser.Db.SaveChanges();
-
-                ClearAndRetrieveVirtualDb();
-                LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
-                LVBooksReturnedByUser.ItemsSource = booksToValidate;
-
-                MessageBox.Show("Du har nu validerat samtliga objekt!");
-                return; 
             }
-            MessageBox.Show("Det finns inga objekt att validera");
+            MessageBox.Show("Det finns inga objekt att kvittera!");
             return;
         }
 

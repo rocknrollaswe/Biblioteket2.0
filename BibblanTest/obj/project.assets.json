@@ -2508,8 +2508,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "5.0.5",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
-          "xunit": "2.4.1"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5"
         },
         "compile": {
           "bin/placeholder/Bibblan.dll": {}
