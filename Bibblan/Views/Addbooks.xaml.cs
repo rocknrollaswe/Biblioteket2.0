@@ -46,7 +46,7 @@ namespace Bibblan.Views
                 titleBox.Focus();
                 return;
             }
-            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$")) 
+            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$") ||authorBox.Foreground == Brushes.LightGray) 
             {
                 MessageBox.Show("Ange Författare!", "Meddelande", MessageBoxButton.OK);
                 authorBox.Focus();
@@ -79,22 +79,29 @@ namespace Bibblan.Views
                 publisherBox.Focus();
                 return;
             }
-            if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
-
+            if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,4}$"))
             {
+
                 MessageBox.Show("Ange Pris!", "Meddelande", MessageBoxButton.OK);
+
+
                 priceBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
+
                 MessageBox.Show("Ange bara siffror i DDK!", "Meddelande", MessageBoxButton.OK);
+
                 ddkBox.Focus();
                 return;
             }
-            if (sabBox.Text.Length == 0 || sabBox.Foreground == Brushes.LightGray)
+            if (!Regex.IsMatch(sabBox.Text, @"^([a-zåäöA-ZÅÄÖ]{1,3})$") || sabBox.Foreground == Brushes.LightGray)
             {
-                MessageBox.Show("Ange Sab!", "Meddelande", MessageBoxButton.OK);
+
+
+                MessageBox.Show("Ange Sab! Max 3 bokstäver.", "Meddelande", MessageBoxButton.OK);
+
                 sabBox.Focus();
                 return;
             }
