@@ -15,6 +15,7 @@ namespace Bibblan.Services
         public static int? loanPermission { get; set; }
         public static Book? chosenBook { get; set; }
         public static UserReport? chosenBookReport { get; set; }
+        public static DeletedObjects? deletedObjects { get; set; }
         public static MainWindow? currentinstance { get; set; } 
 #nullable disable //slutet av nullable, allt efter kan inte nullas
     }

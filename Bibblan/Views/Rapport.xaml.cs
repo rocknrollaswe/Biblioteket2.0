@@ -68,11 +68,11 @@ namespace Bibblan.Views
                 MessageBox.Show("Var vänlig fyll i en e-post adress", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
-        private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
+        public void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
-            objectJoin = dbVirtualStocks.Join(
+            var ObjectJoin = dbVirtualStocks.Join(
                 dbVirtualBooks,
                 x => x.Isbn,
                 c => c.Isbn,
@@ -85,13 +85,14 @@ namespace Bibblan.Views
                     Comment = x.Comment,
                     Condition = x.Condition,
                     Discarded = x.Discarded
-                }); //Custom Variable (Join) to grab all the things we want to see in the ListView
+                }).ToList(); //Custom Variable (Join) to grab all the things we want to see in the ListView
+            objectJoin = ObjectJoin;
 
             userBorder.Visibility = Visibility.Hidden;
             LVReportObject.Visibility = Visibility.Visible;
 
-            DataContext = objectJoin;
-            LVReportObjectView.ItemsSource = objectJoin.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
+            DataContext = ObjectJoin;
+            LVReportObjectView.ItemsSource = ObjectJoin.Where(x => x.Discarded == 1); //StockId, Isbn, Comment, Condition, Discarded
         }
         private void bookStockButton_Click(object sender, RoutedEventArgs e)
         {
@@ -105,7 +106,18 @@ namespace Bibblan.Views
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
 #nullable disable
                 GlobalClass.chosenBook = bookToBookStock;
-
+                this.NavigationService.Navigate(new BookStock());
+            }
+            if(LVReportObjectView.SelectedItem != null)
+            {
+                var chosenDeletedBook = LVReportObjectView.SelectedItem as dynamic;
+                DeletedObjects chosenDeletedBookFinal = new DeletedObjects { StockId = chosenDeletedBook.StockId };
+                GlobalClass.deletedObjects = chosenDeletedBookFinal;
+#nullable enable
+                Stock? deletedStock = DbInitialiser.Db.Stocks.Where(x => x.StockId == chosenDeletedBookFinal.StockId).FirstOrDefault();
+                Book? deletedBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == deletedStock.Isbn).FirstOrDefault();
+#nullable disable
+                GlobalClass.chosenBook = deletedBookStock;
                 this.NavigationService.Navigate(new BookStock());
             }
             else
@@ -164,13 +176,13 @@ namespace Bibblan.Views
                 return;
             }
         }
-        private void removedObjectsReport(IEnumerable<dynamic> Fan)
+        private void removedObjectsReport(IEnumerable<dynamic> objectJoin)
         {
             try
             {
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter("discardedReport.csv", false))
                 {
-                    foreach (var item in Fan.Where(x => x.Discarded == 1))
+                    foreach (var item in objectJoin.Where(x => x.Discarded == 1))
                     {
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
