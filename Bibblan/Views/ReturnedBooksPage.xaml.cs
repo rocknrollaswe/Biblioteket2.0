@@ -62,10 +62,10 @@ namespace Bibblan.Views
                 LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty); 
                 LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
-                MessageBox.Show($"Du har nu kvitterat objektet!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Du har nu kvitterat objektet!", "Meddelande", MessageBoxButton.OK);
                 return; 
             }
-            MessageBox.Show("Du måste markera ett objekt att kvittera!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show("Du måste markera ett objekt att kvittera!", "Meddelande", MessageBoxButton.OK);
             return; 
         }
         public void ValidateAllBooksButton_Click(object sender, EventArgs e) 
@@ -97,14 +97,14 @@ namespace Bibblan.Views
                         LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
                         LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
-                        MessageBox.Show("Du har nu kvitterat samtliga objekt!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Du har nu kvitterat samtliga objekt!", "Meddelande", MessageBoxButton.OK);
                         return;
 
                     case MessageBoxResult.No:
                         return;
                 }
             }
-            MessageBox.Show("Det finns inga objekt att kvittera!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show("Det finns inga objekt att kvittera!", "Meddelande", MessageBoxButton.OK);
             return;
         }
 

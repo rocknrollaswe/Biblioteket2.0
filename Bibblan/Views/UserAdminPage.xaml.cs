@@ -84,13 +84,13 @@ namespace Bibblan.Views
 
             if(LVModifyUser.SelectedItem == null) 
             {
-                MessageBox.Show("Du måste välja en användare i listan först.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Du måste välja en användare i listan först.", "Meddelande", MessageBoxButton.OK);
                 return; 
             }
 
             if(rButtonChangeUser.IsChecked == false && rButtonRemoveUser.IsChecked == false) 
             {
-                MessageBox.Show("Markera om du vill ta bort eller ändra vald användare.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Markera om du vill ta bort eller ändra vald användare.", "Meddelande", MessageBoxButton.OK);
                 return;
             }
 
@@ -105,7 +105,7 @@ namespace Bibblan.Views
                         if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
 
                         { 
-                            MessageBox.Show("Du har inte angett ett korrekt förnamn!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("Du har inte angett ett korrekt förnamn!", "Meddelande", MessageBoxButton.OK);
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -120,7 +120,7 @@ namespace Bibblan.Views
 
                         if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
                         {
-                            MessageBox.Show("Du har inte angett ett korrekt efternamn!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation) ;
+                            MessageBox.Show("Du har inte angett ett korrekt efternamn!", "Meddelande", MessageBoxButton.OK) ;
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -135,7 +135,7 @@ namespace Bibblan.Views
 
                         if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") || eMail.Text == "E-post" || eMail.Text == "")
                         {
-                            MessageBox.Show("Du har inte angett korrekt e-post!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show("Du har inte angett korrekt e-post!", "Meddelande", MessageBoxButton.OK);
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -152,7 +152,7 @@ namespace Bibblan.Views
                         {
                             if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
                             {
-                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!", "Meddelande", MessageBoxButton.OK);
                                 return;
                             }
                             else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -202,7 +202,7 @@ namespace Bibblan.Views
                         DbInitialiser.Db.Update(userToChange);
                         DbInitialiser.Db.SaveChanges();
 
-                        MessageBox.Show("Du har nu ändrat användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Du har nu ändrat användaren", "Meddelande", MessageBoxButton.OK);
                         break;
 
                     case MessageBoxResult.No:
@@ -230,13 +230,13 @@ namespace Bibblan.Views
 
                         if (DbInitialiser.Db.Loanlogs.Where(x => x.UserId == u.UserId).Any()) 
                         {
-                            MessageBox.Show($"Den här användaren har lånade böcker som behöver lämnas tillbaka.\nLämna tillbaka böckerna först och ta därefter bort användaren.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                            MessageBox.Show($"Den här användaren har lånade böcker som behöver lämnas tillbaka.\nLämna tillbaka böckerna först och ta därefter bort användaren.", "Meddelande", MessageBoxButton.OK);
                             return; 
                         }
 
                         DbInitialiser.Db.Users.Remove(u);
                         DbInitialiser.Db.SaveChanges();
-                        MessageBox.Show("Du har tagit bort användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Du har tagit bort användaren", "Meddelande", MessageBoxButton.OK);
 
                         ClearAndRetrieveVirtualDb();
                         LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -249,7 +249,7 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Du måste välja en användare först!" , "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Du måste välja en användare först!" , "Meddelande", MessageBoxButton.OK);
                 return;
             }
         }
@@ -355,7 +355,7 @@ namespace Bibblan.Views
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             if (LVModifyUser.SelectedItem == null)
             {
-                MessageBox.Show("Vänligen välj en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Vänligen välj en användare först!", "Meddelande", MessageBoxButton.OK);
                 return;
             }
 
@@ -365,7 +365,7 @@ namespace Bibblan.Views
 
             if (u == null)
             {
-                MessageBox.Show("Du har inte valt någon användare att spärra", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); 
+                MessageBox.Show("Du har inte valt någon användare att spärra", "Meddelande", MessageBoxButton.OK); 
                 return;
             }
             else
@@ -391,7 +391,7 @@ namespace Bibblan.Views
                             }
                             DbInitialiser.Db.Update(u);
                             DbInitialiser.Db.SaveChanges();
-                            MessageBox.Show("Du har nu spärrat användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("Du har nu spärrat användaren", "Meddelande", MessageBoxButton.OK);
                             break;
 
                         case MessageBoxResult.No:

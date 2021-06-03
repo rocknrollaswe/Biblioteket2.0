@@ -199,9 +199,10 @@ namespace Bibblan.Views
             {
                 if (LVBookStock.SelectedItem != null)
                 {
+
                     if (selectedStock != null && conditionComboBox.SelectedItem != null)
                     {
-                        var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();//   SingleOrDefault();
+                        var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
                         ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
                         dbStockItem.Condition = comboBoxSelection.Content.ToString();
                         DbInitialiser.Db.SaveChanges();
@@ -212,8 +213,9 @@ namespace Bibblan.Views
                 }
                 else
                 {
-                    MessageBox.Show("Var vänlig välj en bok först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Var vänlig välj en bok först!", "Meddelande", MessageBoxButton.OK);
                     return;
+
                 }
             }
         }
