@@ -38,13 +38,18 @@ namespace Bibblan
         }
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
-            UserService.Login(emailTextBox.Text, passwordTextBox.Password);
-            if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)      //Navigera till Home så länge man har en permission
+            if (UserService.Login(emailTextBox.Text, passwordTextBox.Password))
             {
-                var home = new Home();
-                this.Close();
-                home.Show();
+                if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)      //Navigera till Home så länge man har en permission
+                {
+                    var home = new Home();
+                    this.Close();
+                    home.Show();
+                }
+                
             }
+            else MessageBox.Show("Fel uppgifter angivna!"); 
+
         }
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
         {
