@@ -50,7 +50,7 @@ namespace Bibblan.Views
         }
         private void seeUserButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
             {
@@ -65,12 +65,12 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Var vänlig fyll i en e-post adress");
+                MessageBox.Show("Var vänlig fyll i en e-post adress", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             objectJoin = dbVirtualStocks.Join(
                 dbVirtualBooks,
@@ -110,7 +110,7 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Var vänlig tryck i ett värde i listan");
+                MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -150,17 +150,17 @@ namespace Bibblan.Views
                             await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
                         }
                     }
-                    MessageBox.Show("Användar rapport nedladdad!");
+                    MessageBox.Show("Användarrapport nedladdad!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Välj en användare för att ladda ned rapporten!");
+                    MessageBox.Show("Välj en användare för att ladda ned rapporten!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("Sök på en användare först!");
+                MessageBox.Show("Sök på en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
         }
@@ -175,7 +175,7 @@ namespace Bibblan.Views
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
                 }
-                MessageBox.Show("Raport om borttagna objekt nedladdad!");
+                MessageBox.Show("Raport om borttagna objekt nedladdad!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
