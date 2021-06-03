@@ -71,7 +71,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="E-mail" Width="80"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Permissions}" Header="Behörighet" Width="60"/>
                             <GridViewColumn DisplayMemberBinding="{Binding HasLoanCard}" Header="Lånekort" Width="60"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Debt, ConverterCulture='se-SE', StringFormat={} {0:C}}" Header="Aktuell Skuld" Width="90"/>
+       
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -111,7 +111,7 @@
                     Anledning för spärrning av lånerättigheter kan vara: <LineBreak/>
                     <LineBreak/> 
                     * Stöld <LineBreak/>
-                    * Skuld över 2000 kr <LineBreak/>
+    
                     * Upprepade förseningar trots varningar <LineBreak/>
                     * Skadegörelse <LineBreak/>
                 </TextBlock>

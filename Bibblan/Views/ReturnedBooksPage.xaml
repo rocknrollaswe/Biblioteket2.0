@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Bibblan.Views"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300"
-      Title="ReturnedBooksPage">
+      Title="ReturnedBooksPage"
+      Style="{StaticResource RobotoFont}">
     <Grid>
         <Border Background="#80B3B5" Height="800" Width="1300" Panel.ZIndex="-2" Opacity="0.3" />
 
