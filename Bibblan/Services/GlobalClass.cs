@@ -6,7 +6,7 @@ using Bibblan.Views;
 
 namespace Bibblan.Services
 {
-    static class GlobalClass        //Globala variabler vi kommer använda i hela programmet. Skapa fler om det behövs, och sätt värde på de i MainWindow.cs filen efter login.
+    public static class GlobalClass        //Globala variabler vi kommer använda i hela programmet. Skapa fler om det behövs, och sätt värde på de i MainWindow.cs filen efter login.
     {
 #nullable enable //gör så att allt inom nullable går att nulla
         public static int? userPermission { get; set; }
