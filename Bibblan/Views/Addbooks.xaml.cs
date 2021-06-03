@@ -28,7 +28,7 @@ namespace Bibblan.Views
         public Addbooks()
         {
             InitializeComponent();
-            WrongEntry += Alert;
+           
             foreach (var item in DbInitialiser.Db.Books)
             {
                 virtualBooks.Add(item);
@@ -36,17 +36,8 @@ namespace Bibblan.Views
             DataContext = virtualBooks;
             LVBooks.ItemsSource = virtualBooks;
         }
+      
        
-        public static void Alert(object sender, string message)
-        { 
-            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            return;
-        }
-        public event EventHandler<string> WrongEntry;
-        protected virtual void OnWrongEntry(string e)
-        {
-            WrongEntry?.Invoke(this, e);
-        }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
             if (titleBox.Text.Length == 0 || titleBox.Foreground == Brushes.LightGray)
@@ -125,7 +116,7 @@ namespace Bibblan.Views
             {
                 if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 1).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 1).FirstOrDefault() != null)
                 {
-                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }
@@ -134,7 +125,7 @@ namespace Bibblan.Views
             {
                 if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 0).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 0).FirstOrDefault() != null)
                 {
-                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }

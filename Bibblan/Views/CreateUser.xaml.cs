@@ -29,7 +29,7 @@ namespace Bibblan.Views
         public CreateUser()
         {
             InitializeComponent();
-            WrongEntry += Alert;
+         
         }
         public event EventHandler<string> WrongEntry;
         protected virtual void OnWrongEntry(string e)
@@ -46,7 +46,7 @@ namespace Bibblan.Views
         {
             if (firstName.Text == "" || firstName.Foreground == Brushes.LightGray || lastName.Text == "" || lastName.Foreground == Brushes.LightGray || eMail.Text == "" || eMail.Foreground == Brushes.LightGray || SSN.Text == ""|| SSN.Foreground == Brushes.LightGray) //Kollar om user input är tomt
             {
-                OnWrongEntry("Du har inte angett data i samtliga fält!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Du har inte angett data i samtliga fält!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
             if (!Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$"))
