@@ -41,25 +41,25 @@
             
 
                 
-                    <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png"/>
-                    <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                    <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImg" Visibility="Collapsed" Height="30" Source="/img/checkInvalid.png"/>
+                <Image Grid.Row="0" Grid.Column="0" x:Name="firstNameImgValid" Visibility="Collapsed" Height="30" Source="/img/checkValid.png" />
                     <TextBox Grid.Row="0" Grid.Column="1" x:Name="firstName" VerticalContentAlignment="Center" Text="Förnamn" LostFocus="FirstLost" GotFocus="FirstFocus" Foreground="LightGray" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="firstName_TextChanged"/>
 
 
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png" />
-                    <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImg" Visibility="Collapsed" Height="30" Source="/img/checkInvalid.png" />
+                <Image Grid.Row="1" Grid.Column="0" x:Name="lastNameImgValid" Visibility="Collapsed" Height="30" Source="/img/checkValid.png" />
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="lastName" VerticalContentAlignment="Center" LostFocus="LastLost" Text="Efternamn" GotFocus="LastFocus" Foreground="LightGray" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="lastName_TextChanged"/>
 
-                    <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png"/>
-                    <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImg" Visibility="Collapsed" Height="30" Source="/img/checkInvalid.png"/>
+                <Image Grid.Row="2" Grid.Column="0" x:Name="SSNImgValid" Visibility="Collapsed" Height="30" Source="/img/checkValid.png" />
                     <TextBox Grid.Row="2" Grid.Column="1" x:Name="SSN" VerticalContentAlignment="Center" LostFocus="SSNLost" GotFocus="SSNFocus" Foreground="LightGray" Text="Personnummer" MaxWidth="295" MaxHeight="41.04"  FontSize="24" TextWrapping="Wrap" TextChanged="SSN_TextChanged"/>
 
-                    <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImg" Visibility="Visible" Height="30"  Source="/img/checkInvalid.png" />
-                    <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImg" Visibility="Collapsed" Height="30"  Source="/img/checkInvalid.png" />
+                <Image Grid.Row="0" Grid.Column="3" x:Name="eMailImgValid" Visibility="Collapsed" Height="30" Source="/img/checkValid.png" />
                     <TextBox Grid.Row="0" Grid.Column="4" x:Name="eMail" VerticalContentAlignment="Center" LostFocus="EmailLost" GotFocus="EmailFocus" Foreground="LightGray" Text="E-post" MaxWidth="295" MaxHeight="41.04" FontSize="24" TextWrapping="Wrap" TextChanged="eMail_TextChanged"/>
 
-                    <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImg" Visibility="Visible" Height="30" Source="/img/checkInvalid.png" />
-                    <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImgValid" Visibility="Visible" Height="30" Source="/img/checkValid.png" />
+                <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImg" Visibility="Collapsed" Height="30" Source="/img/checkInvalid.png" />
+                <Image Grid.Row="1" Grid.Column="3" x:Name="passWordImgValid" Visibility="Collapsed" Height="30" Source="/img/checkValid.png" />
                     <PasswordBox Grid.Row="1" Grid.Column="4" x:Name="passWord" VerticalContentAlignment="Center" LostFocus="PassLost" GotFocus="PassFocus" MaxWidth="295" MaxHeight="41.04" FontSize="22" PasswordChanged="passWord_PasswordChanged"/>
                     <TextBox Grid.Row="1" Grid.Column="4" x:Name="passWordFalse" VerticalContentAlignment="Center" GotFocus="PassFalseFocus" MaxWidth="295" MaxHeight="41.04" FontSize="22" Text="Lösenord" Foreground="LightGray"/>
                     <Label Grid.Row="2" Grid.Column="4" x:Name="passwordInfo" Visibility="Visible">

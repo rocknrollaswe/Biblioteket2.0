@@ -66,7 +66,7 @@ namespace Bibblan.Views
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK); return; }
 
             if (LVBookStock.SelectedItem != null)
             {
@@ -88,7 +88,7 @@ namespace Bibblan.Views
                 }
                 else
                 {
-                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!", "Meddelande", MessageBoxButton.OK);
                 }
             }
             else
@@ -98,9 +98,9 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK); return; }
 
-            if (Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
+            if (Regex.IsMatch(amountBox.Text, @"^([1-9])$"))
             {
                 for(int i = 0; i < Convert.ToInt32(amountBox.Text); i++)
                 {
@@ -112,11 +112,11 @@ namespace Bibblan.Views
                     ClearAndRetrieveVirtualDb();
                     LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
                 }
-                MessageBox.Show($"{amountBox.Text} böcker tillagda!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"{amountBox.Text} böcker tillagda!", "Meddelande", MessageBoxButton.OK);
             }
             else
             {
-                MessageBox.Show("Vänligen sätt en mängd i siffror", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Vänligen sätt en mängd i siffror", "Meddelande", MessageBoxButton.OK);
             }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -197,15 +197,23 @@ namespace Bibblan.Views
             var dateTimeBug = DateTime.Now;
             if(dateTimeBug > timerCheat.AddSeconds(1)) //hejdå käre bugg, det var kul så länge det varade. Men nu måste vi lägga ned dig i din grav, puss :*
             {
-                if (selectedStock != null && conditionComboBox.SelectedItem != null)
+                if (LVBookStock.SelectedItem != null)
                 {
-                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).Last();//   SingleOrDefault();
-                    ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
-                    dbStockItem.Condition = comboBoxSelection.Content.ToString();
-                    DbInitialiser.Db.SaveChanges();
+                    if (selectedStock != null && conditionComboBox.SelectedItem != null)
+                    {
+                        var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();//   SingleOrDefault();
+                        ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
+                        dbStockItem.Condition = comboBoxSelection.Content.ToString();
+                        DbInitialiser.Db.SaveChanges();
 
-                    ICollectionView view = CollectionViewSource.GetDefaultView(LVBookStock.ItemsSource);
-                    view.Refresh();
+                        ICollectionView view = CollectionViewSource.GetDefaultView(LVBookStock.ItemsSource);
+                        view.Refresh();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Var vänlig välj en bok först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
             }
         }
