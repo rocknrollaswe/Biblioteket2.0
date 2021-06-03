@@ -86,7 +86,7 @@ namespace Bibblan.Views
         {
             if (LVLoanBook.SelectedItem == null)
             {
-                MessageBox.Show("Du måste välja en bok först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Du måste välja en bok först!", "Meddelande", MessageBoxButton.OK);
                 return;
             }
             else
@@ -104,7 +104,7 @@ namespace Bibblan.Views
 
                 if (bookToLoan== null)
                 {
-                    MessageBox.Show("Boken du vill låna är inte tillgänglig för tillfället", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Boken du vill låna är inte tillgänglig för tillfället", "Meddelande", MessageBoxButton.OK);
                     return;
                 }
                 else
@@ -125,7 +125,7 @@ namespace Bibblan.Views
                                 ClearAndRetrieveVirtualDb();
                                 LVLoanBook.ClearValue(ItemsControl.ItemsSourceProperty);
                                 LVLoanBook.ItemsSource = virtualBooksToLoan;
-                                MessageBox.Show($"Du har nu lånat {b.Title}.\nDatum för återlämning är {loanLog.Returndate}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Du har nu lånat {b.Title}.\nDatum för återlämning är {loanLog.Returndate}", "Meddelande", MessageBoxButton.OK);
                             }
                             break;
                         case MessageBoxResult.No:
