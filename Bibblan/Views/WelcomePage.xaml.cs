@@ -48,7 +48,7 @@ namespace Bibblan.Views
         }
         private void ReturnBookButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             if (LVBooksLoanedByUser.SelectedItem == null)
             {
                 MessageBox.Show("Vänligen välj en bok först!");
@@ -63,6 +63,7 @@ namespace Bibblan.Views
                 var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.Stockid).FirstOrDefault();
                 bookToReturn.Pending = 1;
                 DbInitialiser.Db.SaveChanges();
+                MessageBox.Show("Du har nu lämnat tillbaka boken", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 ClearAndRetrieveVirtualDb();
                 LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
                 LVBooksLoanedByUser.ItemsSource = booksToReturn;
@@ -72,7 +73,7 @@ namespace Bibblan.Views
         }
         private void ReturnAllBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             MessageBoxResult resultAll = MessageBox.Show("Är det säkert att du vill lämna tillbaka alla böcker?", "Meddelande", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -85,6 +86,8 @@ namespace Bibblan.Views
 
                 }
                 DbInitialiser.Db.SaveChanges();
+
+                MessageBox.Show("Du har nu lämnat tillbaka samtliga böcker", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information); 
 
                 ClearAndRetrieveVirtualDb();
                 LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);

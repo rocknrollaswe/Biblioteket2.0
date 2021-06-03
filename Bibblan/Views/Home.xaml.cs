@@ -40,17 +40,17 @@ namespace Bibblan.Views
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             Main2.Navigate(new UserAdminPage());
         }
         private void Stock_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             Main2.Navigate(new BookStock());
         }
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             Main2.Navigate(new Addbooks());
         }
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -61,7 +61,7 @@ namespace Bibblan.Views
         }
         private void Rapportering_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             Main2.Navigate(new Rapport());
         }
         private void LoanBooks_Click(object sender, RoutedEventArgs e) 
@@ -70,7 +70,7 @@ namespace Bibblan.Views
         }
         private void ReturnedBooks_button_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             Main2.Navigate(new ReturnedBooksPage()); 
         }
         private void Home_button_Click(object sender, RoutedEventArgs e)

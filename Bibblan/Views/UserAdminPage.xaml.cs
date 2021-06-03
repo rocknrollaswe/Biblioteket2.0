@@ -40,7 +40,7 @@ namespace Bibblan.Views
         }
         private void LVModifyUser_SelectionChanged(object sender, SelectionChangedEventArgs e) // fyller i textboxarna på höger sida för ev ändring 
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (LVModifyUser.SelectedItem != null)
             {
@@ -66,31 +66,31 @@ namespace Bibblan.Views
         }
         private void rButtonChangeUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (rButtonChangeUser.IsChecked == true) { ButtonChangeUser.Content = rButtonChangeUser.Content; ButtonChangeUser.FontSize = 16; }
         }
         private void rButtonRemoveUser_Click(object sender, RoutedEventArgs e) // ändrar content på den orangea knappen beroende på iklickat val
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation; return; }
 
             if (rButtonRemoveUser.IsChecked == true) { ButtonChangeUser.Content = rButtonRemoveUser.Content; ButtonChangeUser.FontSize = 16; }
         }
         private void ButtonChangeUser_Click(object sender, RoutedEventArgs e) // knapp för att ändra data på användare
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             User userToChange = LVModifyUser.SelectedItem as User; // sätter de nya ändringarna på vald användare
 
             if(LVModifyUser.SelectedItem == null) 
             {
-                MessageBox.Show("Du måste välja en användare i listan först.");
+                MessageBox.Show("Du måste välja en användare i listan först.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return; 
             }
 
             if(rButtonChangeUser.IsChecked == false && rButtonRemoveUser.IsChecked == false) 
             {
-                MessageBox.Show("Markera om du vill ta bort eller ändra vald användare.");
+                MessageBox.Show("Markera om du vill ta bort eller ändra vald användare.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -103,13 +103,14 @@ namespace Bibblan.Views
                     case MessageBoxResult.Yes:
 
                         if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
-                        {
-                            MessageBox.Show("Du har inte angett ett korrekt förnamn!");
+
+                        { 
+                            MessageBox.Show("Du har inte angett ett korrekt förnamn!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                         {
-                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return;
                         }
                         else
@@ -119,12 +120,12 @@ namespace Bibblan.Views
 
                         if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
                         {
-                            MessageBox.Show("Du har inte angett ett korrekt efternamn!");
+                            MessageBox.Show("Du har inte angett ett korrekt efternamn!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation) ;
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                         {
-                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return;
                         }
                         else
@@ -134,12 +135,12 @@ namespace Bibblan.Views
 
                         if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") || eMail.Text == "E-post" || eMail.Text == "")
                         {
-                            MessageBox.Show("Du har inte angett korrekt e-post!");
+                            MessageBox.Show("Du har inte angett korrekt e-post!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                         {
-                            MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                            MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return;
                         }
                         else
@@ -151,12 +152,12 @@ namespace Bibblan.Views
                         {
                             if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
                             {
-                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
+                                MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                 return;
                             }
                             else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                 return;
                             }
                             else
@@ -169,7 +170,7 @@ namespace Bibblan.Views
                         {
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                 return;
                             }
                             userToChange.Permissions = permissionComboBox.SelectedIndex;
@@ -179,7 +180,7 @@ namespace Bibblan.Views
                         {
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                 return;
                             }
                             userToChange.HasLoanCard = (byte)loanRightsComboBox.SelectedIndex;
@@ -191,7 +192,7 @@ namespace Bibblan.Views
                             else
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
-                                MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                                MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                 return;
 
                             }
@@ -201,7 +202,7 @@ namespace Bibblan.Views
                         DbInitialiser.Db.Update(userToChange);
                         DbInitialiser.Db.SaveChanges();
 
-                        MessageBox.Show("Du har nu ändrat användaren");
+                        MessageBox.Show("Du har nu ändrat användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                         break;
 
                     case MessageBoxResult.No:
@@ -217,7 +218,7 @@ namespace Bibblan.Views
                 
                 if ((u.Permissions == 2 || u.Permissions == 1) && GlobalClass.userPermission != 2)
                 {
-                    MessageBox.Show("Du har inte rättigheter för att ändra detta!");
+                    MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
 
@@ -229,13 +230,13 @@ namespace Bibblan.Views
 
                         if (DbInitialiser.Db.Loanlogs.Where(x => x.UserId == u.UserId).Any()) 
                         {
-                            MessageBox.Show($"Den här användaren har lånade böcker som behöver lämnas tillbaka.\nLämna tillbaka böckerna först och ta därefter bort användaren.");
+                            MessageBox.Show($"Den här användaren har lånade böcker som behöver lämnas tillbaka.\nLämna tillbaka böckerna först och ta därefter bort användaren.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                             return; 
                         }
 
                         DbInitialiser.Db.Users.Remove(u);
                         DbInitialiser.Db.SaveChanges();
-                        MessageBox.Show("Du har tagit bort användaren");
+                        MessageBox.Show("Du har tagit bort användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         ClearAndRetrieveVirtualDb();
                         LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
@@ -248,13 +249,13 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Du måste välja en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Du måste välja en användare först!" , "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
         }
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e) //Denna funktion gör så att dropdown autocomplete menyn visar värden
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             LVModifyUser.ClearValue(ItemsControl.ItemsSourceProperty);
           
@@ -351,10 +352,10 @@ namespace Bibblan.Views
         }
         private void RestrictButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             if (LVModifyUser.SelectedItem == null)
             {
-                MessageBox.Show("Vänligen välj en användare först!");
+                MessageBox.Show("Vänligen välj en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
 
@@ -364,14 +365,14 @@ namespace Bibblan.Views
 
             if (u == null)
             {
-                MessageBox.Show("Du har inte valt någon användare att spärra"); 
+                MessageBox.Show("Du har inte valt någon användare att spärra", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); 
                 return;
             }
             else
             {
                 if (u.Permissions == 2 && GlobalClass.userPermission != 2) 
                 {
-                    MessageBox.Show("Du har inte rättigheter att göra detta");
+                    MessageBox.Show("Du har inte rättigheter att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return; 
                 }
 
@@ -390,7 +391,7 @@ namespace Bibblan.Views
                             }
                             DbInitialiser.Db.Update(u);
                             DbInitialiser.Db.SaveChanges();
-                            MessageBox.Show("Du har nu spärrat användaren");
+                            MessageBox.Show("Du har nu spärrat användaren", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                             break;
 
                         case MessageBoxResult.No:
@@ -399,7 +400,7 @@ namespace Bibblan.Views
                 }
                 else
                 {
-                    MessageBox.Show("Du har inte rättigheter att göra detta");
+                    MessageBox.Show("Du har inte rättigheter att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
                 ClearAndRetrieveVirtualDb();
                 return; 

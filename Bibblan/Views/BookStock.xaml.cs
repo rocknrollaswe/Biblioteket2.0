@@ -61,7 +61,7 @@ namespace Bibblan.Views
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (LVBookStock.SelectedItem != null)
             {
@@ -83,7 +83,7 @@ namespace Bibblan.Views
                 }
                 else
                 {
-                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!");
+                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
             else
@@ -93,7 +93,7 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
             {
@@ -107,11 +107,11 @@ namespace Bibblan.Views
                     ClearAndRetrieveVirtualDb();
                     LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
                 }
-                MessageBox.Show($"{amountBox.Text} böcker tillagda!");
+                MessageBox.Show($"{amountBox.Text} böcker tillagda!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Vänligen sätt en mängd i siffror");
+                MessageBox.Show("Vänligen sätt en mängd i siffror", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -187,7 +187,7 @@ namespace Bibblan.Views
         }
         private void conditionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             var dateTimeBug = DateTime.Now;
             if(dateTimeBug > timerCheat.AddSeconds(1)) //hejdå käre bugg, det var kul så länge det varade. Men nu måste vi lägga ned dig i din grav, puss :*

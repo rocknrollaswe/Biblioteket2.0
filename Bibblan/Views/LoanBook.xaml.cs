@@ -86,11 +86,11 @@ namespace Bibblan.Views
         {
             if (LVLoanBook.SelectedItem == null)
             {
-                MessageBox.Show("Du måste välja en bok först!");
+                MessageBox.Show("Du måste välja en bok först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
             else
-            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+            if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
             
 
             User query = DbInitialiser.Db.Users.Where(x => x.UserId == GlobalClass.currentUserID).FirstOrDefault();
@@ -104,7 +104,7 @@ namespace Bibblan.Views
 
                 if (bookToLoan== null)
                 {
-                    MessageBox.Show("Boken du vill låna är inte tillgänglig för tillfället");
+                    MessageBox.Show("Boken du vill låna är inte tillgänglig för tillfället", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
                 else
@@ -136,7 +136,7 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Du har inga låneprivilegier på ditt lånekort för tillfället. Kontakta bibliotekarie.");
+                MessageBox.Show("Du har inga låneprivilegier på ditt lånekort för tillfället. Kontakta bibliotekarie.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
