@@ -48,7 +48,7 @@ namespace Bibblan
                 }
                 
             }
-            else MessageBox.Show("Fel uppgifter angivna!"); 
+            else MessageBox.Show("Fel uppgifter angivna!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); 
 
         }
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
