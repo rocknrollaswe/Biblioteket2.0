@@ -65,7 +65,7 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Var vänlig fyll i en e-post adress", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Var vänlig fyll i en e-post adress", "Meddelande", MessageBoxButton.OK);
             }
         }
         private void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
@@ -110,7 +110,7 @@ namespace Bibblan.Views
             }
             else
             {
-                MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK);
             }
         }
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -150,17 +150,17 @@ namespace Bibblan.Views
                             await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
                         }
                     }
-                    MessageBox.Show("Användarrapport nedladdad!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Användarrapport nedladdad!", "Meddelande", MessageBoxButton.OK);
                 }
                 else
                 {
-                    MessageBox.Show("Välj en användare för att ladda ned rapporten!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Välj en användare för att ladda ned rapporten!", "Meddelande", MessageBoxButton.OK);
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("Sök på en användare först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Sök på en användare först!", "Meddelande", MessageBoxButton.OK);
                 return;
             }
         }
@@ -175,7 +175,7 @@ namespace Bibblan.Views
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
                 }
-                MessageBox.Show("Raport om borttagna objekt nedladdad!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Raport om borttagna objekt nedladdad!", "Meddelande", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {

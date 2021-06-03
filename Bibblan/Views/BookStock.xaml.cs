@@ -61,7 +61,7 @@ namespace Bibblan.Views
         }
         private void removeBookButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK); return; }
 
             if (LVBookStock.SelectedItem != null)
             {
@@ -83,7 +83,7 @@ namespace Bibblan.Views
                 }
                 else
                 {
-                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Lägg till kommentar angående varför exemplaret utrangeras!", "Meddelande", MessageBoxButton.OK);
                 }
             }
             else
@@ -93,7 +93,7 @@ namespace Bibblan.Views
         }
         private void addBooksButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK); return; }
 
             if (Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
             {
@@ -107,11 +107,11 @@ namespace Bibblan.Views
                     ClearAndRetrieveVirtualDb();
                     LVBookStock.ItemsSource = dbVirtual.Where(x => x.Isbn == GlobalClass.chosenBook.Isbn);
                 }
-                MessageBox.Show($"{amountBox.Text} böcker tillagda!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"{amountBox.Text} böcker tillagda!", "Meddelande", MessageBoxButton.OK);
             }
             else
             {
-                MessageBox.Show("Vänligen sätt en mängd i siffror", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Vänligen sätt en mängd i siffror", "Meddelande", MessageBoxButton.OK);
             }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
