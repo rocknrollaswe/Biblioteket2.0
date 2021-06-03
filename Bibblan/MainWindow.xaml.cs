@@ -39,6 +39,7 @@ namespace Bibblan
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
             UserService.Login(emailTextBox.Text, passwordTextBox.Password);
+
             if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)      //Navigera till Home så länge man har en permission
             {
                 var home = new Home();
