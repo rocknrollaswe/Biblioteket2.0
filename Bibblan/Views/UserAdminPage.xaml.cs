@@ -105,7 +105,6 @@ namespace Bibblan.Views
                         if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
                         {
                             MessageBox.Show("Du har inte angett ett korrekt förnamn!");
-
                             return;
                         }
                         else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
@@ -127,7 +126,6 @@ namespace Bibblan.Views
                         {
                             MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                             return;
-
                         }
                         else
                         {
@@ -143,7 +141,6 @@ namespace Bibblan.Views
                         {
                             MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                             return;
-
                         }
                         else
                         {
@@ -156,13 +153,11 @@ namespace Bibblan.Views
                             {
                                 MessageBox.Show("Lösenordet ska innehålla minst en stor bokstav, en siffra och måste vara 8 tecken långt!");
                                 return;
-
                             }
                             else if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!");
                                 return;
-
                             }
                             else
                             {
@@ -172,7 +167,6 @@ namespace Bibblan.Views
 
                         if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
                         {
-
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!");
@@ -324,6 +318,7 @@ namespace Bibblan.Views
         }
         private void passWordText_GotFocus(object sender, RoutedEventArgs e)
         {
+            passWordText.Text = "";
             passWordText.Visibility = Visibility.Collapsed;
             passWord.Focus(); 
         }
