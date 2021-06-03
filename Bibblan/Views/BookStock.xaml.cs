@@ -47,7 +47,7 @@ namespace Bibblan.Views
                 var userReportStock = dbVirtual.Where(x => x.StockId == GlobalClass.chosenBookReport.StockId).ToList();
                 LVBookStock.ItemsSource = userReportStock;
             }
-            else //går in här om användaren kommer ifrån rapporteringssidan
+            else 
             {
                 LVBookStock.ItemsSource = defaultStocks;
             }
@@ -95,7 +95,7 @@ namespace Bibblan.Views
         {
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK); return; }
 
-            if (Regex.IsMatch(amountBox.Text, @"^([0-9])$"))
+            if (Regex.IsMatch(amountBox.Text, @"^([1-9])$"))
             {
                 for(int i = 0; i < Convert.ToInt32(amountBox.Text); i++)
                 {
@@ -192,15 +192,23 @@ namespace Bibblan.Views
             var dateTimeBug = DateTime.Now;
             if(dateTimeBug > timerCheat.AddSeconds(1)) //hejdå käre bugg, det var kul så länge det varade. Men nu måste vi lägga ned dig i din grav, puss :*
             {
-                if (selectedStock != null && conditionComboBox.SelectedItem != null)
+                if (LVBookStock.SelectedItem != null)
                 {
-                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).Last();//   SingleOrDefault();
-                    ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
-                    dbStockItem.Condition = comboBoxSelection.Content.ToString();
-                    DbInitialiser.Db.SaveChanges();
+                    if (selectedStock != null && conditionComboBox.SelectedItem != null)
+                    {
+                        var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();//   SingleOrDefault();
+                        ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
+                        dbStockItem.Condition = comboBoxSelection.Content.ToString();
+                        DbInitialiser.Db.SaveChanges();
 
-                    ICollectionView view = CollectionViewSource.GetDefaultView(LVBookStock.ItemsSource);
-                    view.Refresh();
+                        ICollectionView view = CollectionViewSource.GetDefaultView(LVBookStock.ItemsSource);
+                        view.Refresh();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Var vänlig välj en bok först!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
             }
         }
