@@ -60,14 +60,5 @@ namespace Bibblan.Services
             amountBox.Foreground = Brushes.LightGray;
             amountBox.Text = "Antal";
         }
-        //public void Clearer(ListView Listview, params TextBox[] boxes, params string[] watermark)
-        //{
-        //    Listview.Items.Refresh();
-        //    foreach (TextBox item in boxes)
-        //   {
-        //        item.Foreground = Brushes.LightGray;
-        //        item.Text = "Titel";
-        //    }
-        //}
     }
 }

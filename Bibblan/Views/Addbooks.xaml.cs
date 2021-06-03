@@ -25,7 +25,6 @@ namespace Bibblan.Views
     public partial class Addbooks : Page
     {
         List<Book> virtualBooks = new List<Book>();
-
         public Addbooks()
         {
             InitializeComponent();
@@ -42,7 +41,6 @@ namespace Bibblan.Views
         { 
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
-
         }
         public event EventHandler<string> WrongEntry;
         protected virtual void OnWrongEntry(string e)
@@ -57,7 +55,7 @@ namespace Bibblan.Views
                 titleBox.Focus();
                 return;
             }
-            if (authorBox.Text.Length == 0 || authorBox.Foreground == Brushes.LightGray)
+            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$")) 
             {
                 MessageBox.Show("Ange Författare!");
                 authorBox.Focus();
@@ -74,6 +72,15 @@ namespace Bibblan.Views
                 MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga!");
                 editionBox.Focus();
                 return;
+            }
+            if (Int32.TryParse(editionBox.Text, out var _) == true)
+            {
+                if (Convert.ToInt32(editionBox.Text) > Convert.ToInt32(DateTime.Now.Year))
+                {
+                    MessageBox.Show("Boken har inte kommit ut ännu!");
+                    editionBox.Focus();
+                    return;
+                }
             }
             if (publisherBox.Text.Length == 0 || publisherBox.Foreground == Brushes.LightGray)
             {
@@ -106,7 +113,6 @@ namespace Bibblan.Views
                 amountBox.Focus();
                 return;
             }
-
 
             int ebokCheck = 0;
 
@@ -142,13 +148,8 @@ namespace Bibblan.Views
                 if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
-                
-                AddStockBook(titleBox.Text, editionBox.Text, Convert.ToInt32(amountBox.Text));
 
-
-                DbInitialiser.Db.Add(bookToAdd); // lägger till boken i systemet, nu finns det ett uppräknat isbn, men vi behöver isbn för att skapa upp en ny stock
-                                            // hämtar isbn för den nyss tillagda boken
-                DbInitialiser.Db.SaveChanges();
+                BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
                 MessageBox.Show("Du har nu lagt till en bok!");
                 virtualBooks.Clear();
@@ -157,14 +158,13 @@ namespace Bibblan.Views
                 {
                     virtualBooks.Add(item);
                 }
-
                 LVBooks.Items.Refresh();
+
                 Thematics.Clearer(titleBox, authorBox, descriptionBox, editionBox, publisherBox, priceBox, ddkBox, sabBox, amountBox);
             }
             return;
         }
-
-
+        
         public void AddStockBook(string title, string edition, int amount)
         {
             
@@ -184,6 +184,7 @@ namespace Bibblan.Views
             }
             DbInitialiser.Db.SaveChanges();
         }
+
         private void TitleFocus(object sender, RoutedEventArgs e)
         {
             Thematics.Watermark.ForFocus(titleBox);
@@ -259,9 +260,16 @@ namespace Bibblan.Views
        
         private void viewBookStock_Click(object sender, RoutedEventArgs e)
         {
-            GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
-
-            this.NavigationService.Navigate(new BookStock()); 
+            if (LVBooks.SelectedItem == null)
+            {
+                MessageBox.Show("Välj en bok!");
+                return;
+            }
+            else
+            {
+                GlobalClass.chosenBook = LVBooks.SelectedItem as Book;
+                this.NavigationService.Navigate(new BookStock());
+            }
         }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {

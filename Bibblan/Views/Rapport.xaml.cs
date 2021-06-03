@@ -99,11 +99,11 @@ namespace Bibblan.Views
             {
                 var chosenBookReport = LVReportUser.SelectedItem as dynamic;
                 UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
-
                 GlobalClass.chosenBookReport = userReportFinal;
+#nullable enable
                 Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
                 Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
-
+#nullable disable
                 GlobalClass.chosenBook = bookToBookStock;
 
                 this.NavigationService.Navigate(new BookStock());
@@ -136,13 +136,26 @@ namespace Bibblan.Views
         {
             if (LVReportUser.ItemsSource != null && userReport != null)
             {
-                using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
+                if (LVReportUser.SelectedItem != null)
                 {
-                    streamWriter.WriteLine($"               Email: {userReport.First().Email} \n");
-                    foreach (var item in userReport)
+                    dynamic selectedUser = LVReportUser.SelectedItems as dynamic;
+
+                    IEnumerable<UserReport> userLoans = userReport.Where(x => x.Email == selectedUser[0].email);
+
+                    using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
                     {
-                        await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
+                        streamWriter.WriteLine($"               Email: {selectedUser[0].email} \n");
+                        foreach (var item in userLoans)
+                        {
+                            await streamWriter.WriteLineAsync($"Titel: {item.Title}, StockID: {item.StockId}, Returdatum: {item.Returndate.ToShortDateString()} ");
+                        }
                     }
+                    MessageBox.Show("Användar rapport nedladdad!");
+                }
+                else
+                {
+                    MessageBox.Show("Välj en användare för att ladda ned rapporten!");
+                    return;
                 }
             }
             else
@@ -162,6 +175,7 @@ namespace Bibblan.Views
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
                 }
+                MessageBox.Show("Raport om borttagna objekt nedladdad!");
             }
             catch (Exception ex)
             {

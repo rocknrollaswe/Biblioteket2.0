@@ -119,7 +119,9 @@ namespace Bibblan.Views
             if (searchBar.Text.Length >= 2 && searchBar.Text != "Sök")
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+#nullable enable
                 List<Stock>? showStocks = new List<Stock>();
+#nullable disable
                 showStocks = defaultStocks.Where(x => x.Condition.ToLower().Contains(searchBar.Text.ToLower())).DefaultIfEmpty().ToList();
 
                 LVBookStock.ItemsSource = showStocks;
@@ -127,8 +129,11 @@ namespace Bibblan.Views
             else if (searchBar.Text == "0")
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+#nullable enable
                 List<Stock>? showStocks = new List<Stock>();
-                if(Int32.TryParse(searchBar.Text, out _) == true)
+#nullable disable
+
+                if (Int32.TryParse(searchBar.Text, out _) == true)
                 {
                     showStocks = defaultStocks.Where(x => x.Discarded == Convert.ToInt32(searchBar.Text)).DefaultIfEmpty().ToList();
                     LVBookStock.ItemsSource = showStocks;
@@ -137,7 +142,9 @@ namespace Bibblan.Views
             else if(searchBar.Text == "1")
             {
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
+#nullable enable
                 List<Stock>? showStocks = new List<Stock>();
+#nullable disable
                 if (Int32.TryParse(searchBar.Text, out _) == true)
                 {
                     showStocks = defaultStocks.Where(x => x.Discarded == Convert.ToInt32(searchBar.Text)).DefaultIfEmpty().ToList();
@@ -149,6 +156,7 @@ namespace Bibblan.Views
                 LVBookStock.ClearValue(ItemsControl.ItemsSourceProperty);
                 LVBookStock.ItemsSource = defaultStocks;
             }
+
         }
         private void LVBookStock_Selected(object sender, RoutedEventArgs e)
         {
@@ -186,7 +194,7 @@ namespace Bibblan.Views
             {
                 if (selectedStock != null && conditionComboBox.SelectedItem != null)
                 {
-                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
+                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).Last();//   SingleOrDefault();
                     ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
                     dbStockItem.Condition = comboBoxSelection.Content.ToString();
                     DbInitialiser.Db.SaveChanges();

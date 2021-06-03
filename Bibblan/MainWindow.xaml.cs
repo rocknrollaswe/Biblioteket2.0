@@ -36,25 +36,23 @@ namespace Bibblan
                 }
             });
         }
-
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
             BookService.Login(emailTextBox.Text, passwordTextBox.Password);
             if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
+            else
             {
                 var home = new Home();
                 this.Close();
                 home.Show();
             }
         }
-
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
         {
             GlobalClass.userPermission = -1;        //Sätter permission till -1 för att visa att det inte är en inloggad användare
             GlobalClass.userFirstName = "Gäst";
             Main.NavigationService.Navigate(new GuestPage()); //skickas just nu till Gästsidan för sök
         }
-
         private void emailTextBox_GotFocus(object sender, RoutedEventArgs e)        //funktioner så den grå texten försvinner och kommer tbx vid rätt tillfällen
         {
             if(emailTextBox.Foreground == Brushes.LightGray)

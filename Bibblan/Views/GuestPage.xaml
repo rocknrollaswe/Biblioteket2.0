@@ -20,23 +20,26 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Border Background="#80B3B5" Height="600" Width="1000" Panel.ZIndex="-2" Opacity="0.80" Grid.ColumnSpan="2">
+            <Border Background="#80B3B5" Height="600" Width="1000" Panel.ZIndex="-2" Opacity="0.90" Grid.ColumnSpan="2">
 
             </Border>
 
-
             <TextBlock Text="Sök Böcker" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="50" Height="80" Foreground="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="2" Margin="0, 20, 0, 0" Style="{StaticResource CardoFont}"/>
 
-            <TextBlock Text="För att söka på E-Böcker, skriv in 1" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,100,0,0"  VerticalAlignment="Top" FontSize="15"></TextBlock>
-            <Border CornerRadius="20" Height="30" Width="450" Background="AliceBlue"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,130,0,0">
+            <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,90,0,0"  VerticalAlignment="Top" FontSize="14">
+                Här kan du söka på böcker. Om du söker efter E-bok, skriv in 1. <LineBreak/>
+                För att kunna låna böcker måste du först registrera dig <LineBreak/>
+                sedan kontakta en bibliotikarie för att få ett lånekort.
+            </TextBlock>
+            <Border CornerRadius="20" Height="30" Width="450" Background="AliceBlue"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" Margin="0,160,0,0">
                 <WrapPanel Orientation="Horizontal" Margin="10, 5">
                     <TextBox x:Name="searchBar" Foreground="Black" Background="AliceBlue" Height="20" Width="400" Padding="2" BorderThickness="0" TextChanged="searchBar_TextChanged" />
                     <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" RenderTransformOrigin="0.6,0.5"/>
                 </WrapPanel>
             </Border>
 
-            <Border CornerRadius="30"  Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Width="500" Height="370" Margin="0,100,0,0">
-                <ListView x:Name="LVGuestBook" BorderBrush="Transparent" Background="Transparent" Width="480" Height="350" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVGuestBook_SelectionChanged" >
+            <Border CornerRadius="30"  Background="AliceBlue" Opacity="1" Panel.ZIndex="-1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Width="500" Height="300" Margin="0,100,0,0">
+                <ListView x:Name="LVGuestBook" BorderBrush="Transparent" Background="Transparent" Width="480" Height="280" UseLayoutRounding="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="LVGuestBook_SelectionChanged" >
                     <ListView.View >
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Titel" Width="100"/>
@@ -44,7 +47,8 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Beskrivning" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Ddk}" Header="Placering" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="EBok" Width="70"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Available}" Header="Tillgänglig" Width="70"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="Isbn" Width="70"/>
+
                         </GridView>
                     </ListView.View>
                 </ListView>
