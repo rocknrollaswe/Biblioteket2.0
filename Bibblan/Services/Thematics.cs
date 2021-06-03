@@ -39,6 +39,27 @@ namespace Bibblan.Services
                 }
             }
         }
+        public static void Clearer(TextBox titleBox, TextBox authorBox, TextBox descriptionBox, TextBox editionBox, TextBox publisherBox, TextBox priceBox, TextBox ddkBox, TextBox sabBox, TextBox amountBox)
+        {
+            titleBox.Foreground = Brushes.LightGray;
+            titleBox.Text = "Titel";
+            authorBox.Foreground = Brushes.LightGray;
+            authorBox.Text = "Författare";
+            descriptionBox.Foreground = Brushes.LightGray;
+            descriptionBox.Text = "Beskrivning";
+            editionBox.Foreground = Brushes.LightGray;
+            editionBox.Text = "Upplaga";
+            publisherBox.Foreground = Brushes.LightGray;
+            publisherBox.Text = "Förlag";
+            priceBox.Foreground = Brushes.LightGray;
+            priceBox.Text = "Pris";
+            ddkBox.Foreground = Brushes.LightGray;
+            ddkBox.Text = "DDK";
+            sabBox.Foreground = Brushes.LightGray;
+            sabBox.Text = "Sab";
+            amountBox.Foreground = Brushes.LightGray;
+            amountBox.Text = "Antal";
+        }
         //public void Clearer(ListView Listview, params TextBox[] boxes, params string[] watermark)
         //{
         //    Listview.Items.Refresh();

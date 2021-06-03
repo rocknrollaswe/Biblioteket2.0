@@ -180,7 +180,7 @@ namespace Bibblan.Views
                 stock.Condition = "Nyskick";
                 stock.Discarded = 0;
                 stock.Available = 1;
-                DbInitialiser.Db.Add(stock);
+                DbInitialiser.Db.Stocks.Add(stock);
             }
             DbInitialiser.Db.SaveChanges();
         }

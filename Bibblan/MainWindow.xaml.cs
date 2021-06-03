@@ -39,27 +39,12 @@ namespace Bibblan
 
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
-            string emailLow = emailTextBox.Text.ToLower();
-            var userList = DbInitialiser.Db.Users.ToList();
-            var connectedUser = userList.Find(x => x.Email == emailLow);    
-
-            if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Password)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
+            BookService.Login(emailTextBox.Text, passwordTextBox.Password);
+            if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
             {
-                GlobalClass.userPermission = connectedUser.Permissions;  //sätter våra globala variabler för den specifika användaren
-                GlobalClass.userFirstName = connectedUser.Firstname;       //FYLL PÅ HÄR OM VI BEHÖVER FLER GLOBALA VARIABLER
-                GlobalClass.currentUserID = connectedUser.UserId;
-                GlobalClass.loanPermission = connectedUser.HasLoanCard;
-                
-                if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
-                {
-                    var home = new Home();
-                    this.Close();
-                    home.Show();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Fel uppgifter angivna");
+                var home = new Home();
+                this.Close();
+                home.Show();
             }
         }
 
