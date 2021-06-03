@@ -46,7 +46,7 @@ namespace Bibblan.Views
                 titleBox.Focus();
                 return;
             }
-            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$")) 
+            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$") ||authorBox.Foreground == Brushes.LightGray) 
             {
                 MessageBox.Show("Ange Författare!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 authorBox.Focus();
@@ -81,19 +81,19 @@ namespace Bibblan.Views
             }
             if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,4}$"))
             {
-                MessageBox.Show("Ange Pris!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange Pris! Max pris är 9999 kr.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 priceBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
-                MessageBox.Show("Ange bara siffror i DDK!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange 3 siffror i DDK!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 ddkBox.Focus();
                 return;
             }
-            if (!Regex.IsMatch(sabBox.Text, @"^([a-zåäöA-ZÅÄÖ]{1,3})$"))
+            if (!Regex.IsMatch(sabBox.Text, @"^([a-zåäöA-ZÅÄÖ]{1,3})$") || sabBox.Foreground == Brushes.LightGray)
             {
-                MessageBox.Show("Ange Sab!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Ange Sab! Max 3 bokstäver.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 sabBox.Focus();
                 return;
             }
