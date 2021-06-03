@@ -133,7 +133,7 @@
                     <TextBlock Margin="5,0"
                                FontSize="14"
                                Style="{StaticResource RobotoFont}">
-                               Lägg till böcker
+                               Böcker i sortimentet
                     </TextBlock>
                 </StackPanel>
             </Button>

@@ -15,13 +15,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border Background="#80B3B5" Height="800" Width="1300" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
-        <Label FontSize="70" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 18 0 0"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2">Lager</Label>
+        <Label FontSize="70" HorizontalAlignment="Center" Style="{StaticResource CardoFont}" Margin="0 30 0 0"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2">Lager</Label>
 
        
 
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="30 100 0 0">
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="30 150 0 0">
 
-            <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="250,0,0,20" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0">
+            <Border CornerRadius="15" Height="30" Width="250" Background="AliceBlue" Margin="250,10,0,10" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0">
                 <WrapPanel Orientation="Horizontal" Margin="10, 5">
                     <TextBox x:Name="searchBar" BorderThickness="0" Foreground="LightGray" Background="AliceBlue" Height="20" Width="170" Padding="2" BorderBrush="AliceBlue" TextChanged="searchBar_TextChanged" GotFocus="searchBar_GotFocus" LostFocus="searchBar_LostFocus"/>
                     <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" Margin="35, 0, 0, 0"/>
@@ -32,7 +32,7 @@
                 <ListView x:Name="LVBookStock" BorderBrush="Transparent" Background="Transparent" Width="540" Height="340" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="LVBookStock_Selected">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="StockID" Width="85"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding StockId}" Header="LagerID" Width="85"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Isbn}" Header="ISBN" Width="85"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Condition}" Header="Skick" Width="85"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Discarded}" Header="Utrangerad" Width="85"/>
@@ -54,24 +54,24 @@
             </WrapPanel>
         </StackPanel>
         
-        <StackPanel Grid.Column="1" Margin="80 90 0 0">
-            <Border VerticalAlignment="Top" HorizontalAlignment="Right" Height="59" Width="400" Background="AliceBlue" CornerRadius="20" Margin="0 0 150 0">
+        <StackPanel Grid.Column="1" Margin="30 230 0 0">
+            <Border VerticalAlignment="Top" Height="59" Width="400" Background="AliceBlue" CornerRadius="20" Margin="0 0 150 0">
                 <Label x:Name="bookTitle" Content="" FontSize="20" VerticalAlignment="Top" Margin="0,0,0,0" Height="59" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource CardoFont}"></Label>
             </Border>
             
-            <StackPanel Margin="0 30 145 0" >
+            <StackPanel Margin="0 20 145 0" HorizontalAlignment="Left" >
                 <TextBlock x:Name="isbnBox" Text="ISBN" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3" Height="30" Width="250" Margin="40, 0, 0, 0" Background="AliceBlue"/>
                 <TextBlock x:Name="stockIdBox" Text="StockID" Foreground="Silver" FontSize="16" Padding="5, 8, 0, 3"  Height="30" Width="250" Margin="40, 5, 0, 0" Background="AliceBlue"/>
             </StackPanel>
 
-            <ComboBox x:Name="conditionComboBox"  IsEditable="True" IsReadOnly="True" Text="Skick" Width="135" Margin="0, 10, 218, 0" SelectionChanged="conditionComboBox_SelectionChanged">
+            <ComboBox x:Name="conditionComboBox"  IsEditable="True" IsReadOnly="True" Text="Skick" Width="135" Margin="40, 10, 218, 0" SelectionChanged="conditionComboBox_SelectionChanged" HorizontalAlignment="Left">
                 <ComboBoxItem>Nyskick</ComboBoxItem>
                 <ComboBoxItem>Fint Skick</ComboBoxItem>
                 <ComboBoxItem>Använd</ComboBoxItem>
                 <ComboBoxItem>Sliten</ComboBoxItem>
             </ComboBox>
 
-            <WrapPanel Margin="130 100 0 0" Orientation="Horizontal">
+            <WrapPanel Margin="40 30 0 0" Orientation="Horizontal">
                 <StackPanel Margin="0 5 0 0">
                     <TextBox x:Name="amountBox" Text="Antal" FontSize="20" Foreground="LightGray" Margin="0,0,0,0" VerticalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="30" GotFocus="amountBox_GotFocus" LostFocus="amountBox_LostFocus"></TextBox>
                     <Button x:Name="addBooksButton" Width="100" Height="40" Style="{StaticResource ROB}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 10 20 0" Content="Lägg till" FontSize="18" Click="addBooksButton_Click"></Button>

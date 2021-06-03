@@ -194,7 +194,7 @@ namespace Bibblan.Views
             {
                 if (selectedStock != null && conditionComboBox.SelectedItem != null)
                 {
-                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).Last();//   SingleOrDefault();
+                    var dbStockItem = DbInitialiser.Db.Stocks.Where(x => x.StockId == selectedStock.StockId).SingleOrDefault();
                     ComboBoxItem comboBoxSelection = (ComboBoxItem)conditionComboBox.SelectedItem;
                     dbStockItem.Condition = comboBoxSelection.Content.ToString();
                     DbInitialiser.Db.SaveChanges();

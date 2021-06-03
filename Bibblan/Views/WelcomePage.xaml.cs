@@ -63,7 +63,7 @@ namespace Bibblan.Views
                 var bookToReturn = DbInitialiser.Db.Loanlogs.Where(x => x.StockId == bookId.Stockid).FirstOrDefault();
                 bookToReturn.Pending = 1;
                 DbInitialiser.Db.SaveChanges();
-                MessageBox.Show("Du har nu lämnat tillbaka boken", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Du har nu lämnat tillbaka boken", "Meddelande", MessageBoxButton.OK);
                 ClearAndRetrieveVirtualDb();
                 LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
                 LVBooksLoanedByUser.ItemsSource = booksToReturn;
@@ -87,7 +87,7 @@ namespace Bibblan.Views
                 }
                 DbInitialiser.Db.SaveChanges();
 
-                MessageBox.Show("Du har nu lämnat tillbaka samtliga böcker", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information); 
+                MessageBox.Show("Du har nu lämnat tillbaka samtliga böcker", "Meddelande", MessageBoxButton.OK); 
 
                 ClearAndRetrieveVirtualDb();
                 LVBooksLoanedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
