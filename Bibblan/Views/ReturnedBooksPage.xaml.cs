@@ -43,7 +43,7 @@ namespace Bibblan.Views
         }
         public void ValidateBookButton_Click(object sender, EventArgs e) 
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (LVBooksReturnedByUser.SelectedItem != null)
             {
@@ -62,15 +62,15 @@ namespace Bibblan.Views
                 LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty); 
                 LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
-                MessageBox.Show($"Du har nu kvitterat objektet!");
+                MessageBox.Show($"Du har nu kvitterat objektet!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 return; 
             }
-            MessageBox.Show("Du måste markera ett objekt att kvittera!");
+            MessageBox.Show("Du måste markera ett objekt att kvittera!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             return; 
         }
         public void ValidateAllBooksButton_Click(object sender, EventArgs e) 
         {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!"); return; }
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
             if (LVBooksReturnedByUser != null)
             {
@@ -97,14 +97,14 @@ namespace Bibblan.Views
                         LVBooksReturnedByUser.ClearValue(ItemsControl.ItemsSourceProperty);
                         LVBooksReturnedByUser.ItemsSource = booksToValidate;
 
-                        MessageBox.Show("Du har nu kvitterat samtliga objekt!");
+                        MessageBox.Show("Du har nu kvitterat samtliga objekt!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
 
                     case MessageBoxResult.No:
                         return;
                 }
             }
-            MessageBox.Show("Det finns inga objekt att kvittera!");
+            MessageBox.Show("Det finns inga objekt att kvittera!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             return;
         }
 

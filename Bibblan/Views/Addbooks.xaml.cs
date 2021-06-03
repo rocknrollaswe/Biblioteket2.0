@@ -39,7 +39,7 @@ namespace Bibblan.Views
        
         public static void Alert(object sender, string message)
         { 
-            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             return;
         }
         public event EventHandler<string> WrongEntry;
@@ -57,19 +57,19 @@ namespace Bibblan.Views
             }
             if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$")) 
             {
-                MessageBox.Show("Ange Författare!");
+                MessageBox.Show("Ange Författare!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 authorBox.Focus();
                 return;
             }
             if (descriptionBox.Text.Length == 0 || descriptionBox.Text.Length >= 500 || descriptionBox.Foreground == Brushes.LightGray  )
             {
-                MessageBox.Show("Ange Beskrivning! Får ej vara mer än 500 tecken.");
+                MessageBox.Show("Ange Beskrivning! Får ej vara mer än 500 tecken.", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 descriptionBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(editionBox.Text, @"^([0-9]{4})$"))
             {
-                MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga!");
+                MessageBox.Show("Ange årtal ÅÅÅÅ i Upplaga!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 editionBox.Focus();
                 return;
             }
@@ -77,39 +77,39 @@ namespace Bibblan.Views
             {
                 if (Convert.ToInt32(editionBox.Text) > Convert.ToInt32(DateTime.Now.Year))
                 {
-                    MessageBox.Show("Boken har inte kommit ut ännu!");
+                    MessageBox.Show("Boken har inte kommit ut ännu!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     editionBox.Focus();
                     return;
                 }
             }
             if (publisherBox.Text.Length == 0 || publisherBox.Foreground == Brushes.LightGray)
             {
-                MessageBox.Show("Ange Förlag!");
+                MessageBox.Show("Ange Förlag!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 publisherBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,10}$"))
 
             {
-                MessageBox.Show("Ange Pris!");
+                MessageBox.Show("Ange Pris!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 priceBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
-                MessageBox.Show("Ange bara siffror i DDK!");
+                MessageBox.Show("Ange bara siffror i DDK!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 ddkBox.Focus();
                 return;
             }
             if (sabBox.Text.Length == 0 || sabBox.Foreground == Brushes.LightGray)
             {
-                MessageBox.Show("Ange Sab!");
+                MessageBox.Show("Ange Sab!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 sabBox.Focus();
                 return;
             }
             if (!Regex.IsMatch(amountBox.Text, @"^([0-9]{1,3})$") || Convert.ToInt32(amountBox.Text)>=100)
             {
-                MessageBox.Show("Ange Antal! Får ej vara mer än 99 st");
+                MessageBox.Show("Ange Antal! Får ej vara mer än 99 st", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 amountBox.Focus();
                 return;
             }
@@ -125,7 +125,7 @@ namespace Bibblan.Views
             {
                 if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 1).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 1).FirstOrDefault() != null)
                 {
-                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
+                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }
@@ -134,7 +134,7 @@ namespace Bibblan.Views
             {
                 if (DbInitialiser.Db.Books.Where(b => b.Title == titleBox.Text && b.Category == 0).FirstOrDefault() != null && DbInitialiser.Db.Books.Where(b => b.Edition == int.Parse(editionBox.Text) && b.Category == 0).FirstOrDefault() != null)
                 {
-                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet");
+                    OnWrongEntry("Boken du försöker lägga till finns redan i systemet", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }
@@ -145,13 +145,13 @@ namespace Bibblan.Views
            
             if (result == MessageBoxResult.Yes)
             {
-                if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta"); return; }
+                if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
                 Book bookToAdd = BookService.AddBook(titleBox.Text, authorBox.Text, descriptionBox.Text, editionBox.Text, priceBox.Text, ddkBox.Text, sabBox.Text, publisherBox.Text, ebokCheck);
 
                 BookService.AddStockBook(bookToAdd, Convert.ToInt32(amountBox.Text));
 
-                MessageBox.Show("Du har nu lagt till en bok!");
+                MessageBox.Show("Du har nu lagt till en bok!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 virtualBooks.Clear();
 
                 foreach (var item in DbInitialiser.Db.Books)
