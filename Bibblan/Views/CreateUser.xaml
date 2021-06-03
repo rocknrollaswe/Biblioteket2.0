@@ -75,7 +75,7 @@
  
             <TextBlock HorizontalAlignment="Center" Width="230" FontSize="20">För att kunna låna böcker,</TextBlock>
             <TextBlock HorizontalAlignment="Center"  Width="400" FontSize="20">kontakta bibliotekspersonal efter registrering</TextBlock>
-            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="20, 10, 0, 0" FontSize="15" HorizontalAlignment="Left" Click="Back_button_Click"/>
+            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="20, -20, 0, 0" FontSize="15" HorizontalAlignment="Left" Click="Back_button_Click"/>
 
         </StackPanel>
     </Grid>
