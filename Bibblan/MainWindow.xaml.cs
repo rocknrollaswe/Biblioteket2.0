@@ -38,13 +38,22 @@ namespace Bibblan
         }
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
-            BookService.Login(emailTextBox.Text, passwordTextBox.Password);
-            if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
+            var connectedUser = dbVirtual.Find(x => x.Email == emailTextBox.Text.ToLower());    
+
+            if (connectedUser.Password.SequenceEqual(Encryption.Encrypt(passwordTextBox.Password)) == true) //SequenceEqual går igenom ByteArrayerna och checkar värdena mot varandra. Detta är en långsam funktion, dock så funkar den då vi inte har 10000 användare
+            {                                                                                                                               //FYLL PÅ I SERVICES OM VI BEHÖVER FLER GLOBALA VARIABLER
+                UserService.Login(connectedUser.Permissions, connectedUser.Firstname, connectedUser.UserId, connectedUser.HasLoanCard);     //sätter våra globala variabler för den specifika användaren
+
+                if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)     //Navigera till Home så länge man har en permission
+                {
+                    var home = new Home();
+                    this.Close();
+                    home.Show();
+                }
+            }
             else
             {
-                var home = new Home();
-                this.Close();
-                home.Show();
+                MessageBox.Show("Fel uppgifter angivna");
             }
         }
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
