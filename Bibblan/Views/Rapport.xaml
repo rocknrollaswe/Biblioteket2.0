@@ -63,10 +63,12 @@
                 </ListView.View>
             </ListView>
         </Border>
+
         
         <WrapPanel  Margin="160 640 0 100">
             <Button x:Name="downloadReportButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" FontSize="20" Click="downloadReportButton_Click">Ladda ned rapport</Button>
             <Button x:Name="bookStockButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" Margin="20 0 0 0"  FontSize="20" Click="bookStockButton_Click">Se bok i lager</Button>
+
         </WrapPanel>
 
 
