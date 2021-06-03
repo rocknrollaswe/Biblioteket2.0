@@ -26,7 +26,7 @@ namespace Bibblan.Services
 
             return registeredUser;
         }
-        public static void Login(string emailBox, string passwordTextBox)
+        public static bool Login(string emailBox, string passwordTextBox)
         {
             string emailLow = emailBox.ToLower();
             var userList = DbInitialiser.Db.Users.ToList();
@@ -39,16 +39,13 @@ namespace Bibblan.Services
                     GlobalClass.userFirstName = connectedUser.Firstname;       //FYLL PÅ HÄR OM VI BEHÖVER FLER GLOBALA VARIABLER
                     GlobalClass.currentUserID = connectedUser.UserId;
                     GlobalClass.loanPermission = connectedUser.HasLoanCard;
-                }
-                else
-                {
-                    MessageBox.Show("Fel uppgifter angivna");
+                    return true; 
                 }
             }
-            else
-            {
-                MessageBox.Show("Fel uppgifter angivna");
-            }
+            
+            return false; 
+
+
         }
     }
 }
