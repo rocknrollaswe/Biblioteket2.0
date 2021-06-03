@@ -44,7 +44,7 @@ namespace Bibblan.Views
 
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
-            if (firstName.Text == "" || lastName.Text == "" || eMail.Text == "" || SSN.Text == "") //Kollar om user input är tomt
+            if (firstName.Text == "" || firstName.Foreground == Brushes.LightGray || lastName.Text == "" || lastName.Foreground == Brushes.LightGray || eMail.Text == "" || eMail.Foreground == Brushes.LightGray || SSN.Text == ""|| SSN.Foreground == Brushes.LightGray) //Kollar om user input är tomt
             {
                 OnWrongEntry("Du har inte angett data i samtliga fält!");
                 return;

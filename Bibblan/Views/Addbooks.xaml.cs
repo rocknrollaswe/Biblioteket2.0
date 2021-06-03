@@ -55,7 +55,7 @@ namespace Bibblan.Views
                 titleBox.Focus();
                 return;
             }
-            if (authorBox.Text.Length == 0 || authorBox.Foreground == Brushes.LightGray)
+            if (!Regex.IsMatch(authorBox.Text, @"^[a-zåäöA-ZÅÄÖ\s]+$")) 
             {
                 MessageBox.Show("Ange Författare!");
                 authorBox.Focus();
