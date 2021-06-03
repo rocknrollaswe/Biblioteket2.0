@@ -232,6 +232,13 @@ namespace Bibblan.Views
                 switch (result) 
                 {
                     case MessageBoxResult.Yes:
+
+                        if (DbInitialiser.Db.Loanlogs.Where(x => x.UserId == u.UserId).Any()) 
+                        {
+                            MessageBox.Show($"Den här användaren har lånade böcker som behöver lämnas tillbaka.\nLämna tillbaka böckerna först och ta därefter bort användaren.");
+                            return; 
+                        }
+
                         DbInitialiser.Db.Users.Remove(u);
                         DbInitialiser.Db.SaveChanges();
                         MessageBox.Show("Du har tagit bort användaren");
