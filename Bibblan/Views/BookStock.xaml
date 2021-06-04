@@ -50,7 +50,7 @@
                     <ComboBoxItem Content="Utsliten"/>
                     <ComboBoxItem Content="Skadegörelse"/>
                 </ComboBox>
-                <Button x:Name="removeBookButton" Style="{StaticResource ROB}" Margin="20 0 0 0" Content="Ta bort" Width="100" Height="37" BorderThickness="0" FontSize="18" Click="removeBookButton_Click"></Button>
+                <Button x:Name="removeBookButton" Style="{StaticResource ROB}" Margin="20 0 0 0" Content="Ta bort" Width="100" Height="37" BorderThickness="0" FontSize="13" Click="removeBookButton_Click"></Button>
             </WrapPanel>
         </StackPanel>
         
@@ -74,7 +74,7 @@
             <WrapPanel Margin="40 30 0 0" Orientation="Horizontal">
                 <StackPanel Margin="0 5 0 0">
                     <TextBox x:Name="amountBox" Text="Antal" FontSize="20" Foreground="LightGray" Margin="0,0,0,0" VerticalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="30" GotFocus="amountBox_GotFocus" LostFocus="amountBox_LostFocus"></TextBox>
-                    <Button x:Name="addBooksButton" Width="100" Height="40" Style="{StaticResource ROB}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 10 20 0" Content="Lägg till" FontSize="18" Click="addBooksButton_Click"></Button>
+                    <Button x:Name="addBooksButton" Width="100" Height="40" Style="{StaticResource ROB}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 10 20 0" Content="Lägg till" FontSize="13" Click="addBooksButton_Click"></Button>
                 </StackPanel>
 
                 <TextBlock FontSize="16" Text="Har det kommit in fler böcker av samma isbn? Här lägger du till böckerna i lagret!" HorizontalAlignment="Right" Width="155" Height="200" Margin="10 0 5 0" TextWrapping="Wrap"></TextBlock>

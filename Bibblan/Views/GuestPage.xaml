@@ -64,7 +64,7 @@
             </Border>
 
 
-            <Button x:Name="BackButton" Style="{StaticResource ROB}" Content="Tillbaka" FontSize="20" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="41" Width="98" Margin="10,0,0,50" Click="BackButton_Click"  />
+            <Button x:Name="BackButton" Style="{StaticResource ROB}" Content="Tillbaka" FontSize="13" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="40" Width="100" Margin="10,0,0,50" Click="BackButton_Click"  />
         </Grid>
 
     </StackPanel>
