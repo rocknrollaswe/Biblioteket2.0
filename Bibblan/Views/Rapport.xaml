@@ -43,12 +43,12 @@
                 <ListView x:Name="LVReportUser" BorderBrush="Transparent" Background="Transparent" Width="530" Height="380" UseLayoutRounding="True">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding firstName}" Header="Förnamn" Width="90"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding lastName}" Header="Efternamn" Width="90"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding title}" Header="Title" Width="90"/>
                             <GridViewColumn DisplayMemberBinding="{Binding email}" Header="Email" Width="90"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding stockId}" Header="Bok ID" Width="90"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding returnDate, StringFormat='yyyy-MM-dd'}" Header="Returdatum" Width="90"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding stockId}" Header="BokID" Width="50"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding title}" Header="Title" Width="90"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding returnDate, StringFormat='yyyy-MM-dd'}" Header="Returdatum" Width="90"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding lastName}" Header="Efternamn" Width="90"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding firstName}" Header="Förnamn" Width="90"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
