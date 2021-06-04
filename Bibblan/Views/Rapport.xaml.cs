@@ -27,6 +27,7 @@ namespace Bibblan.Views
         IEnumerable<UserReport> userReport;
         List<Book> dbVirtualBooks = new List<Book>();
         List<Stock> dbVirtualStocks = new List<Stock>();
+        List<User> dbVirtualUser = new List<User>();
         IEnumerable<dynamic> objectJoin;
         public Rapport()
         {
@@ -47,25 +48,9 @@ namespace Bibblan.Views
             {
                 dbVirtualStocks.Add(item);
             }
-        }
-        private void seeUserButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
-
-            if (epostTextBox.Text != null || epostTextBox.Text != "" || epostTextBox.Text != "E-post")
+            foreach (var item in DbInitialiser.Db.Users)
             {
-                userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
-
-                var userReportFinal = userReport.Join(DbInitialiser.Db.Users, x => x.Email, c => c.Email, (x, c) => new { firstName = c.Firstname, lastName = c.Lastname, email = x.Email, returnDate = x.Returndate, stockId = x.StockId, title = x.Title }).ToList();
-                
-                LVReportUser.ItemsSource = userReportFinal;
-
-                userBorder.Visibility = Visibility.Visible;
-                LVReportObject.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                MessageBox.Show("Var vänlig fyll i en e-post adress", "Meddelande", MessageBoxButton.OK);
+                dbVirtualUser.Add(item);
             }
         }
         public void seeDeletedObjects_Click(object sender, RoutedEventArgs e)
@@ -102,8 +87,8 @@ namespace Bibblan.Views
                 UserReport userReportFinal = new UserReport() {Email = chosenBookReport.email, Returndate = chosenBookReport.returnDate, StockId = chosenBookReport.stockId, Title = chosenBookReport.title };
                 GlobalClass.chosenBookReport = userReportFinal;
 #nullable enable
-                Stock? stockToBook = DbInitialiser.Db.Stocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
-                Book? bookToBookStock = DbInitialiser.Db.Books.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
+                Stock? stockToBook = dbVirtualStocks.Where(x => x.StockId == userReportFinal.StockId).FirstOrDefault();
+                Book? bookToBookStock = dbVirtualBooks.Where(x => x.Isbn == stockToBook.Isbn).FirstOrDefault();
 #nullable disable
                 GlobalClass.chosenBook = bookToBookStock;
                 this.NavigationService.Navigate(new BookStock());
@@ -121,24 +106,12 @@ namespace Bibblan.Views
                 this.NavigationService.Navigate(new BookStock());
 
                 return;
-
             }
             else
             {
                 MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK);
-
                 return;
-
             }
-            
-        }
-        private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Thematics.Watermark.ForFocus(epostTextBox);
-        }
-        private void epostTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            Thematics.Watermark.ForLostFocus(epostTextBox, "E-post");
         }
         private void downloadReportButton_Click(object sender, RoutedEventArgs e)
         {
@@ -153,6 +126,7 @@ namespace Bibblan.Views
         }
         private async void downloadUserReport()
         {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\userReport.csv";
             if (LVReportUser.ItemsSource != null && userReport != null)
             {
                 if (LVReportUser.SelectedItem != null)
@@ -161,7 +135,7 @@ namespace Bibblan.Views
 
                     IEnumerable<UserReport> userLoans = userReport.Where(x => x.Email == selectedUser[0].email);
 
-                    using (var streamWriter = new System.IO.StreamWriter("userReport.csv", false))
+                    using (var streamWriter = new System.IO.StreamWriter(filePath, false))
                     {
                         streamWriter.WriteLine($"               Email: {selectedUser[0].email} \n");
                         foreach (var item in userLoans)
@@ -185,9 +159,10 @@ namespace Bibblan.Views
         }
         private void removedObjectsReport(IEnumerable<dynamic> objectJoin)
         {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\discardedReport.csv";
             try
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter("discardedReport.csv", false))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(filePath, false))
                 {
                     foreach (var item in objectJoin.Where(x => x.Discarded == 1))
                     {
@@ -201,12 +176,32 @@ namespace Bibblan.Views
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void epostTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
+            LVReportUser.ClearValue(ItemsControl.ItemsSourceProperty);
+
+            if (epostTextBox.Text != null && epostTextBox.Text != "E-post" && epostTextBox.Text.Length > 0 && epostTextBox.Text != "")
+            {
+                userReport = dbVirtual.Where(x => x.Email.Contains(epostTextBox.Text));
+
+                var userReportFinal = userReport.Join(dbVirtualUser, x => x.Email, c => c.Email, (x, c) => 
+                new { firstName = c.Firstname, lastName = c.Lastname, email = x.Email, returnDate = x.Returndate, stockId = x.StockId, title = x.Title }).ToList();
+
+                LVReportUser.ItemsSource = userReportFinal;
+
+                userBorder.Visibility = Visibility.Visible;
+                LVReportObject.Visibility = Visibility.Hidden;
+            }
         }
-
-       
+        private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Thematics.Watermark.ForFocus(epostTextBox);
+        }
+        private void epostTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Thematics.Watermark.ForLostFocus(epostTextBox, "E-post");
+        }
     }
 }
