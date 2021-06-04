@@ -70,7 +70,7 @@
             
             
            
-            <Button Style="{StaticResource BOB}" x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" Width="220" Margin="0, 25, 0, 20" FontSize="17" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5"/>
+            <Button Style="{StaticResource BOB}" x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" Width="220" Margin="0, 25, 0, 20" FontSize="17" BorderBrush="{x:Null}"/>
        
  
             <TextBlock HorizontalAlignment="Center" Width="230" FontSize="20">För att kunna låna böcker,</TextBlock>
