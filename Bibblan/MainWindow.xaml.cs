@@ -35,6 +35,7 @@ namespace Bibblan
                     dbVirtual.Add(item);
                 }
             });
+            dbDownload.Wait();
         }
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
