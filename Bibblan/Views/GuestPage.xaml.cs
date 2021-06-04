@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Bibblan.Models;
 using Bibblan.Services;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bibblan.Views
 {
@@ -29,6 +30,8 @@ namespace Bibblan.Views
             {
                 virtualBooks.Add(item);
             }
+
+            //dbDownload.Wait();
 
             DataContext = virtualBooks;
             LVGuestBook.ItemsSource = virtualBooks;
