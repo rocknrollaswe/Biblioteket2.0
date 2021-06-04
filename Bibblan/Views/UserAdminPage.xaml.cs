@@ -102,7 +102,7 @@ namespace Bibblan.Views
                 {
                     case MessageBoxResult.Yes:
 
-                        if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z\dåäöÅÄÖ-]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
+                        if (!Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]*$") || firstName.Text == "" || firstName.Text == "Förnamn")
 
                         { 
                             MessageBox.Show("Du har inte angett ett korrekt förnamn!", "Meddelande", MessageBoxButton.OK);
@@ -118,7 +118,7 @@ namespace Bibblan.Views
                             if (userToChange.Firstname != firstName.Text) { userToChange.Firstname = firstName.Text; }
                         }
 
-                        if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
+                        if (!Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$") || lastName.Text == "" || lastName.Text == "Efternamn")
                         {
                             MessageBox.Show("Du har inte angett ett korrekt efternamn!", "Meddelande", MessageBoxButton.OK) ;
                             return;

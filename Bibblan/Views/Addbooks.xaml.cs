@@ -82,7 +82,7 @@ namespace Bibblan.Views
             if (!Regex.IsMatch(priceBox.Text, @"^[0-9]{1,4}$"))
             {
 
-                MessageBox.Show("Ange Pris!", "Meddelande", MessageBoxButton.OK);
+                MessageBox.Show("Ange Pris! Max 9999 kr", "Meddelande", MessageBoxButton.OK);
 
 
                 priceBox.Focus();
@@ -91,7 +91,7 @@ namespace Bibblan.Views
             if (!Regex.IsMatch(ddkBox.Text, @"^([0-9]{3})$"))
             {
 
-                MessageBox.Show("Ange bara siffror i DDK!", "Meddelande", MessageBoxButton.OK);
+                MessageBox.Show("Ange 3 siffror i DDK!", "Meddelande", MessageBoxButton.OK);
 
                 ddkBox.Focus();
                 return;
