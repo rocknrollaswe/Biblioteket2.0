@@ -41,7 +41,6 @@ namespace Bibblan.Views
             MessageBox.Show($"{message}", "Meddelande", MessageBoxButton.OK);
             return;
         }
-
         private void CreateUserButton(object sender, RoutedEventArgs e)
         {
             if (firstName.Text == "" || firstName.Foreground == Brushes.LightGray || lastName.Text == "" || lastName.Foreground == Brushes.LightGray || eMail.Text == "" || eMail.Foreground == Brushes.LightGray || SSN.Text == ""|| SSN.Foreground == Brushes.LightGray) //Kollar om user input är tomt
@@ -161,12 +160,12 @@ namespace Bibblan.Views
         //Textchanged för validering 
         private void firstName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$") && firstName.Foreground == Brushes.Black)
+            if (Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]+$") && firstName.Foreground == Brushes.Black)
             {
                 firstNameImgValid.Visibility = Visibility.Visible;
                 firstNameImg.Visibility = Visibility.Collapsed;
             }
-            else if (!Regex.IsMatch(firstName.Text, @"^[a-zA-Z]+$") && firstName.Foreground == Brushes.Black)
+            else if (!Regex.IsMatch(firstName.Text, @"^[a-zåäöA-ZÅÄÖ]+$") && firstName.Foreground == Brushes.Black)
             {
                 firstNameImgValid.Visibility = Visibility.Collapsed;
                 firstNameImg.Visibility = Visibility.Visible;
@@ -174,12 +173,12 @@ namespace Bibblan.Views
         }
         private void lastName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black)
+            if (Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$") && lastName.Foreground == Brushes.Black)
             {
                 lastNameImgValid.Visibility = Visibility.Visible;
                 lastNameImg.Visibility = Visibility.Collapsed;
             }
-            else if (!Regex.IsMatch(lastName.Text, @"^[a-zA-Z]+$") && lastName.Foreground == Brushes.Black)
+            else if (!Regex.IsMatch(lastName.Text, @"^[a-zåäöA-ZÅÄÖ]+$") && lastName.Foreground == Brushes.Black)
             {
                 lastNameImgValid.Visibility = Visibility.Collapsed;
                 lastNameImg.Visibility = Visibility.Visible;
@@ -187,12 +186,12 @@ namespace Bibblan.Views
         }
         private void eMail_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black)
+            if (Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$") && eMail.Foreground == Brushes.Black)
             {
                 eMailImgValid.Visibility = Visibility.Visible;
                 eMailImg.Visibility = Visibility.Collapsed;
             }
-            else if (!Regex.IsMatch(eMail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$") && eMail.Foreground == Brushes.Black)
+            else if (!Regex.IsMatch(eMail.Text, @"^[a-zåäöA-ZÅÄÖ][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]@[a-zåäöA-ZÅÄÖ0-9][\w\.-]*[a-zåäöA-ZÅÄÖ0-9]\.[a-zåäöA-ZÅÄÖ][a-zåäöA-ZÅÄÖ\.]*[a-zåäöA-ZÅÄÖ]$") && eMail.Foreground == Brushes.Black)
             {
                 eMailImgValid.Visibility = Visibility.Collapsed;
                 eMailImg.Visibility = Visibility.Visible;
@@ -213,29 +212,22 @@ namespace Bibblan.Views
         }
         private void passWord_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            if (Regex.IsMatch(passWord.Password, @"^(?=.*?[A-ZÅÄÖ])(?=.*?[a-zåäö])(?=.*?[0-9]).{8,}$"))
             {
                 passWordImgValid.Visibility = Visibility.Visible;
                 passWordImg.Visibility = Visibility.Collapsed;
             }
-            else if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+            else if (!Regex.IsMatch(passWord.Password, @"^(?=.*?[A-ZÅÄÖ])(?=.*?[a-zåäö])(?=.*?[0-9]).{8,}$"))
             {
                 passWordImgValid.Visibility = Visibility.Collapsed;
                 passWordImg.Visibility = Visibility.Visible;
             }
         }
-
         private void Back_button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = GlobalClass.currentinstance;
             mainWindow.cheatButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));  //triggar cheatButton i createuser för att ändra visibility av alla element
             NavigationService.Navigate(null);
         }
-    
-    
-    
-    
-    
-    
     }
 }

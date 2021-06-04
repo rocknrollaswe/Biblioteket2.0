@@ -47,7 +47,7 @@ namespace Bibblan.Views
                 var userReportStock = dbVirtual.Where(x => x.StockId == GlobalClass.chosenBookReport.StockId).ToList();
                 LVBookStock.ItemsSource = userReportStock;
             }
-            if (GlobalClass.deletedObjects != null)
+            else if (GlobalClass.deletedObjects != null)
             {
                 var deletedObjectsStock = dbVirtual.Where(x => x.StockId == GlobalClass.deletedObjects.StockId).ToList();
                 LVBookStock.ItemsSource = deletedObjectsStock;
