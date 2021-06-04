@@ -102,7 +102,7 @@
             </Border>
 
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="200" Width="600">
-                <Button Style="{StaticResource ROB}" VerticalAlignment="Top" Height="50" Width="170" FontSize="18" Margin="60, 40, 0, 0" Click="RestrictButton_Click">
+                <Button Style="{StaticResource ROB}" VerticalAlignment="Top" Height="40" Width="200" FontSize="13" Margin="60, 40, 0, 0" Click="RestrictButton_Click">
                     Spärra Användare
                 </Button>
                 <TextBlock Margin="30, 20, 0, 0"  Width="300" Height="200" FontSize="12" TextWrapping="Wrap">
@@ -148,7 +148,7 @@
         <StackPanel Margin="90, 20, 40, 40" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="1">
             <RadioButton x:Name="rButtonChangeUser" IsChecked="False" Click="rButtonChangeUser_Click" Content="Ändra användare" FontWeight="Bold" FontSize="15"/>
             <RadioButton x:Name="rButtonRemoveUser" IsChecked="False" Click="rButtonRemoveUser_Click"  Content="Ta bort användare" FontWeight="Bold" Margin="0, 10, 0, 0" FontSize="15"/>
-            <Button x:Name="ButtonChangeUser" Style="{StaticResource ROB}" Margin="0, 80, 0, 0" Content="Välj ovan" FontSize="20"  Height="50" Width="150" Click="ButtonChangeUser_Click"/>
+            <Button x:Name="ButtonChangeUser" Style="{StaticResource ROB}" Margin="0, 80, 0, 0" Content="Välj ovan" FontSize="13"  Height="40" Width="150" Click="ButtonChangeUser_Click"/>
         </StackPanel>
 
        

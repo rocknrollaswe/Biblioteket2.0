@@ -44,8 +44,8 @@
             </Border>
 
             <WrapPanel HorizontalAlignment="Center" >
-                <Button Style="{StaticResource ROB}" FontSize="15" Content="Kvittera" Width="150" Height="40" Margin="0,20,0,0" Click="ValidateBookButton_Click" />
-                <Button Style="{StaticResource ROB}" FontSize="15" Content="Kvittera samtliga"  Width="150" Height="40" Margin="100,20,0,0" Click="ValidateAllBooksButton_Click" />
+                <Button Style="{StaticResource ROB}" FontSize="13" Content="Kvittera" Width="150" Height="40" Margin="0,20,0,0" Click="ValidateBookButton_Click" />
+                <Button Style="{StaticResource ROB}" FontSize="13" Content="Kvittera samtliga"  Width="150" Height="40" Margin="100,20,0,0" Click="ValidateAllBooksButton_Click" />
             </WrapPanel>
 
 

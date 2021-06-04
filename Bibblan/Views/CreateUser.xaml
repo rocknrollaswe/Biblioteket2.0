@@ -70,12 +70,12 @@
             
             
            
-            <Button Style="{StaticResource BOB}" x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Center" Height="48" VerticalAlignment="Top" Width="214" Margin="0, 40, 0, 20" FontSize="22" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5"/>
+            <Button Style="{StaticResource BOB}" x:Name="CreateUserButton1" Content="Skapa Användare" Click="CreateUserButton" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" Width="220" Margin="0, 25, 0, 20" FontSize="17" Foreground="White" BorderBrush="{x:Null}" Background="#6FB2B5"/>
        
  
             <TextBlock HorizontalAlignment="Center" Width="230" FontSize="20">För att kunna låna böcker,</TextBlock>
             <TextBlock HorizontalAlignment="Center"  Width="400" FontSize="20">kontakta bibliotekspersonal efter registrering</TextBlock>
-            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="20, -20, 0, 0" FontSize="15" HorizontalAlignment="Left" Click="Back_button_Click"/>
+            <Button x:Name="Back_button" Style="{StaticResource ROB}" Content="Tillbaka till Login" Width="150" Height="40" Margin="20, -20, 0, 0" FontSize="13" HorizontalAlignment="Left" Click="Back_button_Click"/>
 
         </StackPanel>
     </Grid>

@@ -31,7 +31,7 @@
                 <TextBox x:Name="amountBox" HorizontalAlignment="Center" Margin="100,560,0,0" Text="Antal" LostFocus="AmountLost" GotFocus="AmountFocus" Foreground="LightGray" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="30" FontSize="20"/>
                 <CheckBox x:Name="ebok" Content="E-Bok" Margin="250,600,0,178" FontSize="15"/>
     
-            <Button Style="{StaticResource ROB}" x:Name="addBooksButton" Content="Lägg till Bok" FontSize="17" Height="35" Width="200" Click="addBooksButton_Click"  Margin="210,600,140,58"  ></Button>
+            <Button Style="{StaticResource ROB}" x:Name="addBooksButton" Content="Lägg till Bok" FontSize="13" Height="40" Width="200" Click="addBooksButton_Click"  Margin="210,600,140,58"  ></Button>
 
 
             <Border CornerRadius="20" Height="30" Width="300" Background="AliceBlue" Margin="-100,170,199,0" Grid.Column="1" VerticalAlignment="Top" BorderThickness="0">
@@ -61,7 +61,7 @@
                 </ListView>
             </Border>
 
-            <Button Style="{StaticResource ROB}" x:Name="viewBookStock" Content="Se bok i lager" FontSize="17" Click="viewBookStock_Click"  Margin="-150,600,165,57" Grid.Column="1" Height="35" Width="200"></Button>
+            <Button Style="{StaticResource ROB}" x:Name="viewBookStock" Content="Se bok i lager" FontSize="13" Click="viewBookStock_Click"  Margin="-150,600,165,57" Grid.Column="1" Height="40" Width="200"></Button>
         </Grid>
     </StackPanel>
 </Page>
