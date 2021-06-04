@@ -24,6 +24,7 @@ namespace Bibblan
     public partial class MainWindow : Window
     {
         List<User> dbVirtual = new List<User>();
+    
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace Bibblan
                     dbVirtual.Add(item);
                 }
             });
-            dbDownload.Wait();
+            dbDownload.Wait(); 
         }
         private void loggain_Click(object sender, RoutedEventArgs e)
         {
@@ -54,6 +55,7 @@ namespace Bibblan
         }
         private void instantlogc(object sender, RoutedEventArgs e)      //gästloggin funktionen.
         {
+            
             GlobalClass.userPermission = -1;        //Sätter permission till -1 för att visa att det inte är en inloggad användare
             GlobalClass.userFirstName = "Gäst";
             Main.NavigationService.Navigate(new GuestPage()); //skickas just nu till Gästsidan för sök
