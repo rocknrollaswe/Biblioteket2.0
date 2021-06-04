@@ -32,19 +32,20 @@
         </Style>
 
         <Style x:Key="BOB" TargetType="{x:Type Button}">
-        <Setter Property="FontFamily" Value="/Fonts/#Roboto"/>
-        <Setter Property="Background" Value="LightGreen"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="20"  Grid.Column="1" VerticalAlignment="Top" Panel.ZIndex="-1"
+            <Setter Property="FontFamily" Value="/Fonts/#Roboto"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#6FB2B5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="20"  Grid.Column="1" VerticalAlignment="Top" Panel.ZIndex="-1"
                             BorderThickness="2">
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="Green"/>
             </Trigger>
