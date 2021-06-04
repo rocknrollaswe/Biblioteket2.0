@@ -25,14 +25,14 @@
             Panel.ZIndex="2" Width="425" Text="Rapportering">
             </TextBlock>
 
-            <TextBlock Width="570" Height="25"
+            <TextBlock Width="680" Height="25"
             HorizontalAlignment="Center" 
             FontSize="17"  
             Foreground="Black" 
             Panel.ZIndex="2">
-                Här kan du välja användare eller borttagna objekt och spara ned rapporter.<LineBreak/> 
+                Här kan du välja att se användare lånade böcker. Du kan också se samtliga utrangerade<LineBreak/> 
             </TextBlock>
-            <TextBlock FontSize="17" HorizontalAlignment="Center" Text="Rapporten läggs i /bin i csv - format."/>
+            <TextBlock FontSize="17" HorizontalAlignment="Center" Text="objekt och spara ned rapporter. Rapporten läggs i /bin i csv - format."/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Margin="0, 0, 0, 0" Grid.ColumnSpan="2">
@@ -68,19 +68,35 @@
         </Grid>
         
         
-        <WrapPanel Margin="185, 20, 0, 0">
-            <Button x:Name="downloadReportButton" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0" FontSize="20" Click="downloadReportButton_Click">Ladda ned rapport</Button>
-            <Button x:Name="bookStockButton" Margin="30, 0, 0, 0" Style="{StaticResource ROB}" Width="200" Height="50" Grid.Column="0"  FontSize="20" Click="bookStockButton_Click">Se bok i lager</Button>
-        </WrapPanel>
-
+        <Button HorizontalAlignment="Left" Margin="300, 20, 0, 0" x:Name="downloadReportButton" Style="{StaticResource ROB}" Width="220" Height="60" Grid.Column="0" FontSize="22" Click="downloadReportButton_Click">Ladda ned rapport</Button>
+            
+          
         </StackPanel>
         
         
-        <StackPanel Grid.Column="1" Margin="-180, 250, 0, 0 ">
-            <TextBox x:Name="epostTextBox" Width="200" Height="30" Text="E-post" FontSize="20" Foreground="LightGray" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus"></TextBox>
-            <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Användare" Width="200" Height="50" FontSize="18" Click="seeUserButton_Click" Margin="0, 10, 0, 0"/>
+        <StackPanel Grid.Column="1" Margin="100, 250, 0, 0 ">
 
-            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Borttagna Objekt" Width="200" Height="50" FontSize="18" Margin="0, 10, 0, 0" Click="seeDeletedObjects_Click"/>
+            <WrapPanel Orientation="Horizontal">
+            <StackPanel>
+            <TextBox x:Name="epostTextBox" Width="240" Height="30" Text="E-post" FontSize="20" Foreground="LightGray" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus"></TextBox>
+            <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Se lånade böcker" Width="200" Height="40" FontSize="18" Click="seeUserButton_Click" Margin="-35, 5, 0, 0"/>
+            </StackPanel>
+
+                <TextBlock Width="220" Height="80" TextWrapping="Wrap" FontSize="15" Text="Skriv in e-postadress och tryck på knappen för att se användares lånade böcker." Margin="15, 10, 0, 0"/>
+
+            </WrapPanel>
+ 
+            <WrapPanel Orientation="Horizontal" Margin="0, 20, 0, 0">
+            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Se utrangerade böcker" Width="230" Height="40" FontSize="18" HorizontalAlignment="Left" Margin="0, -10, 0, 0" Click="seeDeletedObjects_Click"/>
+
+            <TextBlock Width="200" Height="80" TextWrapping="Wrap" FontSize="15" Text="Tryck här för att se samtliga utrangerade böcker!" Margin="15, 20, 0, 0"/>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal">
+                <Button x:Name="bookStockButton" Margin="0, 0, 0, 0" Style="{StaticResource ROB}" Width="200" Height="40" Grid.Column="0"  FontSize="20" Click="bookStockButton_Click">Se vald bok i lager</Button>
+                <TextBlock Width="200" Height="60" TextWrapping="Wrap" FontSize="15" Text="Välj bok i listan och tryck på knappen intill för att se aktuell bok i lagret!" Margin="50, 10, 0, 0"/>
+            </WrapPanel>    
+            
         </StackPanel>
 
 
