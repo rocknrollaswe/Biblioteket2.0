@@ -119,10 +119,12 @@ namespace Bibblan.Views
 #nullable disable
                 GlobalClass.chosenBook = deletedBookStock;
                 this.NavigationService.Navigate(new BookStock());
+                return; 
             }
             else
             {
                 MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK);
+                return; 
             }
         }
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -187,12 +189,19 @@ namespace Bibblan.Views
                         file.WriteLine(item.StockId + "," + item.Isbn + "," + item.BookTitle + "," + item.Edition + "," + item.Comment + "," + item.Condition);
                     }
                 }
-                MessageBox.Show("Raport om borttagna objekt nedladdad!", "Meddelande", MessageBoxButton.OK);
+                MessageBox.Show("Rapport om borttagna objekt nedladdad! ", "Meddelande", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void epostTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+       
     }
 }

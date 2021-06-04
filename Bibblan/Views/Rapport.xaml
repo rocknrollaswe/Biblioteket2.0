@@ -10,13 +10,15 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="700"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="200"/>
+           
         </Grid.ColumnDefinitions>
-        <Border Background="#80B3B5" Panel.ZIndex="-2" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Border Background="#80B3B5" Panel.ZIndex="-2" Opacity="0.3" Grid.Column="0" Grid.ColumnSpan="3"/>
 
 
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,30,0,0">
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Margin="0,30,0,0">
             <TextBlock 
             Style="{StaticResource CardoFont}"  
             HorizontalAlignment="Center" 
@@ -35,7 +37,7 @@
             <TextBlock FontSize="17" HorizontalAlignment="Center" Text="objekt och spara ned rapporter. Rapporten läggs i /bin i csv - format."/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Margin="0, 0, 0, 0" Grid.ColumnSpan="2">
+        <StackPanel Grid.Column="0" Margin="0, 0, 0, 0" Grid.ColumnSpan="3">
         <Grid Margin="0, 200, 400, 0">
             <Border x:Name="userBorder" Width="550" Height="420" CornerRadius="20" Background="AliceBlue" Opacity="1" Grid.Column="0">
                 <ListView x:Name="LVReportUser" BorderBrush="Transparent" Background="Transparent" Width="530" Height="410" UseLayoutRounding="True">
@@ -74,32 +76,34 @@
         </StackPanel>
         
         
-        <StackPanel Grid.Column="1" Margin="100, 250, 0, 0 ">
+        <StackPanel Grid.Column="1" Margin="0, 200, 0, 0">
 
-            <WrapPanel Orientation="Horizontal">
-            <StackPanel>
-            <TextBox x:Name="epostTextBox" Width="240" Height="30" Text="E-post" FontSize="20" Foreground="LightGray" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus"></TextBox>
-            <Button x:Name="seeUserButton" Style="{StaticResource ROB}" Content="Se lånade böcker" Width="200" Height="40" FontSize="18" Click="seeUserButton_Click" Margin="-35, 5, 0, 0"/>
-            </StackPanel>
+           
+            <Border CornerRadius="20" Height="30" Width="250" Background="AliceBlue" Margin="0, 0, 0, 10" Grid.Row="1" Grid.Column="1">
+                <WrapPanel Orientation="Horizontal" Margin="10, 5">
+                    <TextBox x:Name="epostTextBox" TextChanged="epostTextBox_TextChanged" GotFocus="epostTextBox_GotFocus" LostFocus="epostTextBox_LostFocus" Foreground="Black" Background="AliceBlue" Height="20" Width="150" Padding="2" BorderThickness="0"/>
+                    <Image Source="/img/MagnifyingGlass.png" RenderOptions.BitmapScalingMode="HighQuality" Width="25" RenderTransformOrigin="0.6,0.5" Margin="55, 0, 0, 0"/>
+                </WrapPanel>
+            </Border>
 
-                <TextBlock Width="220" Height="80" TextWrapping="Wrap" FontSize="15" Text="Skriv in e-postadress och tryck på knappen för att se användares lånade böcker." Margin="15, 10, 0, 0"/>
+            <TextBlock Width="220" Height="80" TextWrapping="Wrap" FontSize="15" Text="Skriv in e-postadress för att se användares lånade böcker." Margin="15, 0, 0, 0"/>
 
-            </WrapPanel>
- 
-            <WrapPanel Orientation="Horizontal" Margin="0, 20, 0, 0">
-            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Se utrangerade böcker" Width="230" Height="40" FontSize="18" HorizontalAlignment="Left" Margin="0, -10, 0, 0" Click="seeDeletedObjects_Click"/>
+            
+            
+            <Button x:Name="seeDeletedObjects" Style="{StaticResource ROB}" Content="Se utrangerade böcker" Width="200" Height="35" FontSize="17" HorizontalAlignment="Left" Margin="0, 0, 0, 0" Click="seeDeletedObjects_Click"/>
 
-            <TextBlock Width="200" Height="80" TextWrapping="Wrap" FontSize="15" Text="Tryck här för att se samtliga utrangerade böcker!" Margin="15, 20, 0, 0"/>
-            </WrapPanel>
-
-            <WrapPanel Orientation="Horizontal">
-                <Button x:Name="bookStockButton" Margin="0, 0, 0, 0" Style="{StaticResource ROB}" Width="200" Height="40" Grid.Column="0"  FontSize="20" Click="bookStockButton_Click">Se vald bok i lager</Button>
-                <TextBlock Width="200" Height="60" TextWrapping="Wrap" FontSize="15" Text="Välj bok i listan och tryck på knappen intill för att se aktuell bok i lagret!" Margin="50, 10, 0, 0"/>
-            </WrapPanel>    
+          
+            <Button x:Name="bookStockButton" Margin="0, 80, 0, 0" Style="{StaticResource ROB}" Width="180" Height="35" Grid.Column="0"  FontSize="17" Click="bookStockButton_Click">Se vald bok i lager</Button>
+               
             
         </StackPanel>
+        <StackPanel Grid.Column="2" Margin="0, 320, 0, 0">
+            <TextBlock Width="200" Height="80" TextWrapping="Wrap" FontSize="15" Text="Tryck här för att se samtliga utrangerade böcker!" />
+            <TextBlock Width="200" Height="60" TextWrapping="Wrap" FontSize="15" Text="Välj bok i listan och tryck på knappen intill för att se aktuell bok i lagret!" Margin="0, 10, 0, 0"/>
+        </StackPanel>
 
-
+        
+        
        
     </Grid>
 </Page>
