@@ -13,7 +13,7 @@
 
         <StackPanel>
             <TextBlock Text="Kvittering" HorizontalAlignment="Center" FontSize="70" Margin="0,30,0,0" Style="{StaticResource CardoFont}"/>
-            <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"><Run Text="Här är böckerna som återlämnats och väntar på kvittering,"/><LineBreak/><Run Text="du behöver kontrollera att boken är återlämnad,"/><LineBreak/><Run Text="markera aktuellt objekt och trycka på 'Återlämnad'"/></TextBlock>
+            <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="17"><Run Text="Här är böckerna som återlämnats och väntar på kvittering,"/><LineBreak/><Run Text="du behöver kontrollera att boken är återlämnad,"/><LineBreak/><Run Text="markera aktuellt objekt och trycka på 'Återlämnad'"/></TextBlock>
 
 
 
