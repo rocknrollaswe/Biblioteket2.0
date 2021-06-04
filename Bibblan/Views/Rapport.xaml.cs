@@ -108,7 +108,7 @@ namespace Bibblan.Views
                 GlobalClass.chosenBook = bookToBookStock;
                 this.NavigationService.Navigate(new BookStock());
             }
-            if(LVReportObjectView.SelectedItem != null)
+            else if  (LVReportObjectView.SelectedItem != null)
             {
                 var chosenDeletedBook = LVReportObjectView.SelectedItem as dynamic;
                 DeletedObjects chosenDeletedBookFinal = new DeletedObjects { StockId = chosenDeletedBook.StockId };
@@ -119,13 +119,18 @@ namespace Bibblan.Views
 #nullable disable
                 GlobalClass.chosenBook = deletedBookStock;
                 this.NavigationService.Navigate(new BookStock());
-                return; 
+
+                return;
+
             }
             else
             {
                 MessageBox.Show("Var vänlig tryck i ett värde i listan", "Meddelande", MessageBoxButton.OK);
-                return; 
+
+                return;
+
             }
+            
         }
         private void epostTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
