@@ -22,6 +22,7 @@ namespace Bibblan.Models
         public string Sab { get; set; }
         public string Publisher { get; set; }
         public int Category { get; set; }
+
         public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Stock> Stocks { get; set; }
     }
