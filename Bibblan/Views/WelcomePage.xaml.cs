@@ -75,7 +75,7 @@ namespace Bibblan.Views
         {
             if (GlobalClass.userPermission < 0) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
 
-            if (LVBooksLoanedByUser.SelectedItem == null)
+            if (booksToReturn.Count == 0)
             {
                 MessageBox.Show("Du har inga böcker att lämna tillbaka.");
                 return;
