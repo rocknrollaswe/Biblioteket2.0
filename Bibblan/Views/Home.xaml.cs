@@ -51,7 +51,11 @@ namespace Bibblan.Views
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            GlobalClass.chosenBook = null;
+            GlobalClass.chosenBookReport = null;
+            GlobalClass.deletedObjects = null;
             Main2.Navigate(new Addbooks());
+
         }
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
