@@ -16,7 +16,8 @@ namespace Bibblan.Services
         public static Book? chosenBook { get; set; }
         public static UserReport? chosenBookReport { get; set; }
         public static DeletedObjects? deletedObjects { get; set; }
-        public static MainWindow? currentinstance { get; set; } 
+        public static MainWindow? currentMainWindowInstance { get; set; } 
+        public static Home? currentHomeInstance { get; set; }
 #nullable disable //slutet av nullable, allt efter kan inte nullas
     }
 }
