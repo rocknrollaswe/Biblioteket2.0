@@ -44,8 +44,9 @@ namespace Bibblan
             {
                 if (GlobalClass.userPermission == 2 || GlobalClass.userPermission == 1 || GlobalClass.userPermission == 0)      //Navigera till Home så länge man har en permission
                 {
+                    GlobalClass.currentMainWindowInstance = this;
                     var home = new Home();
-                    this.Close();
+                    this.Hide();
                     home.Show();
                 }
                 
@@ -100,7 +101,7 @@ namespace Bibblan
             registerButton.Visibility = Visibility.Collapsed;
             loginButton.Visibility = Visibility.Collapsed;
             Main.NavigationService.Navigate(new CreateUser());
-            GlobalClass.currentinstance = this; 
+            GlobalClass.currentMainWindowInstance = this; 
         }
         private void cheatButton_Click(object sender, RoutedEventArgs e)
         {

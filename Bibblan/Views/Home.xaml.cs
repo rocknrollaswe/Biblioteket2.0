@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using Bibblan.Services;
 using Bibblan.Views;
 using Bibblan.Models;
+using System.Drawing;
+using System.ComponentModel;
 
 namespace Bibblan.Views
 {
@@ -20,10 +22,14 @@ namespace Bibblan.Views
     /// </summary>
     public partial class Home : Window
     {
+        DateTime resourceSaving = new DateTime();
+        DateTime resourceSavingCheck = new DateTime();
         public Home()
         {
             InitializeComponent();
             Validation();
+            GlobalClass.currentHomeInstance = this;
+            InactivityTimer.SetTimer();  // AUTO LOGOUT GREJ
             Main2.Navigate(new WelcomePage()); 
         }
 
@@ -51,10 +57,13 @@ namespace Bibblan.Views
         private void AddBooks_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalClass.userPermission < 1) { MessageBox.Show("Du har inte behörighet att göra detta", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation); return; }
+            GlobalClass.chosenBook = null;
+            GlobalClass.chosenBookReport = null;
             Main2.Navigate(new Addbooks());
         }
         private void LogOut_Click(object sender, RoutedEventArgs e)
         {
+            InactivityTimer.StopTimer();
             var mainwindow = new MainWindow();
             this.Close();
             mainwindow.Show();
@@ -76,6 +85,17 @@ namespace Bibblan.Views
         private void Home_button_Click(object sender, RoutedEventArgs e)
         {
             Main2.Navigate(new WelcomePage()); 
+        }
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            resourceSaving = DateTime.Now;
+
+            if (resourceSaving == null || resourceSaving > resourceSavingCheck)
+            {
+                resourceSavingCheck = DateTime.Now.AddSeconds(30);
+                InactivityTimer.ResetTimer();
+            }
         }
     }
 }
