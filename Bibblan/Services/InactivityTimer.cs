@@ -7,6 +7,7 @@ using System.Windows;
 using Bibblan.Services;
 using Bibblan.Models;
 using Bibblan.Views;
+using System.Windows.Media;
 
 namespace Bibblan.Services
 {
@@ -46,6 +47,13 @@ namespace Bibblan.Services
             mainwindow.Dispatcher.Invoke(() =>
             {
                 GlobalClass.currentHomeInstance.inactivityFrame.Visibility = Visibility.Visible;
+                GlobalClass.currentMainWindowInstance.passwordTextBox.Password = "";
+                GlobalClass.currentMainWindowInstance.passWordFalse.Text = "Lösenord";
+                GlobalClass.currentMainWindowInstance.passWordFalse.Foreground = Brushes.LightGray;
+                GlobalClass.currentMainWindowInstance.passWordFalse.Visibility = Visibility.Visible;
+                GlobalClass.currentMainWindowInstance.emailTextBox.Text = "E-post";
+                GlobalClass.currentMainWindowInstance.emailTextBox.Foreground = Brushes.LightGray;
+
                 MessageBox.Show("Du loggas nu ut på grund av inaktivitet");
                 GlobalClass.currentHomeInstance.Close();
                 mainwindow.Show();
