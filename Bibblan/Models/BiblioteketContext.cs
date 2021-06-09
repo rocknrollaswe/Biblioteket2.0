@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Configuration;
 
 #nullable disable
 
@@ -18,8 +18,7 @@ namespace Bibblan.Models
         {
         }
 
-
-        public static string testConnectionString; 
+        public static string testConnectionString;
 
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<BookStockLoan> BookStockLoans { get; set; }
@@ -47,6 +46,7 @@ namespace Bibblan.Models
 
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -66,7 +66,7 @@ namespace Bibblan.Models
                 entity.Property(e => e.Ddk).HasColumnName("DDK");
 
                 entity.Property(e => e.Description)
-                    .HasMaxLength(255)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
@@ -269,8 +269,6 @@ namespace Bibblan.Models
                     .IsUnique();
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.Debt).HasColumnType("decimal(7, 2)");
 
                 entity.Property(e => e.Email)
                     .IsRequired()

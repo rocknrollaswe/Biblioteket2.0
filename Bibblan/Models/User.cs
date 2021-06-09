@@ -21,7 +21,6 @@ namespace Bibblan.Models
         public string Email { get; set; }
         public byte? HasLoanCard { get; set; }
         public string UserComment { get; set; }
-        public decimal Debt { get; set; }
 
         public virtual Permission PermissionsNavigation { get; set; }
         public virtual ICollection<Loanlog> Loanlogs { get; set; }
