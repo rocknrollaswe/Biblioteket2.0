@@ -34,6 +34,7 @@ namespace BibblanTest
             {
                 UserService.Login("email@gmail.com", "Password1");
                 Assert.AreEqual(2, GlobalClass.userPermission);
+                LogOut.LogOutUser();
             }
             [TestMethod]
             public void UnauthorizedAccessTest() // Test for Wrong User
@@ -43,11 +44,12 @@ namespace BibblanTest
                 DbInitialiser.InitialiseDB();
 
                 UserService.Login("evilhacker@email.com", "Password1");
-                Assert.IsFalse(BookEquals(0, GlobalClass.userPermission));
-                Assert.IsFalse(BookEquals(1, GlobalClass.userPermission));
-                Assert.IsFalse(BookEquals(2, GlobalClass.userPermission));
+                Assert.IsFalse(UserEquals(0, GlobalClass.userPermission));
+                Assert.IsFalse(UserEquals(1, GlobalClass.userPermission));
+                Assert.IsFalse(UserEquals(2, GlobalClass.userPermission));
+                LogOut.LogOutUser();
             }
-            bool BookEquals(int? Incorrectvalue, int? GlobalClass)   //Metod som kollar om böckerna är 'likadana', vår tidigare override i Equals i Booksmodellen skapade nya problem med grundläggande funktioner 
+            bool UserEquals(int? Incorrectvalue, int? GlobalClass)   //Metod som kollar om böckerna är 'likadana', vår tidigare override i Equals i Booksmodellen skapade nya problem med grundläggande funktioner 
             {
                 if (GlobalClass == Incorrectvalue)
                     return true;
