@@ -186,6 +186,7 @@ namespace Bibblan.Views
 
                         if (userToChange.UserComment != CommentBox.Text)
                         {
+
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
