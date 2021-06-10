@@ -164,7 +164,7 @@ namespace Bibblan.Views
                             }
                         }
 
-                        if (permissionComboBox.SelectedItem.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
+                        if (permissionComboBox.SelectedIndex.ToString() != "--Användare--" && permissionComboBox.SelectedIndex != userToChange.Permissions)
                         {
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
@@ -186,8 +186,6 @@ namespace Bibblan.Views
 
                         if (userToChange.UserComment != CommentBox.Text)
                         {
-                            if (CommentBox.Text == "Anmärkningar" || CommentBox.Foreground == Brushes.LightGray) { return; }
-                            else
                             if ((userToChange.Permissions == 2 || userToChange.Permissions == 1) && GlobalClass.userPermission != 2)
                             {
                                 MessageBox.Show("Du har inte rättigheter för att ändra detta!", "Meddelande", MessageBoxButton.OK, MessageBoxImage.Exclamation);
