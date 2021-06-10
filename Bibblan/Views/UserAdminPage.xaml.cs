@@ -51,13 +51,11 @@ namespace Bibblan.Views
                 eMail.Text = u.Email;
                 permissionComboBox.SelectedIndex = u.Permissions;
                 loanRightsComboBox.SelectedIndex = (byte)u.HasLoanCard;
-
-                if(u.UserComment != "") 
-                {
-                    CommentBox.Text = u.UserComment;
-                    CommentBox.Foreground = Brushes.Black;
-                    if (CommentBox.Text == "Amärkningar") { CommentBox.Foreground = Brushes.LightGray;}    
-                }
+                
+                CommentBox.Text = u.UserComment;
+                CommentBox.Foreground = Brushes.Black;
+                if (CommentBox.Text == "Anmärkning" || CommentBox.Text == "" || CommentBox.Text == null || CommentBox.Text == " ") { CommentBox.Foreground = Brushes.LightGray;}    
+                
                 firstName.Foreground = Brushes.Black;
                 lastName.Foreground = Brushes.Black;
                 eMail.Foreground = Brushes.Black;
